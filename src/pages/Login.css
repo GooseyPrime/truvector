@@ -98,11 +98,3 @@
   box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
   background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
 }
-
-.login-hint {
-  margin-top: 1.5rem;
-  text-align: center;
-  color: #64748b;
-  font-size: 0.875rem;
-  line-height: 1.5;
-}
