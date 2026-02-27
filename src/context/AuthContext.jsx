@@ -19,9 +19,8 @@ export const AuthProvider = ({ children }) => {
   });
 
   const login = (username, password) => {
-    // Simple authentication - in production, this would call an API
-    // For demo purposes, accepting any non-empty username/password
-    if (username && password) {
+    // Authentication with specific credentials
+    if (username === 'emma' && password === 'welcome') {
       const userData = { username };
       setUser(userData);
       localStorage.setItem('user', JSON.stringify(userData));

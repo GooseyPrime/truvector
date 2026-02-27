@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import '../styles/kinematic-background.css';
 import './Login.css';
 
 const Login = () => {
@@ -34,11 +33,10 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container kinematic-background">
-      <div className="kinematic-content">
-        <div className="login-box">
-          <h1>InTellMe</h1>
-          <h2>Login</h2>
+    <div className="login-container">
+      <div className="login-box">
+        <h1>InTellMe</h1>
+        <h2>Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="username">Username</label>
@@ -67,10 +65,9 @@ const Login = () => {
             Login
           </button>
         </form>
-          <p className="login-hint">
-            Hint: Enter any username and password to login (demo mode)
-          </p>
-        </div>
+        <p className="login-hint">
+          Username: emma | Password: welcome
+        </p>
       </div>
     </div>
   );
