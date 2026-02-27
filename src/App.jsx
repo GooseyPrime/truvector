@@ -8,7 +8,6 @@ import OverviewPage from './pages/OverviewPage';
 import TechPage from './pages/TechPage';
 import EmmaPage from './pages/EmmaPage';
 import InvestorPage from './pages/InvestorPage';
-import Dashboard from './pages/Dashboard';
 
 function App() {
   return (
@@ -61,14 +60,6 @@ function App() {
             element={
               <ProtectedRoute>
                 <InvestorPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
               </ProtectedRoute>
             }
           />

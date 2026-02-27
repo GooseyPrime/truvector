@@ -20,8 +20,11 @@ const Layout = ({ children }) => {
         </div>
         <div className="nav-links">
           <Link to="/">Home</Link>
-          <Link to="/about">About</Link>
-          <Link to="/dashboard">Dashboard</Link>
+          <Link to="/intellme">InTellMe</Link>
+          <Link to="/truvector">Overview</Link>
+          <Link to="/architecture">Architecture</Link>
+          <Link to="/emma">Emma</Link>
+          <Link to="/investors">Investors</Link>
         </div>
         <div className="nav-user">
           {user && (

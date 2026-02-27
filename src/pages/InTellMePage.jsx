@@ -1,4 +1,5 @@
 import React from 'react';
+import ContentNav from '../components/ContentNav';
 import KinematicBackground from '../components/KinematicBackground';
 import { 
   Shield, 
@@ -22,10 +23,11 @@ import {
 
 export default function InTellMePage() {
   return (
-    <div className="min-h-screen text-slate-200 p-4 md:p-8 font-sans selection:bg-emerald-500/30 relative overflow-hidden">
+    <div className="min-h-screen text-slate-200 p-4 md:p-8 font-sans selection:bg-emerald-500/30 relative overflow-hidden" style={{ paddingTop: '5rem' }}>
       
       {/* KINEMATIC BACKGROUND */}
       <KinematicBackground />
+      <ContentNav />
 
       <div className="max-w-7xl mx-auto space-y-6 relative z-10">
         
