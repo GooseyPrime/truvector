@@ -1,5 +1,6 @@
 import Layout from '../components/Layout';
 import { useAuth } from '../context/AuthContext';
+import KinematicBackground from '../components/KinematicBackground';
 import './Dashboard.css';
 
 const Dashboard = () => {
@@ -7,6 +8,7 @@ const Dashboard = () => {
 
   return (
     <Layout>
+      <KinematicBackground />
       <div className="dashboard-container">
         <h1>Dashboard</h1>
         <p className="welcome-message">Welcome back, {user?.username}!</p>

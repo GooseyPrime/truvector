@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Footer from '../components/Footer';
+import KinematicBackground from '../components/KinematicBackground';
 import './Index.css';
 
 const Index = () => {
@@ -47,6 +48,7 @@ const Index = () => {
 
   return (
     <div className="index-page">
+      <KinematicBackground />
       <nav className="index-navbar">
         <div className="index-nav-brand">
           <h1>InTellMe</h1>

@@ -4,6 +4,7 @@
   min-height: 100vh;
   background: #020617;
   color: #e2e8f0;
+  position: relative;
 }
 
 .index-navbar {
@@ -60,6 +61,8 @@
   max-width: 1400px;
   margin: 0 auto;
   width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 .index-header {
