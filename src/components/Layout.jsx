@@ -13,7 +13,7 @@ const Layout = ({ children }) => {
   };
 
   return (
-    <div className="layout">
+    <div className="flex flex-col min-h-screen overflow-x-hidden bg-slate-950">
       <nav className="navbar">
         <div className="nav-brand">
           <Link to="/">InTellMe</Link>
@@ -37,7 +37,7 @@ const Layout = ({ children }) => {
           )}
         </div>
       </nav>
-      <main className="main-content">{children}</main>
+      <main className="flex-grow w-full">{children}</main>
       <Footer />
     </div>
   );
