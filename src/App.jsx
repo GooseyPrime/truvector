@@ -3,9 +3,11 @@ import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
 import Index from './pages/Index';
-import Home from './pages/Home';
-import About from './pages/About';
-import Dashboard from './pages/Dashboard';
+import InTellMePage from './pages/InTellMePage';
+import OverviewPage from './pages/OverviewPage';
+import TechPage from './pages/TechPage';
+import EmmaPage from './pages/EmmaPage';
+import InvestorPage from './pages/InvestorPage';
 
 function App() {
   return (
@@ -25,7 +27,7 @@ function App() {
             path="/intellme"
             element={
               <ProtectedRoute>
-                <Home />
+                <InTellMePage />
               </ProtectedRoute>
             }
           />
@@ -33,7 +35,7 @@ function App() {
             path="/truvector"
             element={
               <ProtectedRoute>
-                <About />
+                <OverviewPage />
               </ProtectedRoute>
             }
           />
@@ -41,7 +43,7 @@ function App() {
             path="/architecture"
             element={
               <ProtectedRoute>
-                <Dashboard />
+                <TechPage />
               </ProtectedRoute>
             }
           />
@@ -49,7 +51,7 @@ function App() {
             path="/emma"
             element={
               <ProtectedRoute>
-                <Home />
+                <EmmaPage />
               </ProtectedRoute>
             }
           />
@@ -57,23 +59,7 @@ function App() {
             path="/investors"
             element={
               <ProtectedRoute>
-                <About />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/about"
-            element={
-              <ProtectedRoute>
-                <About />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
+                <InvestorPage />
               </ProtectedRoute>
             }
           />

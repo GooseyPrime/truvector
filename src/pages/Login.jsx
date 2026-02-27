@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import KinematicBackground from '../components/KinematicBackground';
 import './Login.css';
 
 const Login = () => {
@@ -34,6 +35,7 @@ const Login = () => {
 
   return (
     <div className="login-container">
+      <KinematicBackground />
       <div className="login-box">
         <h1>InTellMe</h1>
         <h2>Login</h2>
