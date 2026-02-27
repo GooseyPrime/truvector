@@ -1,7 +1,8 @@
 import React from 'react';
 import ContentNav from '../components/ContentNav';
+import Footer from '../components/Footer';
 import KinematicBackground from '../components/KinematicBackground';
-import { 
+import {
   Shield, 
   Server, 
   Users, 
@@ -38,7 +39,7 @@ import {
 
 export default function OverviewPage() {
   return (
-    <div className="min-h-screen text-slate-200 p-4 md:p-8 font-sans selection:bg-emerald-500/30 relative" style={{ paddingTop: '5rem', background: '#020617' }}>
+    <div className="min-h-screen text-slate-200 p-4 md:p-8 font-sans selection:bg-emerald-500/30 relative" style={{ paddingTop: '5rem', paddingBottom: '150px' }}>
       
       {/* KINEMATIC BACKGROUND */}
       <KinematicBackground />
@@ -51,7 +52,7 @@ export default function OverviewPage() {
           <div>
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white flex items-center gap-3 justify-center md:justify-start">
               <ShieldCheck className="w-10 h-10 text-indigo-500" />
-              InTellMe
+              TruVector Overview
             </h1>
             <p className="text-xl text-indigo-300 mt-2 font-light">
               Probabilistic Trust Arbitration Infrastructure
@@ -235,6 +236,7 @@ export default function OverviewPage() {
         </footer>
 
       </div>
+      <Footer />
     </div>
   );
 }

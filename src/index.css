@@ -34,7 +34,6 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background-color: #020617;
 }
 
 h1 {
@@ -44,5 +43,4 @@ h1 {
 
 #root {
   min-height: 100vh;
-  background-color: #020617;
 }

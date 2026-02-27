@@ -1,5 +1,6 @@
 import React from 'react';
 import ContentNav from '../components/ContentNav';
+import Footer from '../components/Footer';
 import KinematicBackground from '../components/KinematicBackground';
 import { 
   Shield, 
@@ -14,7 +15,7 @@ import {
 
 export default function InTellMePage() {
   return (
-    <div className="min-h-screen text-slate-200 p-4 md:p-8 font-sans selection:bg-emerald-500/30 relative overflow-hidden" style={{ paddingTop: '5rem', background: '#020617' }}>
+    <div className="min-h-screen text-slate-200 p-4 md:p-8 font-sans selection:bg-emerald-500/30 relative overflow-hidden" style={{ paddingTop: '5rem', paddingBottom: '150px' }}>
       
       {/* KINEMATIC BACKGROUND */}
       <KinematicBackground />
@@ -168,6 +169,7 @@ export default function InTellMePage() {
         </div>
 
       </div>
+      <Footer />
     </div>
   );
 }
