@@ -95,7 +95,9 @@ function KinematicBackground() {
         return;
       }
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Fill background with dark color
+      ctx.fillStyle = '#020617';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
@@ -150,7 +152,7 @@ function KinematicBackground() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 w-full h-full pointer-events-none bg-[#020617]"
+      className="fixed inset-0 w-full h-full pointer-events-none"
       style={{ zIndex: -1 }}
       aria-hidden="true"
     />
