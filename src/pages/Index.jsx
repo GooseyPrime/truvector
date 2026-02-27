@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Footer from '../components/Footer';
 import '../styles/kinematic-background.css';
@@ -6,6 +6,7 @@ import './Index.css';
 
 const Index = () => {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   const sections = [
     {
@@ -47,7 +48,7 @@ const Index = () => {
 
   const handleLogout = () => {
     logout();
-    window.location.href = '/login';
+    navigate('/login');
   };
 
   return (
