@@ -12,9 +12,13 @@ A simple multi-page React website with basic authentication.
 
 ## Pages
 
-- **Login**: Authentication page (accessible without login)
-- **Home**: Landing page with feature overview
-- **About**: Information about the application
+- **Login**: Authentication page
+- **Landing**: Main navigation page with links to all sections
+- **InTellMe**: Information about InTellMe and its mission
+- **TruVector Overview**: Details about TruVector technology
+- **Technical Architecture**: Technical infrastructure overview
+- **Emma Placement**: Emma AI placement information
+- **For Investors**: Investment opportunities and growth strategy
 - **Dashboard**: User dashboard with statistics and activity
 
 ## Getting Started
@@ -62,8 +66,8 @@ npm run preview
 
 1. Navigate to the application in your browser
 2. You'll be redirected to the login page
-3. Enter any username and password (demo mode accepts any credentials)
-4. Once logged in, you can navigate between Home, About, and Dashboard pages
+3. Enter your provided credentials to access the application
+4. Once logged in, you can navigate between the different sections
 5. Use the Logout button in the navigation bar to sign out
 
 ## Project Structure
@@ -100,13 +104,14 @@ truvector/
 
 ## Authentication
 
-This application uses a simple client-side authentication system for demonstration purposes. In a production environment, you would want to:
+This application uses a client-side authentication system. For production deployment:
 
-- Implement proper backend authentication
-- Use secure password hashing
-- Implement JWT tokens or session cookies
+- Credentials are managed client-side for demonstration purposes
+- In a production environment, implement proper backend authentication
+- Use secure password hashing and JWT tokens or session cookies
 - Add password validation and security measures
 - Use HTTPS for all communications
+- Consider implementing rate limiting and brute-force protection
 
 ## License
 

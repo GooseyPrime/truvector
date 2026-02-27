@@ -67,9 +67,6 @@ const Login = () => {
             Login
           </button>
         </form>
-        <p className="login-hint">
-          Username: emma | Password: welcome
-        </p>
       </div>
     </div>
   );
