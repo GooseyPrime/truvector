@@ -34,7 +34,7 @@ import {
 
 export default function TechPage() {
   return (
-    <div className="min-h-screen text-slate-200 p-4 md:p-8 font-sans selection:bg-emerald-500/30 relative" style={{ paddingTop: '5rem', paddingBottom: '150px', background: '#020617' }}>
+    <div className="min-h-screen text-slate-200 p-4 md:p-8 font-sans selection:bg-emerald-500/30 relative" style={{ paddingTop: '5rem', paddingBottom: '150px' }}>
       
       {/* KINEMATIC BACKGROUND */}
       <KinematicBackground />
