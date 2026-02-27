@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import KinematicBackground from '../components/KinematicBackground';
+import Footer from '../components/Footer';
 import './Login.css';
 
 const Login = () => {
@@ -68,6 +69,7 @@ const Login = () => {
           </button>
         </form>
       </div>
+      <Footer />
     </div>
   );
 };

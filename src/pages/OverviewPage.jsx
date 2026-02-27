@@ -1,7 +1,8 @@
 import React from 'react';
 import ContentNav from '../components/ContentNav';
+import Footer from '../components/Footer';
 import KinematicBackground from '../components/KinematicBackground';
-import { 
+import {
   Shield, 
   Server, 
   Users, 
@@ -51,7 +52,7 @@ export default function OverviewPage() {
           <div>
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white flex items-center gap-3 justify-center md:justify-start">
               <ShieldCheck className="w-10 h-10 text-indigo-500" />
-              InTellMe
+              TruVector Overview
             </h1>
             <p className="text-xl text-indigo-300 mt-2 font-light">
               Probabilistic Trust Arbitration Infrastructure
@@ -235,6 +236,7 @@ export default function OverviewPage() {
         </footer>
 
       </div>
+      <Footer />
     </div>
   );
 }

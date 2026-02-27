@@ -1,5 +1,6 @@
 import React from 'react';
 import ContentNav from '../components/ContentNav';
+import Footer from '../components/Footer';
 import KinematicBackground from '../components/KinematicBackground';
 import { 
   Shield, 
@@ -168,6 +169,7 @@ export default function InTellMePage() {
         </div>
 
       </div>
+      <Footer />
     </div>
   );
 }

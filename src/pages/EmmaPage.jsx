@@ -1,7 +1,8 @@
 import React from 'react';
 import ContentNav from '../components/ContentNav';
+import Footer from '../components/Footer';
 import KinematicBackground from '../components/KinematicBackground';
-import { 
+import {
   Shield, 
   Server, 
   Users, 
@@ -212,6 +213,7 @@ export default function EmmaPage() {
         </div>
 
       </div>
+      <Footer />
     </div>
   );
 }

@@ -1,7 +1,8 @@
 import React from 'react';
 import ContentNav from '../components/ContentNav';
+import Footer from '../components/Footer';
 import KinematicBackground from '../components/KinematicBackground';
-import { 
+import {
   Shield, 
   Server, 
   Users, 
@@ -40,7 +41,7 @@ export default function InvestorPage() {
           <div>
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white flex items-center gap-3 justify-center md:justify-start">
               <Shield className="w-10 h-10 text-indigo-500" />
-              InTellMe
+              Investors / TruVector Growth Path
             </h1>
             <p className="text-xl text-indigo-300 mt-2 font-light">
               Trust Infrastructure for the Next Phase of AI
@@ -174,6 +175,7 @@ export default function InvestorPage() {
 
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
