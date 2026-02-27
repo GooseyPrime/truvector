@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import Footer from './Footer';
 import './Layout.css';
 
 const Layout = ({ children }) => {
@@ -15,7 +16,7 @@ const Layout = ({ children }) => {
     <div className="layout">
       <nav className="navbar">
         <div className="nav-brand">
-          <Link to="/">TruVector</Link>
+          <Link to="/">InTellMe</Link>
         </div>
         <div className="nav-links">
           <Link to="/">Home</Link>
@@ -34,6 +35,7 @@ const Layout = ({ children }) => {
         </div>
       </nav>
       <main className="main-content">{children}</main>
+      <Footer />
     </div>
   );
 };
