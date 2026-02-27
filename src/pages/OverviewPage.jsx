@@ -51,10 +51,10 @@ export default function OverviewPage() {
         <header className="border-b border-slate-800 pb-6 mb-8 text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-4">
           <div>
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white flex items-center gap-3 justify-center md:justify-start">
-              <ShieldCheck className="w-10 h-10 text-indigo-500" />
+              <ShieldCheck className="w-10 h-10 text-white" />
               TruVector Overview
             </h1>
-            <p className="text-xl text-indigo-300 mt-2 font-light">
+            <p className="text-xl text-slate-300 mt-2 font-light">
               Probabilistic Trust Arbitration Infrastructure
             </p>
           </div>
@@ -74,8 +74,8 @@ export default function OverviewPage() {
               <p className="mb-4">
                 As artificial intelligence transitions from generating text to executing workflows, drafting policies, triggering transactions, and making autonomous decisions, the reliability of model-generated outputs becomes a systems-level dependency.
               </p>
-              <div className="bg-indigo-500/10 border border-indigo-500/20 p-3 rounded-md">
-                <p className="text-indigo-200 font-medium">
+              <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow-xl hover:bg-black/60 transition-all">
+                <p className="text-slate-200 font-medium">
                   InTellMe provides the structured evaluation layer that quantifies evidentiary alignment before AI systems act.
                 </p>
               </div>
@@ -206,11 +206,11 @@ export default function OverviewPage() {
                 <div>
                   <h4 className="text-xs uppercase tracking-wider text-slate-500 font-bold mb-2">Requirements</h4>
                   <ul className="space-y-1 text-sm text-slate-300">
-                    <li className="flex items-center gap-2"><Cloud className="w-3 h-3 text-indigo-400"/> Multi-cloud flexibility</li>
-                    <li className="flex items-center gap-2"><Network className="w-3 h-3 text-indigo-400"/> Elastic compute scaling</li>
-                    <li className="flex items-center gap-2"><Microscope className="w-3 h-3 text-indigo-400"/> Cross-provider access</li>
-                    <li className="flex items-center gap-2"><Database className="w-3 h-3 text-indigo-400"/> Structured vector storage</li>
-                    <li className="flex items-center gap-2"><ShieldCheck className="w-3 h-3 text-indigo-400"/> IaC & Governance enforcement</li>
+                    <li className="flex items-center gap-2"><Cloud className="w-3 h-3 text-white"/> Multi-cloud flexibility</li>
+                    <li className="flex items-center gap-2"><Network className="w-3 h-3 text-white"/> Elastic compute scaling</li>
+                    <li className="flex items-center gap-2"><Microscope className="w-3 h-3 text-white"/> Cross-provider access</li>
+                    <li className="flex items-center gap-2"><Database className="w-3 h-3 text-white"/> Structured vector storage</li>
+                    <li className="flex items-center gap-2"><ShieldCheck className="w-3 h-3 text-white"/> IaC & Governance enforcement</li>
                   </ul>
                 </div>
                 <div>
@@ -232,7 +232,7 @@ export default function OverviewPage() {
         {/* FOOTER */}
         <footer className="text-center pt-8 pb-4 text-slate-500 text-sm">
           <p>As AI systems move toward autonomous action, the need for explainable evidentiary alignment scoring becomes foundational infrastructure.</p>
-          <p className="text-indigo-400 font-semibold mt-1">TruVector provides that layer.</p>
+          <p className="text-white font-semibold mt-1">TruVector provides that layer.</p>
         </footer>
 
       </div>
@@ -244,7 +244,7 @@ export default function OverviewPage() {
 // Sub-components
 function PosterCard({ title, icon: Icon, color, children, className = '' }) {
   return (
-    <div className={`bg-slate-900/80 border border-slate-800 p-6 rounded-xl shadow-lg backdrop-blur-sm ${className}`}>
+    <div className={`bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow-xl hover:bg-black/60 transition-all ${className}`}>
       <div className="flex items-center gap-3 mb-4">
         <Icon className={`w-6 h-6 ${color}`} />
         <h2 className="text-xl font-bold text-white tracking-wide">{title}</h2>

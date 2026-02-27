@@ -21,7 +21,7 @@
 }
 
 .index-nav-brand h1 {
-  color: #6366f1;
+  color: #ffffff;
   margin: 0;
   font-size: 1.75rem;
   font-weight: 700;
@@ -37,22 +37,23 @@
 }
 
 .index-logout-btn {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   color: white;
-  border: none;
   padding: 0.625rem 1.5rem;
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
   font-size: 0.9rem;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .index-logout-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
-  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
 }
 
 .index-main {
@@ -96,8 +97,9 @@
 }
 
 .index-card {
-  background: #0f172a;
-  border: 1px solid #1e293b;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 2.5rem;
   border-radius: 16px;
   text-decoration: none;
@@ -117,7 +119,7 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 50%, #10b981 100%);
+  background: rgba(255, 255, 255, 0.1);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.4s ease;
@@ -129,9 +131,9 @@
 
 .index-card:hover {
   transform: translateY(-8px);
-  border-color: #334155;
-  box-shadow: 0 12px 40px rgba(99, 102, 241, 0.2);
-  background: #1e293b;
+  background: rgba(0, 0, 0, 0.6);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
 }
 
 .index-card-number {
@@ -142,11 +144,13 @@
   height: 48px;
   font-size: 1.5rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
   margin-bottom: 1.5rem;
   color: white;
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 .index-card h3 {
@@ -167,7 +171,7 @@
 }
 
 .index-card-arrow {
-  color: #6366f1;
+  color: rgba(255, 255, 255, 0.6);
   font-size: 1.5rem;
   font-weight: bold;
   align-self: flex-end;
@@ -176,28 +180,18 @@
 
 .index-card:hover .index-card-arrow {
   transform: translateX(8px);
-  color: #8b5cf6;
+  color: rgba(255, 255, 255, 0.9);
 }
 
-/* Specific card gradients for visual distinction */
-.index-card:nth-child(1) .index-card-number {
-  background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
-}
-
-.index-card:nth-child(2) .index-card-number {
-  background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-}
-
-.index-card:nth-child(3) .index-card-number {
-  background: linear-gradient(135deg, #06b6d4 0%, #22d3ee 100%);
-}
-
-.index-card:nth-child(4) .index-card-number {
-  background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
-}
-
+/* Consistent Black Glass styling for all card numbers */
+.index-card:nth-child(1) .index-card-number,
+.index-card:nth-child(2) .index-card-number,
+.index-card:nth-child(3) .index-card-number,
+.index-card:nth-child(4) .index-card-number,
 .index-card:nth-child(5) .index-card-number {
-  background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 @media (max-width: 768px) {

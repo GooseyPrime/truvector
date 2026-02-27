@@ -1,10 +1,10 @@
 const Footer = () => {
   return (
-    <footer className="bg-slate-900 border-t border-slate-800 text-slate-300 py-6 md:py-12 px-4 md:px-8">
+    <footer className="w-full py-6 md:py-8 px-4 border-t border-white/10 bg-black/50 backdrop-blur-md text-sm text-slate-400 z-10 relative mt-auto">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 mb-4">
           <div>
-            <h3 className="text-indigo-400 font-bold text-sm mb-2">InTellMe</h3>
+            <h3 className="text-white font-bold text-sm mb-2">InTellMe</h3>
             <p className="text-sm">M. Brandon Lane</p>
           </div>
           <div>
@@ -13,18 +13,18 @@ const Footer = () => {
           </div>
           <div>
             <p className="text-sm">
-              <a href="mailto:brandon@intellmeai.com" className="text-indigo-400 hover:text-indigo-300 transition-colors">
+              <a href="mailto:brandon@intellmeai.com" className="text-white hover:text-slate-300 transition-colors">
                 brandon@intellmeai.com
               </a>
             </p>
             <p className="text-sm">
-              <a href="tel:+17473221977" className="text-indigo-400 hover:text-indigo-300 transition-colors">
+              <a href="tel:+17473221977" className="text-white hover:text-slate-300 transition-colors">
                 (747) 322-1977
               </a>
             </p>
           </div>
         </div>
-        <div className="text-center pt-4 border-t border-slate-800">
+        <div className="text-center pt-4 border-t border-white/10">
           <p className="text-xs text-slate-500">
             &copy; {new Date().getFullYear()} InTellMe. All rights reserved.
           </p>
