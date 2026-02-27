@@ -1,0 +1,107 @@
+/* Kinematic animated background */
+.kinematic-background {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.kinematic-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 20%, rgba(83, 91, 242, 0.2) 0%, transparent 50%);
+  animation: kinematic-float 20s ease-in-out infinite;
+}
+
+.kinematic-background::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 60% 70%, rgba(100, 108, 255, 0.2) 0%, transparent 40%),
+    radial-gradient(circle at 30% 80%, rgba(118, 75, 162, 0.25) 0%, transparent 45%);
+  animation: kinematic-float-reverse 15s ease-in-out infinite;
+}
+
+@keyframes kinematic-float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(5%, -5%) scale(1.05);
+  }
+  50% {
+    transform: translate(-5%, 5%) scale(0.95);
+  }
+  75% {
+    transform: translate(-3%, -3%) scale(1.02);
+  }
+}
+
+@keyframes kinematic-float-reverse {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(-3%, 5%) scale(0.98);
+  }
+  50% {
+    transform: translate(5%, -3%) scale(1.03);
+  }
+  75% {
+    transform: translate(3%, 3%) scale(0.97);
+  }
+}
+
+/* Particle effect */
+.kinematic-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  animation: particle-float 8s linear infinite;
+}
+
+@keyframes particle-float {
+  0% {
+    transform: translateY(100vh) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) translateX(100px);
+    opacity: 0;
+  }
+}
+
+/* Content overlay to ensure readability */
+.kinematic-content {
+  position: relative;
+  z-index: 1;
+}
