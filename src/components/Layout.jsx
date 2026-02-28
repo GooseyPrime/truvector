@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Footer from './Footer';
+import KinematicBackground from './KinematicBackground';
 
 const Layout = ({ children }) => {
   const { user, logout } = useAuth();
@@ -12,8 +13,13 @@ const Layout = ({ children }) => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <nav className="bg-black/50 backdrop-blur-md border-b border-white/10 px-8 py-4 flex justify-between items-center">
+    <div className="flex flex-col min-h-screen w-full relative text-slate-200 bg-transparent overflow-x-hidden">
+      
+      {/* GLOBAL BACKGROUND - Renders behind everything */}
+      <KinematicBackground />
+
+      {/* NAV BAR - Added relative z-10 to float above the canvas */}
+      <nav className="relative z-10 bg-black/50 backdrop-blur-md border-b border-white/10 px-8 py-4 flex justify-between items-center">
         <div>
           <Link to="/" className="text-white text-2xl font-bold hover:text-white/80 transition-colors">InTellMe</Link>
         </div>
@@ -36,7 +42,10 @@ const Layout = ({ children }) => {
           )}
         </div>
       </nav>
-      <main className="flex-1">{children}</main>
+      
+      {/* MAIN CONTENT - Added relative z-10 so pages float above canvas */}
+      <main className="flex-1 w-full relative z-10 flex flex-col">{children}</main>
+      
       <Footer />
     </div>
   );
