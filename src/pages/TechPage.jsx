@@ -46,10 +46,10 @@ export default function TechPage() {
         <header className="border-b border-slate-800 pb-6 mb-8 text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-4">
           <div>
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white flex items-center gap-3 justify-center md:justify-start">
-              <Terminal className="w-10 h-10 text-indigo-500" />
+              <Terminal className="w-10 h-10 text-white" />
               TruVector Technical Architecture
             </h1>
-            <p className="text-xl text-indigo-300 mt-2 font-light">
+            <p className="text-xl text-slate-300 mt-2 font-light">
               Probabilistic Arbitration Infrastructure for AI Output Systems
             </p>
           </div>
@@ -69,8 +69,8 @@ export default function TechPage() {
               <p className="mb-4">
                 InTellMe develops structured probabilistic arbitration infrastructure for AI-generated declarative outputs.
               </p>
-              <div className="bg-indigo-500/10 border border-indigo-500/20 p-3 rounded-md mb-4">
-                <p className="text-indigo-200 font-medium text-sm">
+              <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow-xl hover:bg-black/60 transition-all mb-4">
+                <p className="text-slate-200 font-medium text-sm">
                   The core product, TruVector, performs post-generation semantic alignment scoring against structured corpora and returns a machine-readable arbitration object.
                 </p>
               </div>
@@ -227,7 +227,7 @@ export default function TechPage() {
 // Sub-components
 function PosterCard({ title, icon: Icon, color, children, className = '' }) {
   return (
-    <div className={`bg-slate-900/80 border border-slate-800 p-6 rounded-xl shadow-lg backdrop-blur-sm ${className}`}>
+    <div className={`bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow-xl hover:bg-black/60 transition-all ${className}`}>
       <div className="flex items-center gap-3 mb-4">
         <Icon className={`w-6 h-6 ${color}`} />
         <h2 className="text-xl font-bold text-white tracking-wide">{title}</h2>

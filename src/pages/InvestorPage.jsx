@@ -40,14 +40,14 @@ export default function InvestorPage() {
         <header className="border-b border-slate-800 pb-6 mb-8 text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-4">
           <div>
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white flex items-center gap-3 justify-center md:justify-start">
-              <Shield className="w-10 h-10 text-indigo-500" />
+              <Shield className="w-10 h-10 text-white" />
               Investors / TruVector Growth Path
             </h1>
-            <p className="text-xl text-indigo-300 mt-2 font-light">
+            <p className="text-xl text-slate-300 mt-2 font-light">
               Trust Infrastructure for the Next Phase of AI
             </p>
           </div>
-          <div className="bg-indigo-500/10 border border-indigo-500/30 p-4 rounded-lg max-w-md text-sm text-indigo-100 shadow-[0_0_20px_rgba(99,102,241,0.1)]">
+          <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow-xl hover:bg-black/60 transition-all max-w-md text-sm text-slate-200">
             <strong className="text-white block mb-1 text-base">Core Position</strong>
             InTellMe is building foundational infrastructure for AI reliability. TruVector provides structured probabilistic scoring before AI systems act.
           </div>
@@ -96,20 +96,20 @@ export default function InvestorPage() {
         </div>
 
         {/* MIDDLE ROW - IMPACT STATEMENT */}
-        <div className="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-8 relative overflow-hidden shadow-xl">
-          <div className="absolute top-0 left-0 w-2 h-full bg-indigo-500"></div>
+        <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow-xl hover:bg-black/60 transition-all relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-2 h-full bg-white/20"></div>
           <div className="max-w-4xl mx-auto text-center space-y-6">
             <h2 className="text-2xl font-bold text-white flex items-center justify-center gap-2 mb-2">
-              <Zap className="w-6 h-6 text-indigo-400" /> Why This Matters
+              <Zap className="w-6 h-6 text-white" /> Why This Matters
             </h2>
             <p className="text-xl text-slate-300">As AI systems move toward autonomy, the core enterprise risk shifts from:</p>
             
             <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-lg md:text-xl font-medium">
-              <div className="bg-slate-950 border border-slate-700 p-4 rounded-xl text-slate-400 w-full md:w-auto">
+              <div className="bg-slate-900 border border-slate-800 p-4 rounded-xl text-slate-400 w-full md:w-auto">
                 "Did the model say something wrong?"
               </div>
-              <div className="text-indigo-500 font-bold">➔</div>
-              <div className="bg-indigo-950/50 border border-indigo-500/50 p-4 rounded-xl text-indigo-200 w-full md:w-auto shadow-[0_0_15px_rgba(99,102,241,0.2)]">
+              <div className="text-slate-500 font-bold">➔</div>
+              <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow-xl text-white w-full md:w-auto">
                 "Did the system act on something unreliable?"
               </div>
             </div>
@@ -183,7 +183,7 @@ export default function InvestorPage() {
 // Sub-components
 function PosterCard({ title, icon: Icon, color, children, className = '' }) {
   return (
-    <div className={`bg-slate-900/80 border border-slate-800 p-6 rounded-xl shadow-lg backdrop-blur-sm ${className}`}>
+    <div className={`bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow-xl hover:bg-black/60 transition-all ${className}`}>
       <div className="flex items-center gap-3 mb-4">
         <Icon className={`w-6 h-6 ${color}`} />
         <h2 className="text-xl font-bold text-white tracking-wide">{title}</h2>

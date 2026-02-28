@@ -54,7 +54,7 @@ export default function EmmaPage() {
           
           {/* Where Emma Sits in the Stack */}
           <div className="lg:col-span-5 space-y-6">
-            <PosterCard title="Where emma Sits in the Stack" icon={Layers} color="text-indigo-400">
+            <PosterCard title="Where emma Sits in the Stack" icon={Layers} color="text-white">
               <p className="text-sm text-slate-400 mb-6">
                 emma operates at the multi-cloud orchestration layer, enabling the infrastructure TruVector requires to operate efficiently, securely, and elastically.
               </p>
@@ -69,11 +69,11 @@ export default function EmmaPage() {
                 <ArrowDown className="w-5 h-5 text-slate-600" />
 
                 {/* TruVector Layer */}
-                <div className="w-full bg-indigo-950/40 border border-indigo-500/50 py-3 px-4 rounded-lg text-center text-indigo-200 shadow-[0_0_15px_rgba(99,102,241,0.1)]">
+                <div className="w-full bg-black/40 backdrop-blur-md border border-white/10 rounded-xl py-3 px-4 text-center shadow-xl text-white">
                   TruVector (Trust Arbitration Layer)
                 </div>
 
-                <ArrowDown className="w-5 h-5 text-indigo-500/50" />
+                <ArrowDown className="w-5 h-5 text-slate-600" />
 
                 {/* Data/Model Layer */}
                 <div className="w-full bg-slate-800/80 border border-slate-700 py-3 px-4 rounded-lg text-center text-slate-300">
@@ -113,7 +113,7 @@ export default function EmmaPage() {
                   <p className="text-sm text-emerald-100/80 leading-relaxed">Remove infrastructure friction and vendor lock-in across cloud environments.</p>
                 </div>
               </div>
-              <div className="bg-gradient-to-r from-indigo-900/40 to-emerald-900/40 border border-slate-700 p-4 rounded-lg text-center">
+              <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow-xl hover:bg-black/60 transition-all text-center">
                 <p className="text-white font-medium">
                   <strong className="text-fuchsia-400">Together:</strong> emma enables the infrastructure layer that allows TruVector to scale without architectural compromise.
                 </p>
@@ -189,7 +189,7 @@ export default function EmmaPage() {
         </div>
 
         {/* FULL WIDTH FOOTER / VALIDATION */}
-        <div className="bg-emerald-950/20 border border-emerald-900/30 rounded-2xl p-8 relative overflow-hidden">
+        <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow-xl hover:bg-black/60 transition-all relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl"></div>
           <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="flex-1">
@@ -221,7 +221,7 @@ export default function EmmaPage() {
 // Sub-components
 function PosterCard({ title, icon: Icon, color, children, className = '' }) {
   return (
-    <div className={`bg-slate-900/80 border border-slate-800 p-6 rounded-xl shadow-lg backdrop-blur-sm ${className}`}>
+    <div className={`bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow-xl hover:bg-black/60 transition-all ${className}`}>
       <div className="flex items-center gap-3 mb-4">
         <Icon className={`w-6 h-6 ${color}`} />
         <h2 className="text-xl font-bold text-white tracking-wide">{title}</h2>
@@ -235,7 +235,7 @@ function PosterCard({ title, icon: Icon, color, children, className = '' }) {
 
 function Badge({ text, icon: Icon }) {
   return (
-    <div className="flex items-center gap-2 bg-slate-950 border border-slate-800 p-2 rounded-lg">
+    <div className="flex items-center gap-2 bg-black/40 backdrop-blur-md border border-white/10 rounded-lg p-2 shadow-xl hover:bg-black/60 transition-all">
       <Icon className="w-4 h-4 text-blue-500 shrink-0" />
       <span className="text-xs font-medium text-slate-300">{text}</span>
     </div>

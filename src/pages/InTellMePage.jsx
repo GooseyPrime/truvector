@@ -9,7 +9,7 @@ import {
 
 export default function InTellMePage() {
   return (
-    <div className="text-slate-200 font-sans selection:bg-indigo-500/30 flex flex-col justify-center relative py-12 md:py-20 w-full">
+    <div className="text-slate-200 font-sans selection:bg-white/10 flex flex-col justify-center relative py-12 md:py-20 w-full">
       
       {/* KINEMATIC BACKGROUND */}
       <KinematicBackground />
@@ -21,10 +21,10 @@ export default function InTellMePage() {
         <header className="border-b border-slate-800 pb-6 mb-8 text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-4">
           <div>
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white flex items-center gap-3 justify-center md:justify-start">
-              <Shield className="w-10 h-10 text-indigo-500" />
+              <Shield className="w-10 h-10 text-white" />
               InTellMe: Origin & Objective
             </h1>
-            <p className="text-xl text-indigo-400 mt-2 font-light">
+            <p className="text-xl text-slate-300 mt-2 font-light">
               The Engineering of Trust Infrastructure
             </p>
           </div>
@@ -35,11 +35,11 @@ export default function InTellMePage() {
           
           {/* LEFT FRAME: WHY INTELLME EXISTS */}
           <div className="flex flex-col h-full space-y-6">
-            <div className="bg-slate-900/80 backdrop-blur-md border border-slate-800 rounded-2xl p-6 md:p-8 shadow-xl flex-1 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none"></div>
+            <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow-xl hover:bg-black/60 transition-all md:p-8 flex-1 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl pointer-events-none"></div>
               
-              <div className="flex items-center gap-3 mb-8 border-b border-slate-800/50 pb-4">
-                <Workflow className="w-6 h-6 text-indigo-400" />
+              <div className="flex items-center gap-3 mb-8 border-b border-white/10 pb-4">
+                <Workflow className="w-6 h-6 text-white" />
                 <h2 className="text-2xl font-bold text-white">Why InTellMe Exists</h2>
               </div>
 
@@ -49,7 +49,7 @@ export default function InTellMePage() {
                 <ThoughtRow icon={FlaskConical} color="text-fuchsia-400" text="But during that modeling process, something unexpected emerged." subtext={<span>Information did not behave like marketing trends. <strong className="text-white">It behaved like kinetics.</strong></span>} />
                 <ThoughtRow icon={Microscope} color="text-blue-400" text="With a background in chemical engineering, reaction dynamics, and physics..." subtext="It became clear that the same mathematical principles used to model reaction rates, diffusion, and system momentum could be applied to semantic information flow." />
 
-                <div className="bg-slate-950/60 border border-slate-800/50 p-4 md:p-5 rounded-xl ml-0 md:ml-11">
+                <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow-xl ml-0 md:ml-11">
                   <p className="text-xs font-semibold text-slate-400 mb-3 uppercase tracking-wider">Narratives Showed:</p>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <KinematicBadge text="Velocity & Acceleration" />
@@ -62,17 +62,17 @@ export default function InTellMePage() {
 
                 <ThoughtRow icon={Waves} color="text-cyan-400" text="Information was not just trending. It was reacting." subtext="The insight was not to invent a new theory—it was to recognize that kinematic principles could be applied in a different dimension." />
                 <ThoughtRow icon={ArrowRight} color="text-emerald-400" text="Lane-Vector evolved into a semantic motion framework." subtext="Grounded in magnitude, direction, time, and authority weighting." />
-                <ThoughtRow icon={Shield} color="text-indigo-500" text="From that foundation, TruVector emerged as the operational layer." subtext="Designed to measure evidentiary alignment before AI systems act." />
+                <ThoughtRow icon={Shield} color="text-white" text="From that foundation, TruVector emerged as the operational layer." subtext="Designed to measure evidentiary alignment before AI systems act." />
               </div>
             </div>
           </div>
 
           {/* RIGHT FRAME: WHY I AM HERE */}
           <div className="flex flex-col h-full space-y-6">
-            <div className="bg-slate-900/80 backdrop-blur-md border border-slate-800 rounded-2xl p-6 md:p-8 shadow-xl flex-1 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
+            <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow-xl hover:bg-black/60 transition-all md:p-8 flex-1 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl pointer-events-none"></div>
 
-              <div className="flex items-center gap-3 mb-8 border-b border-slate-800/50 pb-4">
+              <div className="flex items-center gap-3 mb-8 border-b border-white/10 pb-4">
                 <User className="w-6 h-6 text-emerald-400" />
                 <h2 className="text-2xl font-bold text-white">Why I Am Here</h2>
               </div>
@@ -89,7 +89,7 @@ export default function InTellMePage() {
                 </div>
 
                 <ThoughtRow icon={Target} color="text-amber-400" text="There are no competing obligations." subtext="My sole professional objective is the successful activation and responsible scaling of this infrastructure." />
-                <ThoughtRow icon={Server} color="text-indigo-400" text="The opportunity to leverage cloud resources would not fund experimentation." subtext="It would activate a formally designed system whose mathematical foundations are already established." />
+                <ThoughtRow icon={Server} color="text-white" text="The opportunity to leverage cloud resources would not fund experimentation." subtext="It would activate a formally designed system whose mathematical foundations are already established." />
               </div>
             </div>
           </div>
@@ -97,10 +97,10 @@ export default function InTellMePage() {
         </div>
 
         {/* BOTTOM FULL-WIDTH FRAME */}
-        <div className="bg-gradient-to-r from-slate-900/90 via-indigo-950/40 to-slate-900/90 backdrop-blur-md border border-slate-700 rounded-2xl p-6 md:p-8 text-center shadow-2xl relative overflow-hidden mt-8">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-500/10 via-transparent to-transparent pointer-events-none"></div>
+        <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow-xl hover:bg-black/60 transition-all md:p-8 text-center relative overflow-hidden mt-8">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white/5 via-transparent to-transparent pointer-events-none"></div>
           
-          <h3 className="text-sm uppercase tracking-widest text-indigo-400 font-bold mb-6">Core Position</h3>
+          <h3 className="text-sm uppercase tracking-widest text-white font-bold mb-6">Core Position</h3>
           
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 text-xl md:text-3xl font-light text-slate-300">
             <span className="font-semibold text-white">Information moves.</span>
@@ -109,8 +109,8 @@ export default function InTellMePage() {
           </div>
           
           <div className="mt-8 max-w-3xl mx-auto space-y-2">
-            <p className="text-lg md:text-xl text-indigo-200">
-              <strong className="text-indigo-400">TruVector</strong> exists to measure alignment before execution.
+            <p className="text-lg md:text-xl text-slate-200">
+              <strong className="text-white">TruVector</strong> exists to measure alignment before execution.
             </p>
             <p className="text-lg md:text-xl text-emerald-200">
               <strong className="text-emerald-400">InTellMe</strong> exists to build that layer.
@@ -141,8 +141,8 @@ function ThoughtRow({ icon: Icon, color, text, subtext }) {
 
 function KinematicBadge({ text }) {
   return (
-    <div className="flex items-center gap-2 bg-slate-900 border border-slate-700/50 p-2 rounded-lg">
-      <Zap className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
+    <div className="flex items-center gap-2 bg-black/40 backdrop-blur-md border border-white/10 rounded-lg p-2 shadow-xl hover:bg-black/60 transition-all">
+      <Zap className="w-3.5 h-3.5 text-white shrink-0" />
       <span className="text-xs font-medium text-slate-300">{text}</span>
     </div>
   );
@@ -150,7 +150,7 @@ function KinematicBadge({ text }) {
 
 function ObjectiveRow({ icon: Icon, text }) {
   return (
-    <div className="flex items-center gap-3 bg-slate-950/50 border border-slate-800 p-3 rounded-xl">
+    <div className="flex items-center gap-3 bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-3 shadow-xl hover:bg-black/60 transition-all">
       <Icon className="w-4 h-4 text-emerald-500 shrink-0" />
       <span className="text-sm font-medium text-slate-200">{text}</span>
     </div>
