@@ -21,20 +21,19 @@ const ContentNav = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-black/70 backdrop-blur-md border-b border-white/10">
-      <div className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto px-6 py-1 flex justify-between items-center">
 
         {/* LEFT: Brand + nav links */}
         <div className="flex items-center gap-6 min-w-0">
           <Link
             to="/"
-            className="flex items-center gap-2.5 shrink-0 hover:opacity-80 transition-opacity"
+            className="shrink-0 hover:opacity-80 transition-opacity"
           >
             <img
               src="https://res.cloudinary.com/dksj2niho/image/upload/v1772315437/Untitled-1_z9zmgj.png"
               alt="TruVector"
-              className="h-7 w-auto object-contain"
+              className="h-10 w-auto object-contain"
             />
-            <span className="text-slate-500 text-xs font-medium tracking-wide leading-none">by InTellMe</span>
           </Link>
           <div className="hidden md:flex items-center gap-1 overflow-x-auto">
             {NAV_LINKS.map(link => (
