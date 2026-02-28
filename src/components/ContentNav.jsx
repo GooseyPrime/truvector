@@ -26,7 +26,7 @@ const ContentNav = () => {
       backdropFilter: 'blur(10px)'
     }}>
       <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-        <Link to="/" style={{ color: '#6366f1', fontWeight: 'bold', fontSize: '1.25rem', textDecoration: 'none' }}>
+        <Link to="/" style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '1.25rem', textDecoration: 'none' }}>
           InTellMe
         </Link>
         <div style={{ display: 'flex', gap: '1.5rem' }}>
@@ -44,9 +44,10 @@ const ContentNav = () => {
           <button
             onClick={handleLogout}
             style={{
-              background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+              background: 'rgba(0, 0, 0, 0.5)',
+              backdropFilter: 'blur(12px)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
               color: 'white',
-              border: 'none',
               padding: '0.5rem 1.25rem',
               borderRadius: '6px',
               cursor: 'pointer',

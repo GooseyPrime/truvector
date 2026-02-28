@@ -54,7 +54,7 @@ export default function EmmaPage() {
           
           {/* Where Emma Sits in the Stack */}
           <div className="lg:col-span-5 space-y-6">
-            <PosterCard title="Where emma Sits in the Stack" icon={Layers} color="text-indigo-400">
+            <PosterCard title="Where emma Sits in the Stack" icon={Layers} color="text-white">
               <p className="text-sm text-slate-400 mb-6">
                 emma operates at the multi-cloud orchestration layer, enabling the infrastructure TruVector requires to operate efficiently, securely, and elastically.
               </p>
@@ -73,7 +73,7 @@ export default function EmmaPage() {
                   TruVector (Trust Arbitration Layer)
                 </div>
 
-                <ArrowDown className="w-5 h-5 text-indigo-500/50" />
+                <ArrowDown className="w-5 h-5 text-slate-600" />
 
                 {/* Data/Model Layer */}
                 <div className="w-full bg-slate-800/80 border border-slate-700 py-3 px-4 rounded-lg text-center text-slate-300">
@@ -113,7 +113,7 @@ export default function EmmaPage() {
                   <p className="text-sm text-emerald-100/80 leading-relaxed">Remove infrastructure friction and vendor lock-in across cloud environments.</p>
                 </div>
               </div>
-              <div className="bg-gradient-to-r from-indigo-900/40 to-emerald-900/40 border border-slate-700 p-4 rounded-lg text-center">
+              <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow-xl hover:bg-black/60 transition-all text-center">
                 <p className="text-white font-medium">
                   <strong className="text-fuchsia-400">Together:</strong> emma enables the infrastructure layer that allows TruVector to scale without architectural compromise.
                 </p>
