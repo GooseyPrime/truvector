@@ -235,7 +235,7 @@ function PosterCard({ title, icon: Icon, color, children, className = '' }) {
 
 function Badge({ text, icon: Icon }) {
   return (
-    <div className="flex items-center gap-2 bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow-xl hover:bg-black/60 transition-all">
+    <div className="flex items-center gap-2 bg-black/40 backdrop-blur-md border border-white/10 rounded-lg p-2 shadow-xl hover:bg-black/60 transition-all">
       <Icon className="w-4 h-4 text-blue-500 shrink-0" />
       <span className="text-xs font-medium text-slate-300">{text}</span>
     </div>

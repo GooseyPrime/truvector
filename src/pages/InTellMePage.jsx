@@ -141,7 +141,7 @@ function ThoughtRow({ icon: Icon, color, text, subtext }) {
 
 function KinematicBadge({ text }) {
   return (
-    <div className="flex items-center gap-2 bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow-xl hover:bg-black/60 transition-all">
+    <div className="flex items-center gap-2 bg-black/40 backdrop-blur-md border border-white/10 rounded-lg p-2 shadow-xl hover:bg-black/60 transition-all">
       <Zap className="w-3.5 h-3.5 text-white shrink-0" />
       <span className="text-xs font-medium text-slate-300">{text}</span>
     </div>
@@ -150,7 +150,7 @@ function KinematicBadge({ text }) {
 
 function ObjectiveRow({ icon: Icon, text }) {
   return (
-    <div className="flex items-center gap-3 bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow-xl hover:bg-black/60 transition-all">
+    <div className="flex items-center gap-3 bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-3 shadow-xl hover:bg-black/60 transition-all">
       <Icon className="w-4 h-4 text-emerald-500 shrink-0" />
       <span className="text-sm font-medium text-slate-200">{text}</span>
     </div>
