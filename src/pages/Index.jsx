@@ -55,9 +55,10 @@ const Index = () => {
             <p className="text-xs uppercase tracking-[0.3em] text-slate-500 font-semibold mb-5">
               Confidential Briefing &mdash; Prepared for emma
             </p>
-            <h1 className="text-6xl md:text-8xl font-black tracking-tight text-white mb-5 leading-none">
-              InTellMe
+            <h1 className="text-6xl md:text-8xl font-black tracking-tight text-white mb-3 leading-none">
+              TruVector
             </h1>
+            <p className="text-slate-500 text-sm font-semibold tracking-[0.2em] uppercase mb-4">by InTellMe</p>
             <p className="text-xl md:text-2xl font-light text-slate-400 tracking-tight mb-10">
               Trust Infrastructure for Autonomous AI Systems
             </p>

@@ -33,7 +33,8 @@ export default function EmmaPage() {
             <p className="text-xs uppercase tracking-[0.2em] text-slate-500 font-semibold mb-2">Section 04</p>
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-white flex items-center gap-3">
               <Cloud className="w-9 h-9 text-emerald-400 shrink-0" />
-              emma's Strategic Placement in the InTellMe Architecture
+              emma's Strategic Placement in the TruVector Architecture
+              <span className="text-xs font-semibold text-slate-500 uppercase tracking-[0.15em] self-end mb-1.5 ml-1">by InTellMe</span>
             </h1>
             <p className="text-xl text-emerald-400 mt-2 font-light">
               Multi-Cloud Orchestration for Trust Infrastructure Activation

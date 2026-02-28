@@ -27,9 +27,10 @@ const ContentNav = () => {
         <div className="flex items-center gap-6 min-w-0">
           <Link
             to="/"
-            className="text-white font-bold text-lg tracking-tight shrink-0 hover:text-white/80 transition-colors"
+            className="flex flex-col shrink-0 hover:opacity-80 transition-opacity leading-none"
           >
-            InTellMe
+            <span className="text-white font-bold text-base tracking-tight">TruVector</span>
+            <span className="text-slate-500 text-xs font-medium tracking-wide">by InTellMe</span>
           </Link>
           <div className="hidden md:flex items-center gap-1 overflow-x-auto">
             {NAV_LINKS.map(link => (
