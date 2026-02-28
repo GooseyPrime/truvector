@@ -41,10 +41,7 @@ const Login = () => {
           <h1 className="text-center text-white mb-2 text-4xl font-extrabold tracking-tight">InTellMe</h1>
           <h2 className="text-center text-slate-200 mb-8 font-semibold text-2xl tracking-tight">Login</h2>
           <form onSubmit={handleSubmit}>
-        <h1 className="text-center text-white mb-2 text-4xl font-extrabold tracking-tight">InTellMe</h1>
-        <h2 className="text-center text-slate-200 mb-8 font-semibold text-2xl tracking-tight">Login</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-6">
+            <div className="mb-6">
             <label htmlFor="username" className="block mb-2 text-slate-300 font-medium text-base">Username</label>
             <input
               type="text"
@@ -73,10 +70,10 @@ const Login = () => {
             Login
           </button>
         </form>
+        </div>
       </div>
+      <Footer />
     </div>
-    <Footer />
-  </div>
   );
 };
 
