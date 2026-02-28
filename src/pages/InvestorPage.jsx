@@ -28,7 +28,7 @@ import {
 
 export default function InvestorPage() {
   return (
-    <div className="min-h-screen flex flex-col text-slate-200 p-4 md:p-8 font-sans selection:bg-emerald-500/30 relative" style={{ paddingTop: '5rem', paddingBottom: '150px' }}>
+    <div className="flex flex-col flex-1 text-slate-200 p-4 md:p-8 font-sans selection:bg-emerald-500/30 relative" style={{ paddingTop: '5rem', paddingBottom: '150px' }}>
       
       {/* KINEMATIC BACKGROUND */}
       <KinematicBackground />

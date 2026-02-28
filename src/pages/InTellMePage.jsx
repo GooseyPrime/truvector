@@ -9,7 +9,7 @@ import {
 
 export default function InTellMePage() {
   return (
-    <div className="min-h-screen flex flex-col text-slate-200 font-sans selection:bg-white/10 relative w-full">
+    <div className="flex flex-col flex-1 text-slate-200 font-sans selection:bg-white/10 relative w-full">
       
       {/* KINEMATIC BACKGROUND */}
       <KinematicBackground />
