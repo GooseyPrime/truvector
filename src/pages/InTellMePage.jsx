@@ -9,13 +9,13 @@ import {
 
 export default function InTellMePage() {
   return (
-    <div className="text-slate-200 font-sans selection:bg-white/10 flex flex-col justify-center relative py-12 md:py-20 w-full">
+    <div className="min-h-screen flex flex-col text-slate-200 font-sans selection:bg-white/10 relative w-full">
       
       {/* KINEMATIC BACKGROUND */}
       <KinematicBackground />
       <ContentNav />
 
-      <div className="max-w-7xl mx-auto space-y-6 w-full relative z-10 px-4 md:px-8">
+      <div className="flex-1 max-w-7xl mx-auto space-y-6 w-full relative z-10 px-4 md:px-8 py-12 md:py-20">
         
         {/* HEADER */}
         <header className="border-b border-slate-800 pb-6 mb-8 text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-4">

@@ -46,7 +46,7 @@ const Index = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen text-slate-200 relative">
+    <div className="flex flex-col flex-1 text-slate-200 relative">
       <KinematicBackground />
       <nav className="flex justify-between items-center px-12 py-6 bg-slate-900/50 backdrop-blur-md border-b border-slate-800 sticky top-0 z-10">
         <div>

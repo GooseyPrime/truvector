@@ -28,13 +28,13 @@ import {
 
 export default function InvestorPage() {
   return (
-    <div className="min-h-screen text-slate-200 p-4 md:p-8 font-sans selection:bg-emerald-500/30 relative" style={{ paddingTop: '5rem', paddingBottom: '150px' }}>
+    <div className="min-h-screen flex flex-col text-slate-200 p-4 md:p-8 font-sans selection:bg-emerald-500/30 relative" style={{ paddingTop: '5rem', paddingBottom: '150px' }}>
       
       {/* KINEMATIC BACKGROUND */}
       <KinematicBackground />
       <ContentNav />
 
-      <div className="max-w-7xl mx-auto space-y-6 relative z-10">
+      <div className="flex-1 max-w-7xl mx-auto space-y-6 relative z-10">
         
         {/* HEADER / TITLE BLOCK */}
         <header className="border-b border-slate-800 pb-6 mb-8 text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-4">
