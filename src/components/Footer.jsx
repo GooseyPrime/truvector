@@ -1,15 +1,15 @@
 const Footer = () => {
   return (
-    <footer className="w-full py-6 md:py-8 px-4 border-t border-white/10 bg-black/50 backdrop-blur-md text-sm text-slate-400 z-10 relative mt-auto">
+    <footer className="w-full bg-black/50 backdrop-blur-md border-t border-white/10 py-8 px-6 mt-auto">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 mb-4">
           <div>
             <h3 className="text-white font-bold text-sm mb-2">InTellMe</h3>
-            <p className="text-sm">M. Brandon Lane</p>
+            <p className="text-sm text-slate-400">M. Brandon Lane</p>
           </div>
           <div>
-            <p className="text-sm">326 Delaware Street</p>
-            <p className="text-sm">Johnson City, TN 37604</p>
+            <p className="text-sm text-slate-400">326 Delaware Street</p>
+            <p className="text-sm text-slate-400">Johnson City, TN 37604</p>
           </div>
           <div>
             <p className="text-sm">

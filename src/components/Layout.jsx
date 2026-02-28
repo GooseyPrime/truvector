@@ -1,7 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Footer from './Footer';
-import './Layout.css';
 
 const Layout = ({ children }) => {
   const { user, logout } = useAuth();
@@ -13,31 +12,31 @@ const Layout = ({ children }) => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen overflow-x-hidden bg-slate-950">
-      <nav className="navbar">
-        <div className="nav-brand">
-          <Link to="/">InTellMe</Link>
+    <div className="flex flex-col min-h-screen">
+      <nav className="bg-black/50 backdrop-blur-md border-b border-white/10 px-8 py-4 flex justify-between items-center">
+        <div>
+          <Link to="/" className="text-white text-2xl font-bold hover:text-white/80 transition-colors">InTellMe</Link>
         </div>
-        <div className="nav-links">
-          <Link to="/">Home</Link>
-          <Link to="/intellme">InTellMe</Link>
-          <Link to="/truvector">Overview</Link>
-          <Link to="/architecture">Architecture</Link>
-          <Link to="/emma">Emma</Link>
-          <Link to="/investors">Investors</Link>
+        <div className="flex gap-8">
+          <Link to="/" className="text-white hover:text-white/70 transition-colors">Home</Link>
+          <Link to="/intellme" className="text-white hover:text-white/70 transition-colors">InTellMe</Link>
+          <Link to="/truvector" className="text-white hover:text-white/70 transition-colors">Overview</Link>
+          <Link to="/architecture" className="text-white hover:text-white/70 transition-colors">Architecture</Link>
+          <Link to="/emma" className="text-white hover:text-white/70 transition-colors">Emma</Link>
+          <Link to="/investors" className="text-white hover:text-white/70 transition-colors">Investors</Link>
         </div>
-        <div className="nav-user">
+        <div className="flex items-center gap-4">
           {user && (
             <>
-              <span>Welcome, {user.username}!</span>
-              <button onClick={handleLogout} className="logout-btn">
+              <span className="text-white">Welcome, {user.username}!</span>
+              <button onClick={handleLogout} className="bg-black/50 backdrop-blur-md border border-white/20 text-white px-6 py-3 rounded-lg hover:bg-white/10 hover:border-white/40 transition-all font-medium shadow-lg">
                 Logout
               </button>
             </>
           )}
         </div>
       </nav>
-      <main className="flex-1 w-full">{children}</main>
+      <main className="flex-1">{children}</main>
       <Footer />
     </div>
   );

@@ -2,47 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: dark;
-  color: #cbd5e1;
-  background-color: #020617;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-a {
-  font-weight: 500;
-  color: #6366f1;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #818cf8;
-}
-
-body {
+html, body {
+  height: 100%;
   margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-h1 {
-  font-size: 2.5em;
-  line-height: 1.1;
+  background-color: #020617; /* Slate 950 */
 }
 
 #root {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
 }
