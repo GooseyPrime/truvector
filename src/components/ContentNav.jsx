@@ -6,7 +6,8 @@ const NAV_LINKS = [
   { to: '/truvector',    label: 'Overview' },
   { to: '/architecture', label: 'Architecture' },
   { to: '/emma',         label: 'Emma' },
-  { to: '/investors',    label: 'Investors' },
+  { to: '/plan',         label: 'The Plan' },
+  { to: '/summary',      label: 'Summary' },
 ];
 
 const ContentNav = () => {

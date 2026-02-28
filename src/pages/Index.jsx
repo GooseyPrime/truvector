@@ -34,10 +34,17 @@ const SECTIONS = [
   },
   {
     number: '05',
-    title: 'Growth Path',
-    subtitle: 'For Investors',
+    title: 'The Plan',
+    subtitle: 'emma × TruVector',
+    description: 'Multi-cloud orchestration as the activation vehicle — how emma enables TruVector to scale without architectural compromise.',
+    path: '/plan',
+  },
+  {
+    number: '06',
+    title: 'Summary',
+    subtitle: 'Growth Path',
     description: 'Infrastructure alignment, market positioning, and the activation roadmap for TruVector.',
-    path: '/investors',
+    path: '/summary',
   },
 ];
 
