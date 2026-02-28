@@ -34,13 +34,14 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen justify-center items-center relative">
+    <div className="flex flex-col flex-1 items-center relative">
       <KinematicBackground />
-      <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-12 shadow-xl w-full max-w-md relative z-10">
-        <h1 className="text-center text-white mb-2 text-4xl font-extrabold tracking-tight">InTellMe</h1>
-        <h2 className="text-center text-slate-200 mb-8 font-semibold text-2xl tracking-tight">Login</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-6">
+      <div className="flex-1 flex items-center justify-center w-full relative z-10 px-4">
+        <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-12 shadow-xl w-full max-w-md">
+          <h1 className="text-center text-white mb-2 text-4xl font-extrabold tracking-tight">InTellMe</h1>
+          <h2 className="text-center text-slate-200 mb-8 font-semibold text-2xl tracking-tight">Login</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-6">
             <label htmlFor="username" className="block mb-2 text-slate-300 font-medium text-base">Username</label>
             <input
               type="text"
@@ -69,6 +70,7 @@ const Login = () => {
             Login
           </button>
         </form>
+        </div>
       </div>
       <Footer />
     </div>
