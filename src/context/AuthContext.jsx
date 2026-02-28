@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = (username, password) => {
     // Authentication with specific credentials
-    if (username === 'emma' && password === 'welcome') {
+    if (username === 'emma' && password === 'synergy') {
       const userData = { username };
       setUser(userData);
       localStorage.setItem('user', JSON.stringify(userData));

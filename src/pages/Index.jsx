@@ -1,90 +1,113 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { Link } from 'react-router-dom';
+import ContentNav from '../components/ContentNav';
 import Footer from '../components/Footer';
 import KinematicBackground from '../components/KinematicBackground';
 
+const SECTIONS = [
+  {
+    number: '01',
+    title: 'InTellMe',
+    subtitle: 'Origin & Objective',
+    description: 'The engineering of trust infrastructure — from chemical kinetics to semantic motion frameworks.',
+    path: '/intellme',
+  },
+  {
+    number: '02',
+    title: 'TruVector',
+    subtitle: 'Product Overview',
+    description: 'Probabilistic trust arbitration for AI-generated declarative outputs before downstream execution.',
+    path: '/truvector',
+  },
+  {
+    number: '03',
+    title: 'Architecture',
+    subtitle: 'Technical Design',
+    description: 'Vector retrieval, Bayesian arbitration, multi-model cross-analysis, and structured output artifacts.',
+    path: '/architecture',
+  },
+  {
+    number: '04',
+    title: 'emma',
+    subtitle: "Strategic Placement",
+    description: "How emma's multi-cloud orchestration layer enables TruVector's infrastructure dependency profile.",
+    path: '/emma',
+  },
+  {
+    number: '05',
+    title: 'Growth Path',
+    subtitle: 'For Investors',
+    description: 'Infrastructure alignment, market positioning, and the activation roadmap for TruVector.',
+    path: '/investors',
+  },
+];
+
 const Index = () => {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
-
-  const sections = [
-    {
-      id: 1,
-      title: 'InTellMe - Who We Are',
-      description: 'Discover our mission, values, and the team behind InTellMe',
-      path: '/intellme'
-    },
-    {
-      id: 2,
-      title: 'TruVector Overview',
-      description: 'Learn about TruVector technology and capabilities',
-      path: '/truvector'
-    },
-    {
-      id: 3,
-      title: 'Technical Architecture',
-      description: 'Deep dive into our technical infrastructure and design',
-      path: '/architecture'
-    },
-    {
-      id: 4,
-      title: 'Emma Placement',
-      description: 'Explore Emma AI placement and integration solutions',
-      path: '/emma'
-    },
-    {
-      id: 5,
-      title: 'For Investors / Growth Path',
-      description: 'Investment opportunities and our growth strategy',
-      path: '/investors'
-    }
-  ];
-
-  const handleLogout = () => {
-    logout();
-    navigate('/login');
-  };
-
   return (
-    <div className="flex flex-col flex-1 text-slate-200 relative">
+    <div className="flex flex-col min-h-screen text-slate-200 relative">
       <KinematicBackground />
-      <nav className="flex justify-between items-center px-12 py-6 bg-slate-900/50 backdrop-blur-md border-b border-slate-800 sticky top-0 z-10">
-        <div>
-          <h1 className="text-white m-0 text-3xl font-bold tracking-tight">InTellMe</h1>
-        </div>
-        <div className="flex items-center gap-6 text-slate-300 text-base">
-          {user && (
-            <>
-              <span>Welcome, {user.username}!</span>
-              <button onClick={handleLogout} className="bg-black/50 backdrop-blur-md border border-white/20 text-white px-6 py-3 rounded-lg hover:bg-white/10 hover:border-white/40 transition-all font-medium shadow-lg">
-                Logout
-              </button>
-            </>
-          )}
-        </div>
-      </nav>
+      <ContentNav />
 
-      <main className="flex-1 px-12 py-16 max-w-7xl mx-auto w-full relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-5xl mb-4 font-extrabold tracking-tight bg-gradient-to-br from-white via-slate-200 to-slate-300 bg-clip-text text-transparent">Welcome to InTellMe</h2>
-          <p className="text-xl text-slate-400 font-light tracking-tight">Explore our platform and discover what we offer</p>
-        </div>
+      <main className="flex-1 relative z-10 flex flex-col px-4 md:px-8 pt-24 pb-16">
+        <div className="max-w-7xl mx-auto w-full flex flex-col gap-16">
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {sections.map((section) => (
-            <Link
-              key={section.id}
-              to={section.path}
-              className="bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow-xl hover:bg-black/60 transition-all no-underline relative overflow-hidden flex flex-col min-h-[220px] group"
-            >
-              <div className="flex items-center justify-center w-12 h-12 text-2xl font-bold bg-black/50 backdrop-blur-md border border-white/20 rounded-xl mb-6 text-white shadow-lg">
-                {section.id}
-              </div>
-              <h3 className="text-white mb-4 text-2xl font-bold tracking-tight leading-snug">{section.title}</h3>
-              <p className="text-slate-400 leading-relaxed flex-1 mb-6 text-base">{section.description}</p>
-              <span className="text-white/60 text-2xl font-bold self-end transition-transform group-hover:translate-x-2">→</span>
-            </Link>
-          ))}
+          {/* HERO */}
+          <div className="pt-8 text-center">
+            <p className="text-xs uppercase tracking-[0.3em] text-slate-500 font-semibold mb-5">
+              Confidential Briefing &mdash; Prepared for emma
+            </p>
+            <h1 className="text-6xl md:text-8xl font-black tracking-tight text-white mb-5 leading-none">
+              InTellMe
+            </h1>
+            <p className="text-xl md:text-2xl font-light text-slate-400 tracking-tight mb-10">
+              Trust Infrastructure for Autonomous AI Systems
+            </p>
+
+            <div className="max-w-2xl mx-auto bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow-xl">
+              <p className="text-slate-300 leading-relaxed text-base">
+                <span className="text-white font-semibold">Information moves. AI systems act.</span>
+                {' '}TruVector exists to measure evidentiary alignment before execution — delivering
+                structured, probabilistic trust arbitration as foundational infrastructure for the
+                next phase of AI.
+              </p>
+            </div>
+          </div>
+
+          {/* SECTION CARDS */}
+          <div>
+            <p className="text-xs uppercase tracking-[0.25em] text-slate-500 font-semibold mb-5">
+              Navigate this presentation
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {SECTIONS.map(section => (
+                <Link
+                  key={section.path}
+                  to={section.path}
+                  className="group bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow-xl hover:bg-black/60 hover:border-white/20 transition-all no-underline flex flex-col gap-4"
+                >
+                  <div className="flex items-start justify-between">
+                    <span className="text-5xl font-black text-white/8 leading-none group-hover:text-white/15 transition-colors select-none">
+                      {section.number}
+                    </span>
+                    <span className="text-white/25 group-hover:text-white/60 transition-all text-xl leading-none mt-1">
+                      &rarr;
+                    </span>
+                  </div>
+                  <div>
+                    <h2 className="text-white font-bold text-xl tracking-tight leading-tight">
+                      {section.title}
+                    </h2>
+                    <p className="text-slate-500 text-xs font-semibold uppercase tracking-wider mt-0.5 mb-3">
+                      {section.subtitle}
+                    </p>
+                    <p className="text-slate-400 text-sm leading-relaxed">
+                      {section.description}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+
         </div>
       </main>
 
