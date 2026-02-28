@@ -66,7 +66,7 @@ const Index = () => {
 
       <main className="flex-1 px-12 py-16 max-w-7xl mx-auto w-full relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-5xl mb-4 font-extrabold tracking-tight bg-gradient-to-br from-indigo-200 via-slate-200 to-indigo-200 bg-clip-text text-transparent">Welcome to InTellMe</h2>
+          <h2 className="text-5xl mb-4 font-extrabold tracking-tight bg-gradient-to-br from-white via-slate-200 to-slate-300 bg-clip-text text-transparent">Welcome to InTellMe</h2>
           <p className="text-xl text-slate-400 font-light tracking-tight">Explore our platform and discover what we offer</p>
         </div>
 
@@ -80,7 +80,7 @@ const Index = () => {
               <div className="flex items-center justify-center w-12 h-12 text-2xl font-bold bg-black/50 backdrop-blur-md border border-white/20 rounded-xl mb-6 text-white shadow-lg">
                 {section.id}
               </div>
-              <h3 className="text-indigo-200 mb-4 text-2xl font-bold tracking-tight leading-snug">{section.title}</h3>
+              <h3 className="text-white mb-4 text-2xl font-bold tracking-tight leading-snug">{section.title}</h3>
               <p className="text-slate-400 leading-relaxed flex-1 mb-6 text-base">{section.description}</p>
               <span className="text-white/60 text-2xl font-bold self-end transition-transform group-hover:translate-x-2">→</span>
             </Link>
