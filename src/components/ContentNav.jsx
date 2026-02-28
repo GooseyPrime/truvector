@@ -27,9 +27,14 @@ const ContentNav = () => {
         <div className="flex items-center gap-6 min-w-0">
           <Link
             to="/"
-            className="text-white font-bold text-lg tracking-tight shrink-0 hover:text-white/80 transition-colors"
+            className="flex items-center gap-2.5 shrink-0 hover:opacity-80 transition-opacity"
           >
-            InTellMe
+            <img
+              src="https://res.cloudinary.com/dksj2niho/image/upload/v1772315437/Untitled-1_z9zmgj.png"
+              alt="TruVector"
+              className="h-7 w-auto object-contain"
+            />
+            <span className="text-slate-500 text-xs font-medium tracking-wide leading-none">by InTellMe</span>
           </Link>
           <div className="hidden md:flex items-center gap-1 overflow-x-auto">
             {NAV_LINKS.map(link => (
