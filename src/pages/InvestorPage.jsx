@@ -40,7 +40,6 @@ export default function InvestorPage() {
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white flex items-center gap-3">
               <Shield className="w-9 h-9 text-white shrink-0" />
               Summary
-              <span className="text-xs font-semibold text-slate-500 uppercase tracking-[0.15em] self-end mb-1.5 ml-1">by InTellMe</span>
             </h1>
             <p className="text-xl text-slate-400 mt-2 font-light">
               TruVector — Trust Infrastructure for the Next Phase of AI
