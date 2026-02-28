@@ -36,14 +36,14 @@ export default function InvestorPage() {
         {/* HEADER */}
         <header className="border-b border-white/10 pb-6 mb-10 flex flex-col md:flex-row justify-between items-start gap-6 pt-8">
           <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-slate-500 font-semibold mb-2">Section 05</p>
+            <p className="text-xs uppercase tracking-[0.2em] text-slate-500 font-semibold mb-2">Section 06</p>
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white flex items-center gap-3">
               <Shield className="w-9 h-9 text-white shrink-0" />
-              TruVector Growth Path
+              Summary
               <span className="text-xs font-semibold text-slate-500 uppercase tracking-[0.15em] self-end mb-1.5 ml-1">by InTellMe</span>
             </h1>
             <p className="text-xl text-slate-400 mt-2 font-light">
-              Trust Infrastructure for the Next Phase of AI
+              TruVector — Trust Infrastructure for the Next Phase of AI
             </p>
           </div>
           <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-5 max-w-md text-sm text-slate-300 shadow-xl">
@@ -181,7 +181,7 @@ export default function InvestorPage() {
 
         </div>
 
-        <PageNav currentPath="/investors" />
+        <PageNav currentPath="/summary" />
       </div>
 
       <Footer />

@@ -7,6 +7,7 @@ import InTellMePage from './pages/InTellMePage';
 import OverviewPage from './pages/OverviewPage';
 import TechPage from './pages/TechPage';
 import EmmaPage from './pages/EmmaPage';
+import ThePlanPage from './pages/ThePlanPage';
 import InvestorPage from './pages/InvestorPage';
 
 function App() {
@@ -56,13 +57,23 @@ function App() {
             }
           />
           <Route
-            path="/investors"
+            path="/plan"
+            element={
+              <ProtectedRoute>
+                <ThePlanPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/summary"
             element={
               <ProtectedRoute>
                 <InvestorPage />
               </ProtectedRoute>
             }
           />
+          {/* Legacy redirect for old /investors links */}
+          <Route path="/investors" element={<Navigate to="/summary" replace />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AuthProvider>

@@ -6,7 +6,8 @@ const PAGES = [
   { path: '/truvector',    label: 'TruVector Overview' },
   { path: '/architecture', label: 'Technical Architecture' },
   { path: '/emma',         label: "emma's Strategic Placement" },
-  { path: '/investors',    label: 'Growth Path' },
+  { path: '/plan',         label: 'The Plan' },
+  { path: '/summary',      label: 'Summary' },
 ];
 
 const PageNav = ({ currentPath }) => {
