@@ -41,9 +41,18 @@ const Login = () => {
       
       {/* MAIN LOGIN CONTENT */}
       <div className="flex-1 flex items-center justify-center w-full relative z-10 px-4 py-12">
-        <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-12 shadow-xl w-full max-w-md">
-          <h1 className="text-center text-white mb-2 text-4xl font-extrabold tracking-tight">InTellMe</h1>
-          <h2 className="text-center text-slate-200 mb-8 font-semibold text-2xl tracking-tight">Login</h2>
+        <div className="flex flex-col items-center w-full max-w-md gap-8">
+
+          {/* HERO LOGO */}
+          <img
+            src="https://res.cloudinary.com/dksj2niho/image/upload/v1772315437/Untitled-1_z9zmgj.png"
+            alt="TruVector"
+            className="w-56 md:w-72 object-contain drop-shadow-[0_0_32px_rgba(34,211,238,0.25)]"
+          />
+
+          {/* LOGIN CARD */}
+          <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-10 shadow-xl w-full">
+          <h2 className="text-center text-slate-300 mb-8 font-semibold text-xl tracking-widest uppercase">Sign In</h2>
           
           <form onSubmit={handleSubmit}>
             <div className="mb-6">
@@ -79,9 +88,10 @@ const Login = () => {
             )}
             
             <button type="submit" className="bg-black/50 backdrop-blur-md border border-white/20 text-white px-6 py-3 rounded-lg hover:bg-white/10 hover:border-white/40 transition-all font-medium shadow-lg w-full text-base font-semibold mt-2">
-              Login
+              Sign In
             </button>
           </form>
+        </div>
         </div>
       </div>
       

@@ -4,7 +4,11 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 mb-4">
           <div>
-            <h3 className="text-white font-bold text-sm mb-2">InTellMe</h3>
+            <img
+              src="https://res.cloudinary.com/dksj2niho/image/upload/v1769967483/Image_20260130_154437_tm2bye.jpg"
+              alt="InTellMe"
+              className="h-10 w-auto object-contain mb-2"
+            />
             <p className="text-sm text-slate-400">M. Brandon Lane</p>
           </div>
           <div>
