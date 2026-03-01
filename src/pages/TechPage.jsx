@@ -41,7 +41,7 @@ export default function TechPage() {
           </div>
           <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-5 max-w-sm text-sm text-slate-300 shadow-xl">
             <strong className="text-white block mb-1">Positioning</strong>
-            InTellMe does not compete with generative models. It operates as a probabilistic arbitration layer between generation and execution.
+            TruVector does not compete with generative models. It operates as a probabilistic arbitration layer between generation and execution.
           </div>
         </header>
 
@@ -53,7 +53,7 @@ export default function TechPage() {
 
             <PosterCard title="System Overview" icon={Network} color="text-slate-300">
               <p className="mb-4 text-sm leading-relaxed">
-                InTellMe develops structured probabilistic arbitration infrastructure for AI-generated declarative outputs.
+                TruVector provides structured probabilistic arbitration infrastructure for AI-generated declarative outputs.
               </p>
               <div className="bg-black/50 border border-white/10 rounded-lg p-4 mb-4">
                 <p className="text-slate-200 font-medium text-sm">
@@ -113,7 +113,7 @@ export default function TechPage() {
                 <div className="flex flex-col">
                   <h4 className="text-emerald-300 font-semibold text-sm mb-3">6. Structured Output Artifact</h4>
                   <pre className="flex-1 bg-black/60 border border-white/10 rounded-lg p-4 font-mono text-xs text-slate-300 overflow-x-auto whitespace-pre leading-relaxed">
-                    <span className="text-slate-500">{'// Machine-readable truth object'}</span>{'\n'}
+                    <span className="text-slate-500">{'// Machine-readable arbitration object'}</span>{'\n'}
                     <span className="text-emerald-400">{'{'}</span>{'\n'}
                     {'  '}<span className="text-blue-300">"alignment_score"</span>: <span className="text-orange-300">float</span>,{'\n'}
                     {'  '}<span className="text-blue-300">"confidence_interval"</span>: <span className="text-orange-300">float</span>,{'\n'}

@@ -44,7 +44,7 @@ export default function OverviewPage() {
           </div>
           <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-5 max-w-sm text-sm text-slate-300 shadow-xl">
             <strong className="text-white block mb-1">Core Position</strong>
-            We are not building another generative model. We are building structured probabilistic arbitration infrastructure for AI-generated declarative outputs.
+            InTellMe is not building another generative model. TruVector is structured probabilistic arbitration infrastructure for AI-generated declarative outputs.
           </div>
         </header>
 
@@ -69,7 +69,7 @@ export default function OverviewPage() {
               <p className="mb-3 text-sm text-slate-300">Modern large language models:</p>
               <ul className="space-y-2 mb-4">
                 <ListItem text="Predict tokens probabilistically" />
-                <ListItem text="Do not independently verify evidentiary consistency" />
+                <ListItem text="Do not independently verify evidentiary alignment" />
                 <ListItem text="Do not track narrative mutation across time" />
                 <ListItem text="Do not quantify semantic velocity or drift" />
               </ul>
@@ -114,7 +114,7 @@ export default function OverviewPage() {
                 </div>
 
                 <pre className="flex-1 bg-black/60 border border-white/10 rounded-lg p-4 font-mono text-xs text-slate-300 overflow-x-auto whitespace-pre leading-relaxed">
-                  <span className="text-slate-500">{'// The Truth Object Payload'}</span>{'\n'}
+                  <span className="text-slate-500">{'// The Arbitration Object Payload'}</span>{'\n'}
                   <span className="text-emerald-400">{'{'}</span>{'\n'}
                   {'  '}<span className="text-blue-300">"confidence_score"</span>: <span className="text-orange-300">0.942</span>,{'\n'}
                   {'  '}<span className="text-blue-300">"supporting_evidence"</span>: [...],{'\n'}
@@ -138,7 +138,7 @@ export default function OverviewPage() {
                 <Step number="3" text="Documents retrieved from structured vector corpus" />
                 <Step number="4" text="Multiple foundation models perform cross-analysis" />
                 <Step number="5" text="Probabilistic alignment metrics are computed" />
-                <Step number="6" text="Truth Object returned & Lineage history updated" />
+                <Step number="6" text="Arbitration Object returned & Lineage history updated" />
               </div>
             </PosterCard>
           </div>

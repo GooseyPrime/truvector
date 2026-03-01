@@ -2,6 +2,7 @@ import KinematicBackground from '../components/KinematicBackground';
 import ContentNav from '../components/ContentNav';
 import Footer from '../components/Footer';
 import PageNav from '../components/PageNav';
+import { Link } from 'react-router-dom';
 import {
   Cloud,
   Zap,
@@ -41,7 +42,7 @@ export default function EmmaPage() {
           </div>
           <div className="bg-black/40 backdrop-blur-md border border-emerald-500/20 rounded-xl p-5 max-w-md text-sm text-emerald-100 shadow-xl">
             <strong className="text-white block mb-1 text-base">Core Position</strong>
-            emma is not simply hosting InTellMe. TruVector exercises the exact multi-cloud orchestration capabilities emma is built to provide.
+            emma is not simply hosting TruVector. TruVector exercises the exact multi-cloud orchestration capabilities emma is built to provide.
           </div>
         </header>
 
@@ -130,6 +131,12 @@ export default function EmmaPage() {
                 <PhaseRow number="Phase 2" text="Measured scaling and drift modeling" />
                 <PhaseRow number="Phase 3" text="Selective accelerator deployment based on benchmarks" />
               </div>
+              <div className="mt-4 text-xs text-slate-400 italic text-center">
+                For the full phased activation plan, see{' '}
+                <Link to="/plan" className="text-emerald-400 hover:text-emerald-300 transition-colors font-medium">
+                  Section 05: The Plan
+                </Link>
+              </div>
             </PosterCard>
           </div>
         </div>
@@ -196,7 +203,7 @@ export default function EmmaPage() {
           </div>
           <div className="mt-6 text-center border-t border-white/10 pt-5">
             <p className="text-base font-medium text-white">
-              InTellMe provides a high-complexity, measurable test case for emma's orchestration value.
+              TruVector provides a high-complexity, measurable test case for emma's orchestration value.
             </p>
           </div>
         </div>
