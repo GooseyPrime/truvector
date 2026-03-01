@@ -111,8 +111,7 @@ export default function InTellMePage() {
               />
               <ThoughtRow
                 icon={HeartPulse} color="text-rose-400"
-                text="Following aggressive cancer treatment and recovery..."
-                subtext="I redirected my full professional focus toward building systems that address structural weaknesses in how information is processed and acted upon."
+                text="Following aggressive cancer treatment and recovery, I redirected my full professional focus toward building systems that address structural weaknesses in how information is processed and acted upon."
               />
 
               <div className="ml-0 md:ml-9 space-y-2.5 py-1">

@@ -2,6 +2,7 @@ import KinematicBackground from '../components/KinematicBackground';
 import ContentNav from '../components/ContentNav';
 import Footer from '../components/Footer';
 import PageNav from '../components/PageNav';
+import { Link } from 'react-router-dom';
 import {
   Shield,
   Server,
@@ -21,7 +22,8 @@ import {
   AlertOctagon,
   Briefcase,
   Building,
-  Globe
+  Globe,
+  TrendingUp
 } from 'lucide-react';
 
 export default function InvestorPage() {
@@ -121,6 +123,101 @@ export default function InvestorPage() {
               TruVector reduces that risk by inserting a structured, probabilistic evaluation step{' '}
               <strong className="text-white">before execution</strong>.
             </p>
+          </div>
+        </div>
+
+        {/* MARKET POSITIONING & TEAM CREDENTIALS ROW */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+          
+          <PosterCard title="Market Positioning" icon={BarChart3} color="text-blue-400">
+            <p className="text-sm text-slate-300 leading-relaxed mb-4">
+              The AI Trust, Risk, and Security Management (AI TRiSM) market is projected to reach $4B+ by 2028. TruVector addresses the trust arbitration layer — a foundational component that does not yet have a dominant infrastructure provider.
+            </p>
+            <div className="bg-blue-500/10 border border-blue-500/20 p-4 rounded-lg">
+              <p className="text-blue-200 font-medium text-sm text-center">
+                TruVector positions itself at the intersection of AI safety, enterprise governance, and infrastructure reliability.
+              </p>
+            </div>
+          </PosterCard>
+
+          <PosterCard title="Founder & Team" icon={Briefcase} color="text-white">
+            <div className="space-y-3">
+              <div className="bg-black/50 border border-white/10 p-4 rounded-lg">
+                <p className="text-white font-bold mb-2">M. Brandon Lane — Founder & CEO</p>
+                <div className="space-y-1 text-sm text-slate-300">
+                  <p>• B.S. Chemical Engineering, Virginia Tech (2000)</p>
+                  <p>• M.S. Chemistry, UNC Greensboro (2020)</p>
+                  <p>• Co-inventor, WIPO Patent 2019/143483 (Lithium Battery Technology)</p>
+                </div>
+              </div>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                InTellMe is currently founder-led with a disciplined, systems-engineering approach to trust infrastructure development.
+              </p>
+            </div>
+          </PosterCard>
+
+        </div>
+
+        {/* WHAT TRUVECTOR IS NOT */}
+        <div className="mt-6 bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-8 shadow-xl">
+          <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+            <AlertOctagon className="w-6 h-6 text-amber-400" />
+            What TruVector Is Not
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+            <div className="bg-black/50 border border-white/10 p-4 rounded-lg">
+              <p className="text-slate-400 line-through decoration-white/30 mb-1">A generative model</p>
+              <p className="text-slate-300 text-xs">It does not generate content. It evaluates outputs from other systems.</p>
+            </div>
+            <div className="bg-black/50 border border-white/10 p-4 rounded-lg">
+              <p className="text-slate-400 line-through decoration-white/30 mb-1">A fact-checker</p>
+              <p className="text-slate-300 text-xs">It does not verify factual accuracy. It measures probabilistic alignment with evidence.</p>
+            </div>
+            <div className="bg-black/50 border border-white/10 p-4 rounded-lg">
+              <p className="text-slate-400 line-through decoration-white/30 mb-1">A truth oracle</p>
+              <p className="text-slate-300 text-xs">It does not declare absolute truth. It provides confidence metrics before execution.</p>
+            </div>
+          </div>
+          <div className="mt-6 p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-lg">
+            <p className="text-emerald-200 font-medium text-center">
+              TruVector measures probabilistic evidentiary alignment — providing a structured confidence layer before AI systems act.
+            </p>
+          </div>
+        </div>
+
+        {/* ACTIVATION SUMMARY */}
+        <div className="mt-6 bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow-xl">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-bold text-white flex items-center gap-2">
+              <TrendingUp className="w-5 h-5 text-emerald-400" />
+              Activation Roadmap
+            </h2>
+            <Link 
+              to="/plan" 
+              className="text-sm text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1"
+            >
+              View Full Plan <span className="text-lg">→</span>
+            </Link>
+          </div>
+          <p className="text-sm text-slate-300 mb-4">
+            TruVector activates through a modular, three-phase deployment model designed for progressive capability expansion:
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="bg-black/50 border border-white/10 p-4 rounded-lg">
+              <p className="text-emerald-400 font-bold text-xs uppercase tracking-wider mb-2">Phase I</p>
+              <p className="text-sm text-slate-300">Core Arbitration Engine</p>
+              <p className="text-xs text-slate-500 mt-1">Baseline deployment readiness</p>
+            </div>
+            <div className="bg-black/50 border border-white/10 p-4 rounded-lg">
+              <p className="text-emerald-400 font-bold text-xs uppercase tracking-wider mb-2">Phase II</p>
+              <p className="text-sm text-slate-300">Model Triangulation</p>
+              <p className="text-xs text-slate-500 mt-1">Expanded robustness & drift tracking</p>
+            </div>
+            <div className="bg-black/50 border border-white/10 p-4 rounded-lg">
+              <p className="text-emerald-400 font-bold text-xs uppercase tracking-wider mb-2">Phase III</p>
+              <p className="text-sm text-slate-300">Scalable Infrastructure</p>
+              <p className="text-xs text-slate-500 mt-1">Full institutional deployment</p>
+            </div>
           </div>
         </div>
 

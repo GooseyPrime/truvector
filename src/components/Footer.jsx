@@ -35,10 +35,10 @@ const Footer = () => {
           {/* RIGHT: Quote */}
           <div className="flex flex-col items-end text-right gap-1">
             <p className="text-slate-300 text-sm italic leading-relaxed">
-              "Synergy – the bonus that is achieved when things work together harmoniously"
+              "The man of science has learned to believe in justification, not by faith, but by verification."
             </p>
             <p className="text-slate-500 text-xs font-medium tracking-widest uppercase mt-1">
-              — Mark Twain
+              — Thomas H. Huxley, 1866
             </p>
           </div>
 
