@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import ScrollToTop from './components/ScrollToTop';
 import Login from './pages/Login';
 import Index from './pages/Index';
 import InTellMePage from './pages/InTellMePage';
@@ -13,6 +14,7 @@ import InvestorPage from './pages/InvestorPage';
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <AuthProvider>
         <Routes>
           <Route path="/login" element={<Login />} />
