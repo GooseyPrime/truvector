@@ -2,6 +2,7 @@ import KinematicBackground from '../components/KinematicBackground';
 import ContentNav from '../components/ContentNav';
 import Footer from '../components/Footer';
 import PageNav from '../components/PageNav';
+import { Link } from 'react-router-dom';
 import {
   Cloud,
   Zap,
@@ -129,6 +130,12 @@ export default function EmmaPage() {
                 <PhaseRow number="Phase 1" text="Baseline ingestion and arbitration pilot" />
                 <PhaseRow number="Phase 2" text="Measured scaling and drift modeling" />
                 <PhaseRow number="Phase 3" text="Selective accelerator deployment based on benchmarks" />
+              </div>
+              <div className="mt-4 text-xs text-slate-400 italic text-center">
+                For the full phased activation plan, see{' '}
+                <Link to="/plan" className="text-emerald-400 hover:text-emerald-300 transition-colors font-medium">
+                  Section 05: The Plan
+                </Link>
               </div>
             </PosterCard>
           </div>
