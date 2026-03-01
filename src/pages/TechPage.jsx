@@ -102,7 +102,7 @@ export default function TechPage() {
                   </div>
                   <div className="border-l-2 border-emerald-500/70 pl-4">
                     <h4 className="text-emerald-400 font-semibold text-sm mb-1">4. Cross-Model Arbitration</h4>
-                    <p className="text-xs text-slate-400">Multi-model triangulation &bull; Divergence scoring &bull; Confidence aggregation.</p>
+                    <p className="text-xs text-slate-400">Multi-model triangulation &bull; Quorum-based tail-latency hedging (N+1) &bull; Divergence scoring &bull; Confidence aggregation.</p>
                   </div>
                   <div className="border-l-2 border-emerald-500 pl-4">
                     <h4 className="text-emerald-400 font-semibold text-sm mb-1">5. Alignment Computation</h4>

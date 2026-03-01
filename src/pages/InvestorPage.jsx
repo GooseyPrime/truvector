@@ -205,18 +205,18 @@ export default function InvestorPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             <div className="bg-black/50 border border-white/10 p-4 rounded-lg">
               <p className="text-emerald-400 font-bold text-xs uppercase tracking-wider mb-2">Phase I</p>
-              <p className="text-sm text-slate-300">Core Arbitration Engine</p>
-              <p className="text-xs text-slate-500 mt-1">Baseline deployment readiness</p>
+              <p className="text-sm text-slate-300">Core Arbitration Engine (Operational Activation)</p>
+              <p className="text-xs text-emerald-400/70 font-mono mt-1.5">10k–50k assertions / month</p>
             </div>
             <div className="bg-black/50 border border-white/10 p-4 rounded-lg">
               <p className="text-emerald-400 font-bold text-xs uppercase tracking-wider mb-2">Phase II</p>
-              <p className="text-sm text-slate-300">Model Triangulation</p>
-              <p className="text-xs text-slate-500 mt-1">Expanded robustness & drift tracking</p>
+              <p className="text-sm text-slate-300">Multi-Model Triangulation Layer (Resilience)</p>
+              <p className="text-xs text-emerald-400/70 font-mono mt-1.5">50k–250k assertions / month</p>
             </div>
             <div className="bg-black/50 border border-white/10 p-4 rounded-lg">
               <p className="text-emerald-400 font-bold text-xs uppercase tracking-wider mb-2">Phase III</p>
-              <p className="text-sm text-slate-300">Scalable Infrastructure</p>
-              <p className="text-xs text-slate-500 mt-1">Full institutional deployment</p>
+              <p className="text-sm text-slate-300">Governance & Scale Infrastructure (Institutional Readiness)</p>
+              <p className="text-xs text-emerald-400/70 font-mono mt-1.5">250k–1M+ assertions / month</p>
             </div>
           </div>
         </div>
