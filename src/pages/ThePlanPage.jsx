@@ -281,6 +281,22 @@ export default function ThePlanPage() {
                         <li className="flex items-start gap-3"><ArrowRight className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" /> Progressive scale without architectural redesign</li>
                       </ul>
                     </div>
+                    <div className="pt-6 border-t border-white/10">
+                      <h3 className="text-xs uppercase tracking-widest font-bold text-amber-400 mb-4">API Monetization Tiers</h3>
+                      <div className="space-y-3 text-sm">
+                        <div className="border-l-2 border-slate-500/50 pl-3 py-1">
+                          <h4 className="text-white font-semibold text-xs mb-0.5">Standard Arbitration</h4>
+                          <p className="text-slate-400 text-xs leading-snug">3-model consensus, standard pricing.</p>
+                        </div>
+                        <div className="border-l-2 border-amber-500/60 pl-3 py-1">
+                          <h4 className="text-amber-300 font-semibold text-xs mb-0.5">Mission-Critical Tier</h4>
+                          <p className="text-slate-400 text-xs leading-snug">N+1 quorum routing (4→3), tail-latency elimination for autonomous execution; premium API margin.</p>
+                        </div>
+                        <div className="bg-amber-500/8 border border-amber-500/20 px-3 py-2 rounded-lg text-xs text-amber-200/70 leading-snug">
+                          Guardrail: capability floor prevents latency-driven bias.
+                        </div>
+                      </div>
+                    </div>
                     <div className="bg-indigo-500/10 border border-indigo-500/30 p-5 rounded-xl shadow-inner text-center">
                       <p className="text-sm text-indigo-200 font-medium leading-relaxed">
                         Credits accelerate scale and ensemble resilience.

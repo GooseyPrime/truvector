@@ -127,9 +127,24 @@ export default function EmmaPage() {
                 emma's credits would not be used for uncontrolled compute burn. They are applied through a staged, performance-driven deployment model:
               </p>
               <div className="space-y-2.5">
-                <PhaseRow number="Phase 1" text="Baseline ingestion and arbitration pilot" />
-                <PhaseRow number="Phase 2" text="Measured scaling and drift modeling" />
-                <PhaseRow number="Phase 3" text="Selective accelerator deployment based on benchmarks" />
+                <PhaseRow
+                  number="Phase I"
+                  text="Core Arbitration Engine (Operational Activation)"
+                  volume="10k–50k evaluated assertions / month"
+                  tags={["Embeddings", "Vector Retrieval", "Scoring", "Telemetry"]}
+                />
+                <PhaseRow
+                  number="Phase II"
+                  text="Multi-Model Triangulation Layer (Resilience)"
+                  volume="50k–250k evaluated assertions / month"
+                  tags={["Parallel Inference", "Cross-Model Compare", "Disagreement Scoring", "Drift"]}
+                />
+                <PhaseRow
+                  number="Phase III"
+                  text="Governance & Scale Infrastructure (Institutional Readiness)"
+                  volume="250k–1M+ evaluated assertions / month"
+                  tags={["Batch Ingestion", "Authority Recalibration", "Multi-tenant Endpoints", "Audit Reporting"]}
+                />
               </div>
               <div className="mt-4 text-xs text-slate-400 italic text-center">
                 For the full phased activation plan, see{' '}
@@ -173,12 +188,17 @@ export default function EmmaPage() {
               <FeatureRow
                 number="3"
                 title="Elastic Compute Aggregation"
-                desc="Access to CPU and GPU resources across providers through unified orchestration."
+                desc="Elastic compute aggregation (CPU-first, accelerators where needed) across providers through unified orchestration."
               />
               <FeatureRow
                 number="4"
                 title="Governance Enforcement"
                 desc="Infrastructure-as-code integration with standardized policy enforcement."
+              />
+              <FeatureRow
+                number="5"
+                title="Dynamic Quorum Routing (Tail-Latency Hedging)"
+                desc="emma allows TruVector to route arbitration to N+1 model endpoints and accept a quorum response set to eliminate tail latency for mission-critical tiers, while enforcing a capability floor to prevent latency-driven bias."
               />
             </div>
           </PosterCard>
@@ -230,13 +250,25 @@ function PosterCard({ title, icon: Icon, color, children, className = '' }) {
   );
 }
 
-function PhaseRow({ number, text }) {
+function PhaseRow({ number, text, volume, tags }) {
   return (
-    <div className="flex items-center gap-4 bg-black/50 border border-white/10 p-3 rounded-lg hover:bg-black/70 transition-all">
-      <div className="bg-black/60 border border-amber-500/30 text-amber-400 font-bold px-3 py-1 rounded-lg text-xs shrink-0">
+    <div className="flex items-start gap-4 bg-black/50 border border-white/10 p-3 rounded-lg hover:bg-black/70 transition-all">
+      <div className="bg-black/60 border border-amber-500/30 text-amber-400 font-bold px-3 py-1 rounded-lg text-xs shrink-0 mt-0.5">
         {number}
       </div>
-      <p className="text-sm text-slate-200">{text}</p>
+      <div>
+        <p className="text-sm text-slate-200">{text}</p>
+        {volume && <p className="text-xs text-amber-400/70 mt-0.5 font-mono">{volume}</p>}
+        {tags && (
+          <div className="flex flex-wrap gap-1 mt-1.5">
+            {tags.map(tag => (
+              <span key={tag} className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 border border-amber-500/20 text-amber-300/80 font-medium">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
