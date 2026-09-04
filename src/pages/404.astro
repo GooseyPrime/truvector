@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Not found — TruVector" description="That page does not exist." path="/404" noindex={true}>
+  <section class="room" style="min-height:70svh;display:flex;align-items:center">
+    <div class="suite suite--flagship">
+      <p class="kicker">404</p>
+      <h1 class="suite-title" style="max-width:20ch">That page does not exist.</h1>
+      <hr class="rule--champagne" style="margin-top:32px" />
+      <p class="hero-support" style="margin-top:28px">The link may be old, or the address mistyped.</p>
+      <div class="actions" style="margin-top:36px">
+        <a class="btn btn--primary" href="/">Front page</a>
+        <a class="btn btn--secondary" href="/technology">Technology</a>
+        <a class="btn btn--tertiary" href="/investors">Investors</a>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,31 @@
+---
+// Evaluated at build time, so a redeploy keeps this current without an edit.
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="suite suite--flagship">
+    <div class="footer__top">
+      <div>
+        <span class="footer__line">Evidence before execution.</span>
+        <p class="caption" style="margin-top:10px">TruVector is a research programme and product of InTellMe, the trade name of a sole proprietorship owned and operated by Michael Brandon Lane.<br />Johnson City, Tennessee</p>
+      </div>
+      <nav aria-label="Footer">
+        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px 26px">
+          <li><a class="footer__nav-link" href="/technology">Technology</a></li>
+          <li><a class="footer__nav-link" href="/roadmap">Roadmap</a></li>
+          <li><a class="footer__nav-link" href="/investors">Investors</a></li>
+          <li><a class="footer__nav-link" href="https://www.intellmeai.com/" rel="noopener">InTellMe</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer__legal">
+      <span>&copy; {year} InTellMe</span>
+      <a href="https://www.intellmeai.com/privacy" rel="noopener">Privacy</a>
+      <a href="https://www.intellmeai.com/terms" rel="noopener">Terms</a>
+      <a href="mailto:brandon@intellmeai.com">brandon@intellmeai.com</a>
+      <a href="mailto:security@intellmeai.com">security@intellmeai.com</a>
+      <a href="https://www.intellmeai.com/accessibility" rel="noopener">Accessibility</a>
+      <a href="https://github.com/GooseyPrime" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</footer>

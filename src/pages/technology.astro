@@ -1,0 +1,163 @@
+---
+import Base from '../layouts/Base.astro';
+
+// Every stage carries the state of the capability it depends on, so the
+// pipeline cannot be read as fully operational when parts of it are not.
+const stages = [
+  { n: '01', name: 'Input',
+    state: 'Implemented',
+    body: 'The assertion under evaluation, with the context that qualifies it: where it came from, when, in what domain, and from which model.' },
+  { n: '02', name: 'Semantic encoding',
+    state: 'Implemented',
+    body: 'Embedding generation, token normalisation, and domain tagging, so the assertion can be compared against a corpus rather than against a prompt.' },
+  { n: '03', name: 'Evidence retrieval',
+    state: 'Implemented',
+    body: 'Nearest-neighbour search over structured corpora, with time-indexed filtering. Retrieval runs; the weighting applied to what comes back is where the open questions start.' },
+  { n: '04', name: 'Independence and contradiction',
+    state: 'Under validation',
+    body: 'Two sources that agree because they share an origin are not two confirmations. Detecting that, and detecting outright disagreement, both work and are measured. What is not settled is calibration — how much a given degree of shared origin should discount a match.' },
+  { n: '05', name: 'Quorum',
+    state: 'Planned',
+    body: 'How much independent agreement a claim must carry before it may pass, scaled to what acting on it would cost. The rule is specified and the interface is defined. It is not built, and nothing in production depends on it yet.' },
+  { n: '06', name: 'Kinematic signals',
+    state: 'Hypothesis',
+    body: 'Whether a claim’s movement through the evidence over time — how fast it spreads, how its support shifts — is itself a reliable signal. This is the research question, stated as a hypothesis with a way to be wrong, not as a feature.' },
+  { n: '07', name: 'Evidence object',
+    state: 'Implemented',
+    body: 'The structured result a downstream system reads: the decision, the supporting and contradicting evidence, the uncertainty, and the path taken to reach it. Schema and boundary are fixed and running.' }
+];
+---
+<Base
+  title="Technology — TruVector"
+  description="How TruVector evaluates an assertion before a downstream system acts: the pipeline stage by stage, what runs today, what is specified but unbuilt, and what remains a stated hypothesis."
+  path="/technology"
+>
+
+  <section class="room" style="padding-top:96px;padding-bottom:56px" aria-labelledby="tech-title">
+    <div class="suite suite--flagship">
+      <p class="kicker">Technology</p>
+      <h1 class="suite-title" id="tech-title" style="max-width:24ch">An evidentiary checkpoint between generation and execution.</h1>
+      <hr class="rule--champagne" style="margin-top:32px" />
+      <p class="hero-support" style="margin-top:28px">TruVector performs post-generation evaluation of a declarative output against structured evidence, and returns a machine-readable object describing the decision and how it was reached. No deterministic truth certification is performed. Every output is probabilistic and auditable.</p>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <section class="room" id="pipeline" aria-labelledby="pipeline-title">
+    <div class="suite suite--flagship">
+      <p class="kicker">Pipeline</p>
+      <h2 class="suite-title reveal" id="pipeline-title">Seven stages, each with its own state.</h2>
+      <p class="lede reveal" style="margin-top:20px;max-width:62ch">A diagram of an intended architecture is easy to mistake for a description of a working one. Each stage below is labelled with what is actually true of it today.</p>
+
+      <ul class="rail reveal" style="margin-top:48px">
+        {stages.map((s) => (
+          <li>
+            <div class="product__meta" style="margin-bottom:8px">
+              <span class="rail__name"><span style="color:var(--stone-text);font-family:var(--label);font-size:12px;letter-spacing:.1em;margin-right:12px">{s.n}</span>{s.name}</span>
+              <span class="badge">{s.state}</span>
+            </div>
+            <span class="rail__note">{s.body}</span>
+          </li>
+        ))}
+      </ul>
+
+      <p class="caption reveal" style="margin-top:32px;max-width:64ch">Stages 01 through 03 and stage 07 run today. Stage 04 runs and is being calibrated. Stage 05 is specified and unbuilt. Stage 06 is a research hypothesis. A deployment today is stages 01–04 and 07.</p>
+    </div>
+  </section>
+
+  <section class="room room--alt" id="artifact" aria-labelledby="artifact-title">
+    <div class="suite suite--flagship">
+      <p class="kicker">Output</p>
+      <h2 class="suite-title reveal" id="artifact-title">What a downstream system actually reads.</h2>
+      <p class="reveal" style="margin-top:20px;max-width:60ch">The evidence object is the contract. It is stable, versioned, and designed to be logged — so that months later a reviewer can reconstruct not just what was decided but what it was decided on.</p>
+
+      <div class="reveal artifact" style="margin-top:40px">
+        <pre><code>{`{
+  "decision":              "allow" | "review" | "block",
+  "alignment_score":       float,
+  "confidence_interval":   [float, float],
+  "supporting_evidence":   [ ... ],
+  "contradictory_evidence":[ ... ],
+  "independence":          { "shared_origin_discount": float },
+  "decision_path":         [ ... ],
+  "timestamp":             "ISO 8601"
+}`}</code></pre>
+      </div>
+      <p class="caption reveal" style="margin-top:20px;max-width:60ch">Fields that depend on unbuilt stages are absent rather than defaulted. A consumer can tell the difference between “no disagreement was found” and “disagreement was not evaluated”.</p>
+    </div>
+  </section>
+
+  <section class="room" id="positioning" aria-labelledby="pos-title">
+    <div class="suite suite--flagship">
+      <p class="kicker">Prior work</p>
+      <h2 class="suite-title reveal" id="pos-title">Where this sits against published work.</h2>
+      <div class="flagship reveal" style="margin-top:44px">
+        <div class="flagship__pane">
+          <p class="lede">Pre-execution gating for AI systems is an active area, and there is published work describing an Allow / Deny / Escalate decision in front of an agent’s action. Two of those decisions look alike from the outside.</p>
+          <p><strong>They are not the same decision.</strong> The published approaches ask a permission question: is this actor allowed to take this action, under this policy? The answer is a lookup, and it is right or wrong.</p>
+        </div>
+        <div class="flagship__pane">
+          <p>TruVector asks an evidentiary question: given conflicting sources of unequal independence, how well supported is the assertion this action rests on — and is that support enough for what the action would cost? The answer is a judgement under uncertainty, and it carries its own error bar.</p>
+          <p>Policy gating and evidential adjudication compose. A system can want both, and neither substitutes for the other.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="room room--alt" id="operating" aria-labelledby="op-title">
+    <div class="suite suite--flagship">
+      <p class="kicker">Operating profile</p>
+      <h2 class="suite-title reveal" id="op-title">What running this actually costs.</h2>
+      <div class="tracks reveal">
+        <div class="track">
+          <h3 class="room-title">Workload shape</h3>
+          <ul>
+            <li>API-driven, request-scoped, no long-running state</li>
+            <li>Retrieval-intensive; embedding generation bounded and cacheable</li>
+            <li>Latency sensitive, because it sits in front of an action</li>
+            <li>Cross-model inference once triangulation is built</li>
+          </ul>
+        </div>
+        <div class="track">
+          <h3 class="room-title">Cost discipline</h3>
+          <ul>
+            <li>Embeddings reused rather than regenerated</li>
+            <li>Retrieval cached where the corpus is stable</li>
+            <li>Ingestion cadence controlled rather than continuous</li>
+            <li>Measured as cost per assertion, so scale stays legible</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="room" aria-labelledby="tech-cta">
+    <div class="suite suite--flagship">
+      <h2 class="suite-title reveal" id="tech-cta" style="font-size:1.6rem">The technical brief goes further than this page.</h2>
+      <p class="reveal" style="margin-top:16px;max-width:56ch">Evaluation protocol, corpus construction, calibration method, and the failure conditions for each hypothesis. Sent on request.</p>
+      <div class="actions reveal" style="margin-top:32px">
+        <a class="btn btn--primary" href="/investors#request">Request the technical brief</a>
+      </div>
+    </div>
+  </section>
+
+</Base>
+
+<style>
+  .artifact {
+    border: 1px solid var(--bronze-edge);
+    background: var(--smoked-bronze);
+    border-radius: 1px;
+    padding: 24px;
+    overflow-x: auto;
+  }
+  .artifact pre { margin: 0; }
+  .artifact code {
+    font-family: var(--label);
+    font-size: 13px;
+    line-height: 1.75;
+    color: var(--parchment);
+    white-space: pre;
+  }
+</style>

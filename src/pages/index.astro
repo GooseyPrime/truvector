@@ -1,0 +1,133 @@
+---
+import Base from '../layouts/Base.astro';
+
+// The six capability states are the same set published on intellmeai.com.
+// They are written once, here, so the two sites cannot drift apart.
+const capabilities = [
+  { name: 'Evidence object and decision path',
+    state: 'Implemented',
+    note: 'The structured result a downstream system reads, and the Allow · Review · Block boundary it obeys. Schema and boundary are fixed and running.' },
+  { name: 'Contradiction and divergence',
+    state: 'Under validation',
+    note: 'Detecting that sources disagree, and carrying that disagreement into the decision instead of averaging it away. Detectable and measured; calibration is not settled.' },
+  { name: 'Independence-aware evidence',
+    state: 'Under validation',
+    note: 'Discounting agreement between sources that share an origin, so that one claim repeated five times does not score as five confirmations.' },
+  { name: 'Quorum',
+    state: 'Planned',
+    note: 'The rule that decides how much independent agreement a claim needs before it may pass, given what acting on it would cost. Specified, not built.' },
+  { name: 'AHE / HRA',
+    state: 'Hypothesis',
+    note: 'Adjudication under conflicting evidence where no source is authoritative. Stated as a claim with a stated way to be wrong, and not yet demonstrated.' },
+  { name: 'Kinematic validation',
+    state: 'Hypothesis',
+    note: 'Treating a claim’s movement through evidence over time as a signal in its own right. The most speculative element here, and the reason the research is research.' }
+];
+const key = [
+  ['Implemented', 'runs, and measured'],
+  ['Under validation', 'protocol written, results partial'],
+  ['Planned', 'specified, not built'],
+  ['Hypothesis', 'a claim with a stated way to be wrong']
+];
+---
+<Base
+  title="TruVector — Evidence before execution"
+  description="TruVector evaluates an AI assertion before a downstream system acts on it, and keeps the evidence, the disagreement, and the reasoning attached to the result. What is built and what is not, stated capability by capability."
+  path="/"
+>
+
+  <section class="hero" aria-labelledby="hero-line">
+    <div class="hero__veil" aria-hidden="true"></div>
+    <div class="suite suite--flagship hero__inner">
+      <p class="kicker">Pre-execution arbitration</p>
+      <h1 class="hero-line" id="hero-line">A system about to act on an assertion should be able to show its work first.</h1>
+      <hr class="rule--champagne" />
+      <p class="hero-support">TruVector sits between an AI system’s assertion and the action taken on it. It returns a structured judgement — Allow, Review, or Block — with the evidence, the disagreement, and the reasoning still attached, so a person can follow afterwards how the decision was reached.</p>
+      <div class="actions">
+        <a class="btn btn--primary" href="#capabilities">What is built</a>
+        <a class="btn btn--secondary" href="/technology">Technical detail</a>
+        <a class="btn btn--tertiary" href="/investors">Investor overview <span class="arrow" aria-hidden="true">&#8594;</span></a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <section class="room" id="problem" aria-labelledby="problem-title">
+    <div class="suite suite--flagship">
+      <p class="kicker">The problem</p>
+      <h2 class="suite-title reveal" id="problem-title">Consequential actions are taken on untraceable assertions.</h2>
+      <div class="flagship reveal" style="margin-top:48px">
+        <div class="flagship__pane">
+          <p class="lede">As AI systems move from producing text to executing work — drafting policy, moving money, filing records, calling other systems — the operational question changes.</p>
+          <p>It stops being <em>did the model say something wrong</em> and becomes <em>did the system act on something unreliable</em>. Those are different failures with different costs, and only the second one shows up in an incident report.</p>
+        </div>
+        <div class="flagship__pane">
+          <p>Most of the surrounding tooling improves generation. Very little sits between the assertion and the action, and almost none of it leaves a record a reviewer can follow afterwards.</p>
+          <p>TruVector is built for that gap. It does not generate, it does not certify truth, and it does not rank sources by reputation. It measures how well an assertion is supported by evidence, and says so in a form a machine can act on and a person can audit.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="room room--alt" id="capabilities" aria-labelledby="cap-title">
+    <div class="suite suite--flagship">
+      <p class="kicker">Status</p>
+      <h2 class="suite-title reveal" id="cap-title">What is built, and what is not.</h2>
+      <p class="lede reveal" style="margin-top:20px;max-width:62ch">Each capability below carries its own state. Nothing is described as finished because the architecture calls for it, and the two unproven claims are named as unproven rather than buried. This is the same table published on the InTellMe parent site; if the two ever disagree, this one is wrong.</p>
+
+      <ul class="rail reveal" style="margin-top:48px">
+        {capabilities.map((c) => (
+          <li>
+            <div class="product__meta" style="margin-bottom:8px">
+              <span class="rail__name">{c.name}</span>
+              <span class="badge">{c.state}</span>
+            </div>
+            <span class="rail__note">{c.note}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div class="reveal" style="margin-top:44px;padding-top:28px;border-top:1px solid var(--bronze-edge)">
+        <h3 class="room-title" style="font-size:1.1rem">What each state obligates</h3>
+        <ul class="facts" style="margin-top:16px">
+          {key.map(([k, v]) => <li><strong>{k}</strong> &mdash; {v}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="room" id="not" aria-labelledby="not-title">
+    <div class="suite suite--flagship">
+      <p class="kicker">Boundaries</p>
+      <h2 class="suite-title reveal" id="not-title">Three things TruVector is not.</h2>
+      <ul class="rail reveal" style="margin-top:44px">
+        <li>
+          <span class="rail__name">Not a generative model</span>
+          <span class="rail__note">It produces no content of its own. It evaluates output that other systems produced, and it does not compete with the models it reads.</span>
+        </li>
+        <li>
+          <span class="rail__name">Not a fact-checker</span>
+          <span class="rail__note">It does not establish whether a statement is true. It measures how strongly the available evidence supports it, and reports where that evidence conflicts.</span>
+        </li>
+        <li>
+          <span class="rail__name">Not a truth oracle</span>
+          <span class="rail__note">Every output is probabilistic and carries its own uncertainty. A system that claimed certainty here would be making exactly the error this one exists to catch.</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="room room--alt" id="contact" aria-labelledby="contact-title">
+    <div class="suite suite--flagship">
+      <p class="kicker">Contact</p>
+      <h2 class="suite-title reveal" id="contact-title">Talk to the person who built it.</h2>
+      <p class="reveal" style="margin-top:20px;max-width:56ch">Technical questions, research correspondence, and pilot conversations all reach the same inbox, and the reply comes from the engineer rather than a form.</p>
+      <div class="actions reveal" style="margin-top:36px">
+        <a class="btn btn--primary" href="/investors#request">Request materials</a>
+        <a class="btn btn--secondary" href="mailto:brandon@intellmeai.com">brandon@intellmeai.com</a>
+      </div>
+    </div>
+  </section>
+
+</Base>
