@@ -1,0 +1,204 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base
+  title="Investor Overview — TruVector"
+  description="TruVector is pre-execution evidentiary arbitration for AI systems. Thesis, what is built, what is not, how the work is staged, and how to request materials."
+  path="/investors"
+>
+
+  <section class="room" style="padding-top:96px;padding-bottom:56px" aria-labelledby="inv-title">
+    <div class="suite suite--flagship">
+      <p class="kicker">Investor overview</p>
+      <h1 class="suite-title" id="inv-title" style="max-width:23ch">The layer that decides whether an assertion is good enough to act on.</h1>
+      <hr class="rule--champagne" style="margin-top:32px" />
+      <p class="hero-support" style="margin-top:28px">TruVector is the core research programme of InTellMe. It evaluates an AI-generated assertion against structured evidence before a downstream system acts, and returns a judgement a machine can obey and a person can audit.</p>
+      <div class="actions" style="margin-top:36px">
+        <a class="btn btn--primary" href="#request">Request materials</a>
+        <a class="btn btn--secondary" href="#thesis">Read the thesis</a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <section class="room" id="thesis" aria-labelledby="thesis-title">
+    <div class="suite suite--flagship">
+      <p class="kicker">Thesis</p>
+      <h2 class="suite-title reveal" id="thesis-title">The enterprise risk has moved, and the tooling has not.</h2>
+      <div class="flagship reveal" style="margin-top:44px">
+        <div class="flagship__pane">
+          <p class="lede">While AI systems only wrote text, the exposure was reputational and a human read the output before anything happened. As those systems begin to execute — filing, transacting, configuring, calling other systems — the exposure becomes operational and legal, and the human review step is exactly what was removed to justify the deployment.</p>
+          <p>The question stops being whether the model said something wrong and becomes whether the system acted on something unreliable.</p>
+        </div>
+        <div class="flagship__pane">
+          <p>Almost all investment in this space improves generation. Guardrails, evaluations, and observability all sit either side of the model. Very little sits in the path of the action itself, and what does is policy gating — a permission lookup, not an evidentiary judgement.</p>
+          <p>TruVector occupies that position. It is infrastructure rather than an application, which makes it slower to prove and considerably harder to displace once it is depended on.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="room room--alt" id="state" aria-labelledby="state-title">
+    <div class="suite suite--flagship">
+      <p class="kicker">Where the work stands</p>
+      <h2 class="suite-title reveal" id="state-title">Stated plainly, because it will be checked.</h2>
+      <ul class="rail reveal" style="margin-top:44px">
+        <li>
+          <div class="product__meta" style="margin-bottom:8px">
+            <span class="rail__name">Running today</span>
+            <span class="badge">Implemented</span>
+          </div>
+          <span class="rail__note">Assertions are evaluated against a structured corpus and returned as an evidence object carrying the decision, the supporting and contradicting evidence, and the path taken to reach it. The Allow · Review · Block boundary is fixed and enforced.</span>
+        </li>
+        <li>
+          <div class="product__meta" style="margin-bottom:8px">
+            <span class="rail__name">Measured, not yet calibrated</span>
+            <span class="badge">Under validation</span>
+          </div>
+          <span class="rail__note">Disagreement between sources is detected and carried into the decision rather than averaged away, and agreement between sources sharing an origin is discounted. Both work. How much weight each should carry is the open question.</span>
+        </li>
+        <li>
+          <div class="product__meta" style="margin-bottom:8px">
+            <span class="rail__name">Specified, not built</span>
+            <span class="badge">Planned</span>
+          </div>
+          <span class="rail__note">Quorum — how much independent agreement a claim must carry before it may pass, scaled to what acting on it would cost. The rule and the interface exist. Nothing depends on it yet.</span>
+        </li>
+        <li>
+          <div class="product__meta" style="margin-bottom:8px">
+            <span class="rail__name">Research, honestly labelled</span>
+            <span class="badge">Hypothesis</span>
+          </div>
+          <span class="rail__note">Adjudication where no source is authoritative, and whether a claim’s movement through evidence over time is itself a reliable signal. Each is stated as a claim with a stated way to be wrong. Neither is demonstrated, and the programme is the attempt to demonstrate them.</span>
+        </li>
+      </ul>
+      <p class="caption reveal" style="margin-top:32px;max-width:64ch">The full six-capability table, with the state of each, is on the <a href="/">front page</a> and on the InTellMe parent site. It is the same table in both places by construction.</p>
+    </div>
+  </section>
+
+  <section class="room" id="why" aria-labelledby="why-title">
+    <div class="suite suite--flagship">
+      <p class="kicker">Why this team</p>
+      <h2 class="suite-title reveal" id="why-title">Measurement is the discipline, not a metaphor.</h2>
+      <div class="flagship reveal" style="margin-top:44px">
+        <div class="flagship__pane">
+          <p class="lede">TruVector is built and run by Michael Brandon Lane, from Johnson City, Tennessee.</p>
+          <p>His training is in chemical engineering and chemistry, where a number is worth nothing until you can say how it was measured and within what error. That is the entire thesis of this product, applied to a different substrate.</p>
+          <ul class="facts" style="margin-top:24px">
+            <li>B.S. Chemical Engineering, Virginia Tech</li>
+            <li>M.S. Chemistry, University of North Carolina at Greensboro</li>
+            <li>Co-inventor, WIPO patent 2019/143483, lithium battery separator technology</li>
+          </ul>
+        </div>
+        <div class="flagship__pane">
+          <p>He is the only engineer on this work. It has been self-funded throughout, and built in public — the surrounding products under InTellMe were shipped by the same person and are visible and usable today.</p>
+          <p>What that buys: a very short line between a decision and a deployed change, and a founder who finishes things without a budget. What it costs: bandwidth, and no commercial function. Both are named in the use of funds rather than papered over.</p>
+          <ul class="facts" style="margin-top:24px">
+            <li>Parent company &mdash; <a href="https://www.intellmeai.com/" rel="noopener">intellmeai.com</a></li>
+            <li>Public code &mdash; <a href="https://github.com/GooseyPrime" rel="noopener">github.com/GooseyPrime</a></li>
+            <li>Direct &mdash; <a href="mailto:brandon@intellmeai.com">brandon@intellmeai.com</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="room room--alt" id="position" aria-labelledby="pos-title">
+    <div class="suite suite--flagship">
+      <p class="kicker">Company position</p>
+      <h2 class="suite-title reveal" id="pos-title">Pre-revenue, self-funded, no cap table.</h2>
+      <p class="reveal" style="margin-top:20px;max-width:62ch">InTellMe is the trade name under which Michael Brandon Lane, a sole proprietor in Johnson City, Tennessee, develops and operates its products. Development to date has been self-funded. There is no outside capital, no debt, and no cap table, and a Tennessee entity would be formed in connection with a first close.</p>
+      <p class="reveal" style="max-width:62ch">TruVector is pre-revenue. What exists is shipped software and a technical thesis, not a customer base, and nothing on this site is presented as traction.</p>
+      <p class="caption reveal" style="margin-top:28px;max-width:62ch">Capital requirements, capacity targets, and cost-per-assertion figures are in the materials rather than on this page.</p>
+    </div>
+  </section>
+
+  <section class="room" id="request" aria-labelledby="request-title">
+    <div class="suite">
+      <p class="kicker">Request</p>
+      <h2 class="suite-title reveal" id="request-title">Request investor materials.</h2>
+      <p class="reveal" style="margin-top:20px;max-width:56ch">The technical brief, evaluation protocol, roadmap with figures, use of funds, and IP position are sent after review. Nothing is attached automatically, and there is no gate to guess your way past — the material goes to people who ask.</p>
+
+      <form class="form reveal" id="investor-form" method="post" action="/api/investor-request">
+        <input type="hidden" name="_started" id="_started" value="" />
+        <input type="hidden" name="found" value="truvector.science" />
+        <div class="hp" aria-hidden="true">
+          <label for="company_website">Company website</label>
+          <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div class="field">
+          <label for="name">Name <span class="req">(required)</span></label>
+          <input type="text" id="name" name="name" required autocomplete="name" />
+        </div>
+        <div class="field">
+          <label for="email">Email <span class="req">(required)</span></label>
+          <input type="email" id="email" name="email" required autocomplete="email" />
+        </div>
+        <div class="field">
+          <label for="organization">Organization</label>
+          <input type="text" id="organization" name="organization" autocomplete="organization" />
+        </div>
+        <div class="field">
+          <label for="role">Role</label>
+          <input type="text" id="role" name="role" autocomplete="organization-title" />
+        </div>
+        <div class="field field--wide">
+          <label for="want">What you are looking for</label>
+          <select id="want" name="want">
+            <option value="Technical brief" selected>Technical brief</option>
+            <option value="Investor materials">Investor materials</option>
+            <option value="Research correspondence">Research correspondence</option>
+            <option value="Pilot conversation">Pilot conversation</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="field field--wide">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5"></textarea>
+        </div>
+
+        <div class="field--wide actions" style="margin-top:8px">
+          <button class="btn btn--primary" type="submit">Send request</button>
+          <span class="caption">Or write directly to <a href="mailto:brandon@intellmeai.com?subject=TruVector%20materials">brandon@intellmeai.com</a>.</span>
+        </div>
+      </form>
+    </div>
+  </section>
+
+</Base>
+
+<style>
+  .form { display: grid; gap: 24px 32px; margin-top: 40px; max-width: 720px; }
+  @media (min-width: 768px) { .form { grid-template-columns: 1fr 1fr; } }
+  .field { display: grid; gap: 8px; }
+  .field--wide { grid-column: 1 / -1; }
+  .form label {
+    font-family: var(--label); font-weight: 500; font-size: 11px;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--stone-text);
+  }
+  .req { letter-spacing: 0.06em; text-transform: none; color: var(--stone-text); }
+  .form input, .form select, .form textarea {
+    width: 100%;
+    background: var(--smoked-bronze);
+    color: var(--ivory);
+    border: 1px solid var(--bronze-edge);
+    border-radius: 1px;
+    padding: 13px 14px;
+    font-family: var(--body); font-size: 16px; line-height: 1.4;
+    min-height: 44px;
+    transition: border-color var(--t-micro) var(--ease-lobby);
+  }
+  .form textarea { min-height: 120px; resize: vertical; }
+  .form input:hover, .form select:hover, .form textarea:hover { border-color: var(--bronze-edge-hot); }
+  /* Invalid state is carried by weight and an inset edge as well as by hue,
+     so it is perceivable without distinguishing red from bronze. */
+  .form input:user-invalid, .form textarea:user-invalid {
+    border-color: var(--danger);
+    box-shadow: inset 3px 0 0 var(--danger);
+  }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+</style>
+
+<script src="/form-timing.js" defer is:inline></script>

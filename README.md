@@ -1,119 +1,76 @@
-# TruVector
+# truvector.science
 
-A simple multi-page React website with basic authentication.
+The public site for **TruVector**, the core research programme of InTellMe:
+pre-execution evidentiary arbitration for AI systems.
 
-## Features
+Static Astro site, built and styled to match the InTellMe parent site at
+intellmeai.com so the two read as one company. No client framework, no runtime
+data fetching, and every page renders complete with JavaScript disabled.
 
-- 🔐 **Basic Authentication**: Login system with protected routes
-- 🗺️ **Multi-Page Navigation**: Multiple pages with React Router
-- ⚡ **Modern Stack**: Built with React 19, Vite, and React Router
-- 💾 **Persistent Sessions**: Login state stored in localStorage
-- 🎨 **Clean UI**: Simple and intuitive design
+## Before adding anything, read `SCOPE.md`
 
-## Pages
+It defines the disclosure boundary this site must stay inside — what may be
+published as running, what must be described as unbuilt, and what may not appear
+at all. It is the most important file in the repository.
 
-- **Login**: Authentication page
-- **Landing**: Main navigation page with links to all sections
-- **InTellMe**: Information about InTellMe and its mission
-- **TruVector Overview**: Details about TruVector technology
-- **Technical Architecture**: Technical infrastructure overview
-- **Emma Placement**: Emma AI placement information
-- **For Investors**: Investment opportunities and growth strategy
-- **Dashboard**: User dashboard with statistics and activity
+## Commands
 
-## Getting Started
-
-### Prerequisites
-
-- Node.js 16.x or higher
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/GooseyPrime/truvector.git
-cd truvector
 ```
-
-2. Install dependencies:
-```bash
 npm install
+npm run dev      # local dev server
+npm run build    # static build into dist/
+npm run preview  # serve the build
+npm run check    # Astro + TypeScript diagnostics
+npm test         # request endpoint, against a fake req/res
+npm run verify   # check + test + build, the same gate CI runs
 ```
 
-3. Start the development server:
-```bash
-npm run dev
-```
+## Routes
 
-4. Open your browser and navigate to `http://localhost:5173`
+| Route | File |
+|-------|------|
+| `/` | `src/pages/index.astro` — thesis, capability states, boundaries |
+| `/technology` | `src/pages/technology.astro` — pipeline, evidence object, prior work |
+| `/roadmap` | `src/pages/roadmap.astro` — three stages |
+| `/investors` | `src/pages/investors.astro` — overview and request form |
+| `/investor-request-received` | confirmation page |
+| `/404` | `src/pages/404.astro` |
+| `POST /api/investor-request` | `api/investor-request.js` (Vercel function) |
 
-### Building for Production
+## Legal pages
 
-```bash
-npm run build
-```
+This site does not carry its own privacy policy, terms, or accessibility
+statement. Those are published once on the InTellMe parent site and every domain
+links to them, so there is one set of promises rather than several that drift
+apart. The footer links out.
 
-The built files will be in the `dist` directory.
+## The capability table
 
-### Preview Production Build
+Six capabilities, each with its own state, defined once in `src/pages/index.astro`.
+The pipeline stages in `src/pages/technology.astro` each carry the state of the
+capability they depend on. The same table is published on intellmeai.com.
 
-```bash
-npm run preview
-```
+**If the two sites ever disagree, the parent site is authoritative.** A
+capability that changes state changes in three places in the same commit.
 
-## Usage
+## Configuration
 
-1. Navigate to the application in your browser
-2. You'll be redirected to the login page
-3. Enter your provided credentials to access the application
-4. Once logged in, you can navigate between the different sections
-5. Use the Logout button in the navigation bar to sign out
+The request form needs Mailjet credentials in the Vercel project environment:
 
-## Project Structure
+- `MJ_APIKEY_PUBLIC`
+- `MJ_APIKEY_PRIVATE`
+- `INVESTOR_INBOX` (optional, defaults to brandon@intellmeai.com)
+- `INVESTOR_FROM` (optional, defaults to no-reply@intellmeai.com)
 
-```
-truvector/
-├── src/
-│   ├── components/         # Reusable components
-│   │   ├── Layout.jsx      # Layout with navigation
-│   │   ├── Layout.css
-│   │   └── ProtectedRoute.jsx  # Route protection wrapper
-│   ├── context/            # React Context
-│   │   └── AuthContext.jsx # Authentication state management
-│   ├── pages/              # Page components
-│   │   ├── Login.jsx       # Login page
-│   │   ├── Home.jsx        # Home page
-│   │   ├── About.jsx       # About page
-│   │   └── Dashboard.jsx   # Dashboard page
-│   ├── App.jsx             # Main app with routing
-│   ├── main.jsx            # Entry point
-│   └── index.css           # Global styles
-├── public/                 # Static assets
-├── index.html              # HTML template
-├── package.json            # Dependencies
-└── vite.config.js          # Vite configuration
-```
+Without them the endpoint fails closed with a readable message telling the
+sender to email directly. It never silently drops a request.
 
-## Technologies
+The sending domain must be validated in Mailjet with SPF and DKIM first.
 
-- **React 19**: JavaScript library for building user interfaces
-- **React Router 7**: Declarative routing for React applications
-- **Vite**: Next-generation frontend build tool
-- **Context API**: State management for authentication
+## There is no login
 
-## Authentication
-
-This application uses a client-side authentication system. For production deployment:
-
-- Credentials are managed client-side for demonstration purposes
-- In a production environment, implement proper backend authentication
-- Use secure password hashing and JWT tokens or session cookies
-- Add password validation and security measures
-- Use HTTPS for all communications
-- Consider implementing rate limiting and brute-force protection
-
-## License
-
-See the [LICENSE](LICENSE) file for details.
-
+The previous version of this site had a client-side password gate with the
+credentials written into the JavaScript bundle and committed to this public
+repository. It protected nothing. Material that should not be public is not
+published here at all — it is sent, after review, to people who ask through the
+form.

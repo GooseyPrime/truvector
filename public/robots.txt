@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /investor-request-received
+
+Sitemap: https://truvector.science/sitemap.xml
