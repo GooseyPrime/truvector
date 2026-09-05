@@ -56,7 +56,7 @@
     bar.setAttribute('aria-label', 'Measurement consent');
     bar.innerHTML =
       '<p>This site uses Google Analytics to count visits. Nothing is sold, and no advertising ' +
-      'profile is built. <a href="/privacy">How we handle data</a>.</p>' +
+      'profile is built. <a href="https://www.intellmeai.com/privacy" rel="noopener">How we handle data</a>.</p>' +
       '<div class="consent-bar__actions">' +
       '<button type="button" class="btn btn--secondary" data-consent="denied">Decline</button>' +
       '<button type="button" class="btn btn--primary" data-consent="granted">Allow</button>' +
