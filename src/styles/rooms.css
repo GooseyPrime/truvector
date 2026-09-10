@@ -21,8 +21,7 @@
 }
 .nav__inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; width: 100%; }
 .nav__brand { display: inline-flex; align-items: center; gap: 11px; text-decoration: none; }
-.nav__mark { display: block; width: auto; height: 21px; }
-@media (min-width: 1024px) { .nav__mark { height: 23px; } }
+.nav__mark { display: block; width: auto; height: 24px; }
 .nav__wordmark {
   font-family: var(--body); font-weight: 500;
   font-size: 18px; line-height: 1;
@@ -179,7 +178,7 @@
   font-size: 27px; color: var(--ivory); line-height: 40px; margin-bottom: 24px;
 }
 .product__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; margin-bottom: 18px; }
-.product__meta .room-title { text-wrap: balance; }
+.product__meta .rail__name { text-wrap: balance; }
 .product__body { flex: 1 1 auto; font-size: 16px; }
 .product__action { margin-top: 26px; }
 
