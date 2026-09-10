@@ -12,10 +12,8 @@ const links = [
 ---
 <header class="nav" id="nav">
   <div class="suite suite--flagship nav__inner">
-    <!-- TruVector has no mark of its own yet, so the wordmark is typeset and the
-         parent mark stands beside it. Replaced when the drawing is supplied. -->
     <a class="nav__brand" href="/" aria-label="TruVector — home">
-      <img class="nav__mark" src="/assets/logos/intellme.svg" width="11" height="26" alt="" />
+      <img class="nav__mark" src="/assets/logos/intellme.svg" width="36" height="24" alt="" aria-hidden="true" />
       <span class="nav__wordmark">TruVector</span>
     </a>
 
@@ -35,7 +33,10 @@ const links = [
 
 <div class="drawer" id="drawer" hidden role="dialog" aria-modal="true" aria-label="Menu">
   <div class="suite drawer__head">
-    <span class="nav__wordmark">TruVector</span>
+    <span class="nav__brand">
+      <img class="nav__mark" src="/assets/logos/intellme.svg" width="36" height="24" alt="" aria-hidden="true" />
+      <span class="nav__wordmark">TruVector</span>
+    </span>
     <button class="drawer__close" type="button" id="drawer-close">Close</button>
   </div>
   <div class="suite drawer__links">
