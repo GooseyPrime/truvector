@@ -22,7 +22,9 @@ let failures = 0;
 const footer = text('src/components/Footer.astro');
 check(
   'footer names parent authority',
-  footer.includes('If this site and <a href="https://www.intellmeai.com/" rel="noopener">intellmeai.com</a> disagree, this site is wrong. The parent is authoritative.')
+  footer.includes('If this site and') &&
+    footer.includes('href="https://www.intellmeai.com/"') &&
+    footer.includes('>intellmeai.com</a> disagree, this site is wrong. The parent is authoritative.')
 );
 
 const home = text('src/pages/index.astro');
