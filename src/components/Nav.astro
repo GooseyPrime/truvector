@@ -4,6 +4,8 @@ const { path } = Astro.props;
 const home = path === '/';
 const links = [
   { label: 'Technology', href: '/technology' },
+  { label: 'Use cases', href: '/use-cases' },
+  { label: 'Lineage',    href: '/lineage' },
   { label: 'Roadmap',    href: '/roadmap' },
   { label: 'Investors',  href: '/investors' },
   { label: 'Company',    href: home ? '#company' : '/#company' },
