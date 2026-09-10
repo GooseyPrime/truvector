@@ -219,6 +219,14 @@
 }
 .track ul li:last-child { border-bottom: 1px solid var(--bronze-edge); }
 
+@media (min-width: 1024px) {
+  .use-case-track { padding-inline-end: 64px; }
+  .use-case-track:nth-child(even) {
+    padding-inline: 64px 0;
+    border-inline-start: 1px solid var(--bronze-edge);
+  }
+}
+
 /* --- contact + footer ---------------------------------------- */
 .contact__grid { display: grid; gap: 40px; margin-top: 40px; }
 @media (min-width: 768px) { .contact__grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 48px; } }
