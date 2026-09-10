@@ -178,7 +178,7 @@
   font-size: 27px; color: var(--ivory); line-height: 40px; margin-bottom: 24px;
 }
 .product__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; margin-bottom: 18px; }
-.product__meta .rail__name { overflow-wrap: anywhere; word-break: normal; }
+.product__meta .rail__name { text-wrap: balance; }
 .product__body { flex: 1 1 auto; font-size: 16px; }
 .product__action { margin-top: 26px; }
 
