@@ -1,32 +1,5 @@
 ---
 import Base from '../layouts/Base.astro';
-
-const cases = [
-  {
-    title: 'Internal agent about to file a record',
-    body: 'An internal system has drafted a record update and is about to file it. TruVector is the checkpoint that keeps the evidence, contradictions, and decision path attached before the filing step proceeds.',
-  },
-  {
-    title: 'Research report that must keep contradictions attached',
-    body: 'A report can summarize the support for an assertion without stripping away the sources that disagree with it. The point of the illustration is the attachment of support and contradiction, not any claim about deployment.',
-  },
-  {
-    title: 'News briefing that must not count wire copies as independent sources',
-    body: 'If ten outlets repeat one wire item, the count should not rise to ten. The illustration here is independence-aware discounting, where shared origin matters more than raw repetition.',
-  },
-  {
-    title: 'Procurement certificate copies',
-    body: 'Multiple copies of the same certificate can look like multiple confirmations. The illustration is that duplicate provenance should not be mistaken for independent support.',
-  },
-  {
-    title: 'Incident-response status-page echoes',
-    body: 'A downstream status page may repeat an upstream statement word for word. The illustration is that echoes should remain linked to their origin rather than scored as fresh evidence.',
-  },
-  {
-    title: 'Public-records minutes versus blogs that quote them',
-    body: 'Minutes and the blogs quoting those minutes should not be treated as separate roots of support. The illustration is evidence lineage, not authority conferred by publication volume.',
-  }
-];
 ---
 <Base
   title="Use Cases — TruVector"
@@ -48,14 +21,32 @@ const cases = [
     <div class="suite suite--flagship">
       <p class="kicker">Illustration only</p>
       <h2 class="suite-title reveal" id="cards-title">Six places the same failure pattern appears.</h2>
-      <div class="tracks reveal" style="margin-top:44px">
-        {cases.map((item) => (
-          <div class="track">
-            <h3 class="room-title">{item.title}</h3>
-            <p>{item.body}</p>
-          </div>
-        ))}
-      </div>
+      <ul class="tracks reveal" style="list-style:none;margin-top:44px;padding:0">
+        <li class="track">
+          <h3 class="room-title">Internal agent about to file a record</h3>
+          <p>An internal system has drafted a record update and is about to file it. TruVector is the checkpoint that keeps the evidence, contradictions, and decision path attached before the filing step proceeds.</p>
+        </li>
+        <li class="track">
+          <h3 class="room-title">Research report that must keep contradictions attached</h3>
+          <p>A report can summarize the support for an assertion without stripping away the sources that disagree with it. The point of the illustration is the attachment of support and contradiction, not any claim about deployment.</p>
+        </li>
+        <li class="track">
+          <h3 class="room-title">News briefing that must not count wire copies as independent sources</h3>
+          <p>If ten outlets repeat one wire item, the count should not rise to ten. The illustration here is independence-aware discounting, where shared origin matters more than raw repetition.</p>
+        </li>
+        <li class="track">
+          <h3 class="room-title">Procurement certificate copies</h3>
+          <p>Multiple copies of the same certificate can look like multiple confirmations. The illustration is that duplicate provenance should not be mistaken for independent support.</p>
+        </li>
+        <li class="track">
+          <h3 class="room-title">Incident-response status-page echoes</h3>
+          <p>A downstream status page may repeat an upstream statement word for word. The illustration is that echoes should remain linked to their origin rather than scored as fresh evidence.</p>
+        </li>
+        <li class="track">
+          <h3 class="room-title">Public-records minutes versus blogs that quote them</h3>
+          <p>Minutes and the blogs quoting those minutes should not be treated as separate roots of support. The illustration is evidence lineage, not authority conferred by publication volume.</p>
+        </li>
+      </ul>
       <p class="caption reveal" style="margin-top:32px;max-width:62ch">Nothing on this page names customers, institutions, or operating results beyond the capability states published elsewhere on this site.</p>
     </div>
   </section>

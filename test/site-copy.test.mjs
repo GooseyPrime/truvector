@@ -1,7 +1,8 @@
 import { existsSync, readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const root = '/home/runner/work/truvector/truvector';
+const root = dirname(dirname(fileURLToPath(import.meta.url)));
 
 function text(path) {
   return readFileSync(join(root, path), 'utf8');
@@ -56,8 +57,10 @@ check(
     investors.includes('Kinematic validation is a research signal about how support moves over time; it is not a claim that information obeys conservation laws.')
 );
 
-check('use-cases page exists', existsSync(join(root, 'src/pages/use-cases.astro')));
-const useCases = text('src/pages/use-cases.astro');
+const useCasesPath = join(root, 'src/pages/use-cases.astro');
+const hasUseCases = existsSync(useCasesPath);
+check('use-cases page exists', hasUseCases);
+const useCases = hasUseCases ? readFileSync(useCasesPath, 'utf8') : '';
 check(
   'use-cases page includes the requested illustration cards',
   [
@@ -77,13 +80,16 @@ check(
     !useCases.includes('production-proven')
 );
 
-check('lineage page exists', existsSync(join(root, 'src/pages/lineage.astro')));
-const lineage = text('src/pages/lineage.astro');
+const lineagePath = join(root, 'src/pages/lineage.astro');
+const hasLineage = existsSync(lineagePath);
+check('lineage page exists', hasLineage);
+const lineage = hasLineage ? readFileSync(lineagePath, 'utf8') : '';
 check(
   'lineage page includes four requested beats and lanevector link',
   [
     'Dec 2025',
     'SEO intent expected-value model',
+    'Later',
     'Kinematic vocabulary as analogy',
     '2026',
     'TruVector evidence arbitration',

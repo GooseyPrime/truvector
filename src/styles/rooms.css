@@ -233,6 +233,7 @@
 .footer { background: var(--wet-stone); border-top: 1px solid var(--bronze-edge); padding-block: 56px; }
 .footer__top { display: flex; flex-wrap: wrap; gap: 24px 48px; align-items: baseline; justify-content: space-between; }
 .footer__line { font-family: var(--display); font-variation-settings: 'opsz' 36; font-size: 18px; color: var(--ivory); }
+.footer__authority { margin-bottom: 0; max-width: 56ch; }
 .footer__legal {
   margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--bronze-edge);
   display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center;
