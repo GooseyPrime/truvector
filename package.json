@@ -9,7 +9,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "test": "node test/investor-request.test.mjs",
+    "test": "node test/investor-request.test.mjs && node test/site-copy.test.mjs",
     "verify": "npm run check && npm run test && npm run build"
   },
   "devDependencies": {

@@ -18,10 +18,10 @@ const capabilities = [
     note: 'The rule that decides how much independent agreement a claim needs before it may pass, given what acting on it would cost. Specified, not built.' },
   { name: 'AHE / HRA',
     state: 'Hypothesis',
-    note: 'Adjudication under conflicting evidence where no source is authoritative. Stated as a claim with a stated way to be wrong, and not yet demonstrated.' },
+    note: 'Adjudication under conflicting evidence where no source is authoritative. Stated as a claim with a stated way to be wrong, and not yet demonstrated. HRA is not a probability that a claim is true.' },
   { name: 'Kinematic validation',
     state: 'Hypothesis',
-    note: 'Treating a claim’s movement through evidence over time as a signal in its own right. The most speculative element here, and the reason the research is research.' }
+    note: 'Treating a claim’s movement through evidence over time as a signal in its own right. This is a research signal about how support moves over time. It is not a claim that information obeys conservation laws. The most speculative element here, and the reason the research is research.' }
 ];
 const key = [
   ['Implemented', 'runs, and measured'],
@@ -64,7 +64,7 @@ const key = [
         </div>
         <div class="flagship__pane">
           <p>Most of the surrounding tooling improves generation. Very little sits between the assertion and the action, and almost none of it leaves a record a reviewer can follow afterwards.</p>
-          <p>TruVector is built for that gap. It does not generate, it does not certify truth, and it does not rank sources by reputation. It measures how well an assertion is supported by evidence, and says so in a form a machine can act on and a person can audit.</p>
+          <p>TruVector is built for that gap. It does not generate, it does not certify truth, and it does not rely on source reputation alone. It scores evidence quality, disagreement, and independence under an auditable policy.</p>
         </div>
       </div>
     </div>
