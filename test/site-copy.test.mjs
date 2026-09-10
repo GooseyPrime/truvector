@@ -26,6 +26,18 @@ check(
     footer.includes('href="https://www.intellmeai.com/"') &&
     footer.includes('>intellmeai.com</a> disagree, this site is wrong. The parent is authoritative.')
 );
+check(
+  'footer links include use cases and lineage',
+  footer.includes('href="/use-cases">Use cases</a>') &&
+    footer.includes('href="/lineage">Lineage</a>')
+);
+
+const nav = text('src/components/Nav.astro');
+check(
+  'primary nav includes use cases and lineage links',
+  nav.includes("{ label: 'Use cases', href: '/use-cases' }") &&
+    nav.includes("{ label: 'Lineage',    href: '/lineage' }")
+);
 
 const home = text('src/pages/index.astro');
 check(
@@ -91,6 +103,7 @@ check(
   [
     'Dec 2025',
     'SEO intent expected-value model',
+    'The earliest line of work was an expected-value model for search intent: estimated demand times estimated conversion probability times estimated customer value. A high-volume phrase could still be a poor bet if it rarely converted.',
     'Later',
     'Kinematic vocabulary as analogy',
     '2026',
@@ -99,6 +112,10 @@ check(
     'Capability table',
     'https://www.lanevector.com'
   ].every((needle) => lineage.includes(needle))
+);
+check(
+  'lineage page removes retired SEO wording',
+  !lineage.includes('what an action was worth depended on whether the assertion under it was good enough to trust.')
 );
 
 if (failures) process.exit(1);
