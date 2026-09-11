@@ -8,5 +8,10 @@ export default defineConfig({
   trailingSlash: 'never',
   build: { format: 'file', inlineStylesheets: 'always' },
   compressHTML: true,
-  devToolbar: { enabled: false }
+  devToolbar: { enabled: false },
+  // Old addresses: the lineage page became The Science; the roadmap page was retired.
+  redirects: {
+    '/lineage': '/science',
+    '/roadmap': '/'
+  }
 });
