@@ -34,6 +34,7 @@ check(
 );
 
 const nav = text('src/components/Nav.astro');
+const astroConfig = text('astro.config.mjs');
 check(
   'primary nav includes use cases and science links',
   nav.includes("{ label: 'Use cases', href: '/use-cases' }") &&
@@ -122,8 +123,8 @@ check(
 );
 check(
   'science route migration is documented in astro config',
-  text('astro.config.mjs').includes("'/lineage': '/science'") &&
-    text('astro.config.mjs').includes("'/roadmap': '/'")
+  astroConfig.includes("'/lineage': '/science'") &&
+    astroConfig.includes("'/roadmap': '/'")
 );
 
 if (failures) process.exit(1);
