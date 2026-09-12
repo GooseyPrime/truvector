@@ -35,6 +35,7 @@ check(
 
 const nav = text('src/components/Nav.astro');
 const astroConfig = text('astro.config.mjs');
+const redirectsBlock = astroConfig.match(/redirects:\s*\{([\s\S]*?)\n\s*\}/)?.[1] ?? '';
 check(
   'primary nav includes use cases and science links',
   nav.includes("{ label: 'Use cases', href: '/use-cases' }") &&
@@ -123,7 +124,8 @@ check(
 );
 check(
   'science route migration is documented in astro config',
-  /redirects:\s*\{\s*'\/lineage':\s*'\/science',\s*'\/roadmap':\s*'\/'[\s\S]*\}/.test(astroConfig)
+  /'\/lineage':\s*'\/science'/.test(redirectsBlock) &&
+    /'\/roadmap':\s*'\/'/.test(redirectsBlock)
 );
 
 if (failures) process.exit(1);
