@@ -1,8 +1,13 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import redirects from '../redirects.mjs';
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
+const expectedRedirects = {
+  '/lineage': '/science',
+  '/roadmap': '/'
+};
 
 function text(path) {
   return readFileSync(join(root, path), 'utf8');
@@ -21,54 +26,68 @@ let failures = 0;
 
 const footer = text('src/components/Footer.astro');
 check(
-  'footer names parent authority',
-  footer.includes('If this site and') &&
-    footer.includes('href="https://www.intellmeai.com/"') &&
-    footer.includes('>intellmeai.com</a> disagree, this site is wrong. The parent is authoritative.')
+  'footer uses the new tagline and science link',
+  footer.includes('Check before you act.') &&
+    footer.includes('href="/science">The science</a>') &&
+    !footer.includes('The parent is authoritative.')
 );
 check(
-  'footer links include use cases and lineage',
+  'footer links include use cases and not lineage',
   footer.includes('href="/use-cases">Use cases</a>') &&
-    footer.includes('href="/lineage">Lineage</a>')
+    !footer.includes('href="/lineage">Lineage</a>') &&
+    !footer.includes('href="/roadmap">Roadmap</a>')
 );
 
 const nav = text('src/components/Nav.astro');
+const astroConfig = text('astro.config.mjs');
 check(
-  'primary nav includes use cases and lineage links',
+  'primary nav includes use cases and science links',
   nav.includes("{ label: 'Use cases', href: '/use-cases' }") &&
-    nav.includes("{ label: 'Lineage',    href: '/lineage' }")
+    nav.includes("{ label: 'The science', href: '/science' }") &&
+    !nav.includes("{ label: 'Lineage',    href: '/lineage' }") &&
+    !nav.includes("{ label: 'Roadmap',    href: '/roadmap' }")
 );
 
 const home = text('src/pages/index.astro');
 check(
-  'homepage uses evidence-quality wording',
-  home.includes('does not rely on source reputation alone.') &&
-    home.includes('It scores evidence quality, disagreement, and independence under an auditable policy.')
+  'homepage uses the new hero and three questions',
+  home.includes('Your AI is about to act on something it read. TruVector checks it first.') &&
+    home.includes('Three questions before every action.') &&
+    home.includes('Where did this come from?') &&
+    home.includes('Are these really separate sources?') &&
+    home.includes('Do the sources agree?')
 );
 check(
-  'homepage removes retired reputation wording',
-  !home.includes('does not rank sources by reputation')
+  'homepage removes retired status-table era disclaimers',
+  !home.includes('HRA is not a probability that a claim is true.') &&
+    !home.includes('This is a research signal about how support moves over time. It is not a claim that information obeys conservation laws.') &&
+    !home.includes('Capability table')
 );
 check(
-  'homepage adds HRA disclaimer',
-  home.includes('HRA is not a probability that a claim is true.')
-);
-check(
-  'homepage adds kinematic disclaimer',
-  home.includes('This is a research signal about how support moves over time. It is not a claim that information obeys conservation laws.')
+  'homepage keeps the company section',
+  home.includes('Built by an engineer who measured things for a living.') &&
+    home.includes('U.S. Patent 11,949,124.')
 );
 
 const technology = text('src/pages/technology.astro');
 check(
-  'technology page adds kinematic disclaimer',
-  technology.includes('This is a research signal about how support moves over time. It is not a claim that information obeys conservation laws.')
+  'technology page qualifies the unbuilt decision-rule stage',
+  technology.includes('This stage is specified, not yet built') &&
+    technology.includes('The intended decision rule')
+);
+check(
+  'technology example includes disagreement check state',
+  technology.includes('"disagreement_check":  "checked" | "not_checked"') &&
+    technology.includes('The technical brief carries the full schema.')
 );
 
 const investors = text('src/pages/investors.astro');
 check(
-  'investor page adds hypothesis disclaimers',
-  investors.includes('HRA is not a probability that a claim is true.') &&
-    investors.includes('Kinematic validation is a research signal about how support moves over time; it is not a claim that information obeys conservation laws.')
+  'investor page uses the new fundraising position',
+  investors.includes('Self-funded so far. Raising a pre-seed round.') &&
+    !investors.includes('pre-revenue') &&
+    !investors.includes('sole proprietor') &&
+    !investors.includes('public GitHub')
 );
 
 const useCasesPath = join(root, 'src/pages/use-cases.astro');
@@ -76,14 +95,14 @@ const hasUseCases = existsSync(useCasesPath);
 check('use-cases page exists', hasUseCases);
 const useCases = hasUseCases ? readFileSync(useCasesPath, 'utf8') : '';
 check(
-  'use-cases page includes the requested illustration cards',
+  'use-cases page includes the six current public use cases',
   [
-    'Internal agent about to file a record',
-    'Research report that must keep contradictions attached',
-    'News briefing that must not count wire copies as independent sources',
-    'Procurement certificate copies',
-    'Incident-response status-page echoes',
-    'Public-records minutes versus blogs that quote them'
+    'Customer service AI',
+    'Purchasing agents',
+    'AI research and report writers',
+    'Tools that react to news',
+    'Publishing and outreach agents',
+    'Record-keeping agents'
   ].every((label) => useCases.includes(label))
 );
 check(
@@ -94,28 +113,24 @@ check(
     !useCases.includes('production-proven')
 );
 
-const lineagePath = join(root, 'src/pages/lineage.astro');
-const hasLineage = existsSync(lineagePath);
-check('lineage page exists', hasLineage);
-const lineage = hasLineage ? readFileSync(lineagePath, 'utf8') : '';
+const sciencePath = join(root, 'src/pages/science.astro');
+const hasScience = existsSync(sciencePath);
+check('science page exists', hasScience);
+const science = hasScience ? readFileSync(sciencePath, 'utf8') : '';
 check(
-  'lineage page includes four requested beats and lanevector link',
+  'science page frames the research basis and qualifies the decision rule',
   [
-    'Dec 2025',
-    'SEO intent expected-value model',
-    'The earliest line of work was an expected-value model for search intent: estimated demand times estimated conversion probability times estimated customer value. A high-volume phrase could still be a poor bet if it rarely converted.',
-    'Later',
-    'Kinematic vocabulary as analogy',
-    '2026',
-    'TruVector evidence arbitration',
-    'Current',
-    'Capability table',
+    'The math of how reactions move, applied to how information moves.',
+    'TruVector is being built to turn the measurements above into Allow, Review or Block on that basis.',
+    'Terms like velocity and acceleration are used as working models for how information spreads. They are hypotheses under test',
     'https://www.lanevector.com'
-  ].every((needle) => lineage.includes(needle))
+  ].every((needle) => science.includes(needle))
 );
 check(
-  'lineage page removes retired SEO wording',
-  !lineage.includes('what an action was worth depended on whether the assertion under it was good enough to trust.')
+  'science route migration is documented in astro config',
+  JSON.stringify(redirects) === JSON.stringify(expectedRedirects) &&
+    astroConfig.includes("import redirects from './redirects.mjs';") &&
+    /redirects:\s*redirects/.test(astroConfig)
 );
 
 if (failures) process.exit(1);

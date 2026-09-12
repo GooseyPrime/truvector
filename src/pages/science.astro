@@ -1,0 +1,64 @@
+---
+import Base from '../layouts/Base.astro';
+
+const ideas = [
+  {
+    title: 'Information has a rate and a direction',
+    body: 'In a chemical reaction, how fast something changes and which way it is heading matter as much as how much of it there is. The same holds for a story moving through the world. A count tells you how much. It does not tell you whether support is building or fading.',
+  },
+  {
+    title: 'Many voices, or one voice repeated',
+    body: 'When the same statement appears in fifty places, what matters is how many independent origins sit behind it. One source copied forty-nine times is still one source. Separating copies from genuinely separate sources is the core measurement.',
+  },
+  {
+    title: 'Forces that push and hold back',
+    body: 'Some things accelerate a story: repetition, coordination, reach. Others slow it: contradiction, correction, decay over time. Modeling those forces explicitly, the way kinetics models what speeds up or slows down a reaction, is the working framework.',
+  },
+  {
+    title: 'A decision proportional to the stakes',
+    body: 'How much support is enough depends on what acting would cost if the information were wrong. A cheap, reversible action needs less than an expensive, permanent one. TruVector is being built to turn the measurements above into Allow, Review or Block on that basis.',
+  }
+];
+---
+<Base
+  title="The Science — TruVector"
+  description="The science behind TruVector: Lane Vector applies the mathematics of chemical kinetics to how information and intent move, and TruVector is being built to turn those measurements into a decision before an AI acts."
+  path="/science"
+>
+  <section class="room" style="padding-top:96px;padding-bottom:56px" aria-labelledby="science-title">
+    <div class="suite suite--flagship">
+      <p class="kicker">The science</p>
+      <h1 class="suite-title" id="science-title" style="max-width:22ch">The math of how reactions move, applied to how information moves.</h1>
+      <hr class="rule--champagne" style="margin-top:32px" />
+      <p class="hero-support" style="margin-top:28px;max-width:62ch">Chemical kinetics describes a reaction by its rate, its direction, and the forces that speed it up or slow it down. <a href="https://www.lanevector.com" rel="noopener">Lane Vector</a> applies the same kind of math to how information and intent move between people and machines. TruVector is where that science is put to work.</p>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <section class="room room--alt" aria-labelledby="ideas-title">
+    <div class="suite suite--flagship">
+      <p class="kicker">Four ideas</p>
+      <h2 class="suite-title reveal" id="ideas-title">What the checkpoint is built on.</h2>
+      <ul class="rail reveal" style="margin-top:44px">
+        {ideas.map((i) => (
+          <li>
+            <span class="rail__name">{i.title}</span>
+            <span class="rail__note">{i.body}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="caption reveal" style="margin-top:32px;max-width:64ch">Terms like velocity and acceleration are used as working models for how information spreads. They are hypotheses under test, not proof that information obeys physical laws. The full research program, with its methods and working papers, is at <a href="https://www.lanevector.com" rel="noopener">lanevector.com</a>.</p>
+    </div>
+  </section>
+
+  <section class="room" aria-labelledby="sci-cta">
+    <div class="suite suite--flagship">
+      <h2 class="suite-title reveal" id="sci-cta" style="font-size:1.6rem">See how the checkpoint uses it.</h2>
+      <div class="actions reveal" style="margin-top:28px">
+        <a class="btn btn--primary" href="/technology">How it works</a>
+        <a class="btn btn--secondary" href="https://www.lanevector.com" rel="noopener">Lane Vector research</a>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -3,15 +3,15 @@ import Base from '../layouts/Base.astro';
 ---
 <Base
   title="Use Cases — TruVector"
-  description="Illustration-only scenarios for where pre-execution evidence arbitration can matter, without claiming production proof or named deployments."
+  description="Where a checkpoint before an AI action matters: customer service, purchasing, research and reporting, news-driven tools, publishing and record-keeping."
   path="/use-cases"
 >
   <section class="room" style="padding-top:96px;padding-bottom:56px" aria-labelledby="use-cases-title">
     <div class="suite suite--flagship">
       <p class="kicker">Use cases</p>
-      <h1 class="suite-title" id="use-cases-title" style="max-width:22ch">Illustrations of the decision shape, not claims of deployment.</h1>
+      <h1 class="suite-title" id="use-cases-title" style="max-width:22ch">Where a checkpoint before the action matters.</h1>
       <hr class="rule--champagne" style="margin-top:32px" />
-      <p class="hero-support" style="margin-top:28px;max-width:60ch">These are illustrations of where evidence arbitration may matter before a system acts. They are not customer stories, not production claims, and not proof that any one workflow is already in use.</p>
+      <p class="hero-support" style="margin-top:28px;max-width:60ch">Anywhere an AI system acts on information it pulled in, the same question comes up: is that information solid enough for what this action costs?</p>
     </div>
   </section>
 
@@ -19,35 +19,44 @@ import Base from '../layouts/Base.astro';
 
   <section class="room room--alt" aria-labelledby="cards-title">
     <div class="suite suite--flagship">
-      <p class="kicker">Illustration only</p>
-      <h2 class="suite-title reveal" id="cards-title">Six places the same failure pattern appears.</h2>
+      <p class="kicker">Where it fits</p>
+      <h2 class="suite-title reveal" id="cards-title">Six places the same problem shows up.</h2>
       <ul class="tracks use-case-tracks reveal" style="list-style:none;margin-top:44px;padding:0">
         <li class="use-case-track">
-          <h3 class="room-title">Internal agent about to file a record</h3>
-          <p>An internal system has drafted a record update and is about to file it. TruVector is the checkpoint that keeps the evidence, contradictions, and decision path attached before the filing step proceeds.</p>
+          <h3 class="room-title">Customer service AI</h3>
+          <p>Before an agent issues a refund, a credit or a policy answer, check that the policy it found is current and matches the others.</p>
         </li>
         <li class="use-case-track">
-          <h3 class="room-title">Research report that must keep contradictions attached</h3>
-          <p>A report can summarize the support for an assertion without stripping away the sources that disagree with it. The point of the illustration is the attachment of support and contradiction, not any claim about deployment.</p>
+          <h3 class="room-title">Purchasing agents</h3>
+          <p>What a supplier says about certifications, stock and pricing often traces back to one listing copied across many sites. Count it once.</p>
         </li>
         <li class="use-case-track">
-          <h3 class="room-title">News briefing that must not count wire copies as independent sources</h3>
-          <p>If ten outlets repeat one wire item, the count should not rise to ten. The illustration here is independence-aware discounting, where shared origin matters more than raw repetition.</p>
+          <h3 class="room-title">AI research and report writers</h3>
+          <p>Reports that cite &ldquo;many sources&rdquo; can turn out to rest on one. Trace them back, and keep disagreements visible instead of averaging them away.</p>
         </li>
         <li class="use-case-track">
-          <h3 class="room-title">Procurement certificate copies</h3>
-          <p>Multiple copies of the same certificate can look like multiple confirmations. The illustration is that duplicate provenance should not be mistaken for independent support.</p>
+          <h3 class="room-title">Tools that react to news</h3>
+          <p>Tell a rumor spreading from one origin apart from news confirmed by separate sources, before anything is bought or sold.</p>
         </li>
         <li class="use-case-track">
-          <h3 class="room-title">Incident-response status-page echoes</h3>
-          <p>A downstream status page may repeat an upstream statement word for word. The illustration is that echoes should remain linked to their origin rather than scored as fresh evidence.</p>
+          <h3 class="room-title">Publishing and outreach agents</h3>
+          <p>Before an AI posts or sends something public under a company&rsquo;s name, check what it&rsquo;s saying against where it came from.</p>
         </li>
         <li class="use-case-track">
-          <h3 class="room-title">Public-records minutes versus blogs that quote them</h3>
-          <p>Minutes and the blogs quoting those minutes should not be treated as separate roots of support. The illustration is evidence lineage, not authority conferred by publication volume.</p>
+          <h3 class="room-title">Record-keeping agents</h3>
+          <p>Before an AI files, escalates or closes a record, the statement, what supports it, and any open conflict stay attached for review.</p>
         </li>
       </ul>
-      <p class="caption reveal" style="margin-top:32px;max-width:62ch">Nothing on this page names customers, institutions, or operating results beyond the capability states published elsewhere on this site.</p>
+    </div>
+  </section>
+
+  <section class="room" aria-labelledby="uc-cta">
+    <div class="suite suite--flagship">
+      <h2 class="suite-title reveal" id="uc-cta" style="font-size:1.6rem">Have a workflow like one of these?</h2>
+      <div class="actions reveal" style="margin-top:28px">
+        <a class="btn btn--primary" href="mailto:brandon@intellmeai.com">Talk to the engineer</a>
+        <a class="btn btn--secondary" href="/technology">How it works</a>
+      </div>
     </div>
   </section>
 </Base>
