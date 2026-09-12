@@ -1,7 +1,6 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import astroConfig from '../astro.config.mjs';
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 
@@ -35,6 +34,7 @@ check(
 );
 
 const nav = text('src/components/Nav.astro');
+const astroConfig = text('astro.config.mjs');
 check(
   'primary nav includes use cases and science links',
   nav.includes("{ label: 'Use cases', href: '/use-cases' }") &&
@@ -123,8 +123,7 @@ check(
 );
 check(
   'science route migration is documented in astro config',
-  astroConfig.redirects?.['/lineage'] === '/science' &&
-    astroConfig.redirects?.['/roadmap'] === '/'
+  /redirects:\s*\{\s*'\/lineage':\s*'\/science',\s*'\/roadmap':\s*'\/'[\s\S]*\}/.test(astroConfig)
 );
 
 if (failures) process.exit(1);
