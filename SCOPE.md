@@ -42,13 +42,15 @@ Not publishable at all:
 
 ## How to keep it true
 
-The capability table is defined once, in `src/pages/index.astro`, and the
-pipeline stages in `src/pages/technology.astro` carry the state of the
-capability each depends on. The same six states are published on the InTellMe
-parent site. If the two ever disagree, the parent site is authoritative and this
-site is the error.
+The public site no longer publishes a capability table or per-stage status
+badges. The disclosure boundary now lives in the body copy itself.
 
-When a capability moves state, it moves in three places in the same change: the
-table here, the pipeline stage that depends on it, and the parent site. A
-capability that has moved on one site and not the other is a discrepancy a
-reader will find.
+That means every public page must do two things at once:
+
+- describe current capability only within the bounds listed above
+- label Quorum as specified, not built, and label kinematic validation and
+  AHE / HRA as hypotheses or not demonstrated
+
+If that boundary changes, update this file, the affected public copy, and the
+InTellMe parent site in the same change. A capability claim that moves on one
+site and not the other is still a discrepancy a reader will find.

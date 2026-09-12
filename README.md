@@ -29,13 +29,17 @@ npm run verify   # check + test + build, the same gate CI runs
 
 | Route | File |
 |-------|------|
-| `/` | `src/pages/index.astro` — thesis, capability states, boundaries |
-| `/technology` | `src/pages/technology.astro` — pipeline, evidence object, prior work |
-| `/roadmap` | `src/pages/roadmap.astro` — three stages |
+| `/` | `src/pages/index.astro` — thesis, boundaries, company and contact |
+| `/technology` | `src/pages/technology.astro` — pipeline, evidence object, operating profile |
+| `/use-cases` | `src/pages/use-cases.astro` — six public use cases |
+| `/science` | `src/pages/science.astro` — Lane Vector framing and research basis |
 | `/investors` | `src/pages/investors.astro` — overview and request form |
 | `/investor-request-received` | confirmation page |
 | `/404` | `src/pages/404.astro` |
 | `POST /api/investor-request` | `api/investor-request.js` (Vercel function) |
+
+Legacy addresses are redirected in `astro.config.mjs`: `/lineage` to
+`/science`, and `/roadmap` to `/`.
 
 ## Legal pages
 
@@ -44,14 +48,13 @@ statement. Those are published once on the InTellMe parent site and every domain
 links to them, so there is one set of promises rather than several that drift
 apart. The footer links out.
 
-## The capability table
+## The disclosure contract
 
-Six capabilities, each with its own state, defined once in `src/pages/index.astro`.
-The pipeline stages in `src/pages/technology.astro` each carry the state of the
-capability they depend on. The same table is published on intellmeai.com.
-
-**If the two sites ever disagree, the parent site is authoritative.** A
-capability that changes state changes in three places in the same commit.
+This site no longer publishes a public capability table. The disclosure
+boundary is enforced in the page copy under the rules in `SCOPE.md`: only the
+capabilities listed there may be described as running, and Quorum plus the
+kinematic / HRA lines must stay clearly qualified as not built or still under
+test.
 
 ## Configuration
 

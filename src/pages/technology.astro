@@ -11,7 +11,7 @@ const stages = [
   { n: '04', name: 'Independence and disagreement',
     body: 'Sources that agree because they share an origin are linked and discounted, so one source repeated five times does not score as five confirmations. Outright disagreement between sources is detected and carried into the result instead of being averaged away.' },
   { n: '05', name: 'Enough support for the stakes',
-    body: 'How much independent support a retrieved statement must carry before it may pass, scaled to what acting on it would cost. A cheap, reversible action needs less than an expensive, permanent one.' },
+    body: 'The intended decision rule for how much independent support a retrieved statement must carry before it may pass, scaled to what acting on it would cost. This stage is specified, not yet built: a cheap, reversible action would need less than an expensive, permanent one.' },
   { n: '06', name: 'Motion over time',
     body: 'Whether the way a story moves through its sources over time (how fast it spreads, how its support shifts) is itself a useful warning sign. This is the research question at the center of Lane Vector, stated as a hypothesis with a way to be proven wrong.' },
   { n: '07', name: 'The result',
@@ -65,13 +65,14 @@ const stages = [
   "support_score":       float,
   "confidence_interval": [float, float],
   "supporting_sources":  [ ... ],
+  "disagreement_check":  "checked" | "not_checked",
   "conflicting_sources": [ ... ],
   "independence":        { "shared_origin_discount": float },
   "decision_path":       [ ... ],
   "timestamp":           "ISO 8601"
 }`}</code></pre>
       </div>
-      <p class="caption reveal" style="margin-top:20px;max-width:60ch">A consumer can always tell the difference between &ldquo;no disagreement was found&rdquo; and &ldquo;disagreement was not checked.&rdquo;</p>
+      <p class="caption reveal" style="margin-top:20px;max-width:60ch">Even in this simplified example, a consumer can tell the difference between &ldquo;no disagreement was found&rdquo; and &ldquo;disagreement was not checked.&rdquo; The technical brief carries the full schema.</p>
     </div>
   </section>
 
