@@ -3,17 +3,17 @@ import Base from '../layouts/Base.astro';
 
 const stages = [
   { n: '01', name: 'Input',
-    body: 'The claim the AI is about to act on, with the context that qualifies it: where it came from, when, in what domain, and from which model.' },
+    body: 'What the AI retrieved and is about to act on, with the context that qualifies it: where it came from, when, in what domain, and from which model.' },
   { n: '02', name: 'Encoding',
-    body: 'Embedding generation, token normalisation and domain tagging, so the claim can be compared against a body of sources rather than against a prompt.' },
+    body: 'Embedding generation, token normalisation and domain tagging, so the retrieved material can be compared against a body of sources rather than against a prompt.' },
   { n: '03', name: 'Retrieval',
-    body: 'Nearest-neighbour search over structured corpora, filtered by time, to gather the sources that bear on the claim.' },
+    body: 'Nearest-neighbour search over structured corpora, filtered by time, to gather the sources that bear on what was retrieved.' },
   { n: '04', name: 'Independence and disagreement',
-    body: 'Sources that agree because they share an origin are linked and discounted, so one claim repeated five times does not score as five confirmations. Outright disagreement between sources is detected and carried into the result instead of being averaged away.' },
+    body: 'Sources that agree because they share an origin are linked and discounted, so one source repeated five times does not score as five confirmations. Outright disagreement between sources is detected and carried into the result instead of being averaged away.' },
   { n: '05', name: 'Enough support for the stakes',
-    body: 'How much independent support a claim must carry before it may pass, scaled to what acting on it would cost. A cheap, reversible action needs less than an expensive, permanent one.' },
+    body: 'How much independent support a retrieved statement must carry before it may pass, scaled to what acting on it would cost. A cheap, reversible action needs less than an expensive, permanent one.' },
   { n: '06', name: 'Motion over time',
-    body: 'Whether the way a claim moves through its sources over time (how fast it spreads, how its support shifts) is itself a useful warning sign. This is the research question at the center of Lane Vector, stated as a hypothesis with a way to be proven wrong.' },
+    body: 'Whether the way a story moves through its sources over time (how fast it spreads, how its support shifts) is itself a useful warning sign. This is the research question at the center of Lane Vector, stated as a hypothesis with a way to be proven wrong.' },
   { n: '07', name: 'The result',
     body: 'A structured result the calling system reads: the decision, what supports it, what conflicts with it, the uncertainty, and the path taken to reach it.' }
 ];
@@ -41,7 +41,7 @@ const stages = [
   <section class="room" id="pipeline" aria-labelledby="pipeline-title">
     <div class="suite suite--flagship">
       <p class="kicker">Pipeline</p>
-      <h2 class="suite-title reveal" id="pipeline-title">Seven stages from claim to decision.</h2>
+      <h2 class="suite-title reveal" id="pipeline-title">Seven stages from retrieval to decision.</h2>
       <ul class="rail reveal" style="margin-top:48px">
         {stages.map((s) => (
           <li>
