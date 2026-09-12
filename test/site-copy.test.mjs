@@ -126,7 +126,8 @@ check(
   'science route migration is documented in astro config',
   redirects['/lineage'] === '/science' &&
     redirects['/roadmap'] === '/' &&
-    astroConfig.includes('redirects')
+    astroConfig.includes("import redirects from './redirects.mjs';") &&
+    /redirects:\s*redirects/.test(astroConfig)
 );
 
 if (failures) process.exit(1);

@@ -11,5 +11,5 @@ export default defineConfig({
   compressHTML: true,
   devToolbar: { enabled: false },
   // Old addresses: the lineage page became The Science; the roadmap page was retired.
-  redirects
+  redirects: redirects
 });
