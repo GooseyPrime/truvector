@@ -4,6 +4,10 @@ import { fileURLToPath } from 'node:url';
 import redirects from '../redirects.mjs';
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
+const expectedRedirects = {
+  '/lineage': '/science',
+  '/roadmap': '/'
+};
 
 function text(path) {
   return readFileSync(join(root, path), 'utf8');
@@ -124,8 +128,7 @@ check(
 );
 check(
   'science route migration is documented in astro config',
-  redirects['/lineage'] === '/science' &&
-    redirects['/roadmap'] === '/' &&
+  JSON.stringify(redirects) === JSON.stringify(expectedRedirects) &&
     astroConfig.includes("import redirects from './redirects.mjs';") &&
     /redirects:\s*redirects/.test(astroConfig)
 );
