@@ -38,8 +38,8 @@ npm run verify   # check + test + build, the same gate CI runs
 | `/404` | `src/pages/404.astro` |
 | `POST /api/investor-request` | `api/investor-request.js` (Vercel function) |
 
-Legacy addresses are redirected in `astro.config.mjs`: `/lineage` to
-`/science`, and `/roadmap` to `/`.
+Legacy addresses are defined in `redirects.mjs` and consumed by
+`astro.config.mjs`: `/lineage` to `/science`, and `/roadmap` to `/`.
 
 ## Legal pages
 
