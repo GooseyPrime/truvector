@@ -4,7 +4,7 @@
 
 **Describe the mechanism, never the stage.** What the checkpoint does, and how,
 is the subject of this site. How far along any of it is, is not — not in a
-table, not in a badge, not in a sentence, not in a caption.
+table, not in a badge, not in a percentage, not in a date.
 
 Two requirements sit behind that, and they are easy to mistake for each other:
 
@@ -12,12 +12,10 @@ Two requirements sit behind that, and they are easy to mistake for each other:
    finds one overstatement stops believing the rest of the page, and nothing
    written afterwards repairs it.
 2. **Never publish how far along anything is.** No roadmap, no phases, no launch
-   dates, no "coming soon", no "not yet built", no revenue or funding state, no
-   headcount. Status belongs only in a document sent directly to a funding body
-   or an investor — never on a public page.
+   dates, no revenue or funding state, no headcount. Status belongs only in a
+   document sent directly to a funding body or an investor.
 
-A stage label satisfies the first and breaks the second. Mechanism satisfies
-both: it is true, checkable, and says nothing about a calendar.
+A stage label satisfies the first and breaks the second.
 
 The funding body is never named on this site, and neither is the programme it
 runs.
@@ -26,19 +24,42 @@ runs.
 
 ## How to write about something that is not finished
 
-The honest move is not a status label. It is to change what kind of sentence
-you are writing.
+There are three ways, and all of them are better than a stage label. Silence is
+not required — an earlier version of this document said "leave it out" and that
+was an over-correction, which pushes the next writer into either overstating or
+quietly dropping something real.
 
-| Instead of a stage | Write the mechanism, or the open question |
+**1. Gate it with a plain work-in-progress note.** This is usually the right
+answer and it is sufficient on its own:
+
+> **Work in progress.** This part is still being built.
+
+That is the whole note. It says a thing is in progress and stops. What it must
+not do is explain: not what is unbuilt, not what is blocked, not what is planned
+next, not when it lands, not why it slipped. The reader does not need any of
+that and all of it is internal business detail. The distinction is the point —
+**not over-sharing, rather than staying silent.**
+
+**2. State it as a research direction, with its falsification test.** For
+anything where the open question is the interesting part:
+
+> Whether least-effort paths describe movement between decision stages. It would
+> be disproved if cheapest-route predictions do not beat a Markov baseline.
+
+A direction published with its own disproof condition is a stronger sentence
+than any status, and it cannot be misread as a shipping promise.
+
+**3. Leave it out.** A named feature with no mechanism to describe and no open
+question worth stating has nothing to say to a reader yet. Naming it anyway is
+just a roadmap with the dates filed off.
+
+| Instead of | Write |
 |---|---|
-| "Quorum — specified, not built" | Leave it out. A named feature with no mechanism to describe has nothing to say to a reader yet. |
-| "Multi-model triangulation — future stage" | Leave it out, or, if the idea matters, state the question: what would it take for two systems to disagree in a way that is informative rather than noisy? |
-| "Kinematic validation — under test" | State it as a research direction and give the observation that would disprove it. That is a stronger sentence than any status, and it is the form the science pages already use. |
-| "Calibrated" | Say what is measured and what is not. "Detected and measured" is a fact; "calibrated" is a term of art that promises an error bar, so do not use it without one. |
-
-A research direction published with its own falsification test is not a
-weakness. It is the thing a technical reader is looking for, and it cannot be
-misread as a shipping promise.
+| "Quorum — specified, not built" | Nothing, or a work-in-progress note on the section that will hold it |
+| "Multi-model triangulation — future stage" | The open question, if it matters: what would make two systems disagreeing informative rather than noisy |
+| "Kinematic validation — under test" | A research direction with the observation that would disprove it |
+| "Calibrated" | What is measured and what is not. "Calibrated" promises an error bar; do not use it without one |
+| "60% complete", "Phase 2", "Q3" | Never. A work-in-progress note carries everything a visitor needs |
 
 ---
 
@@ -74,7 +95,7 @@ No wording makes any of these acceptable:
 - Any statement that a capability exists when it does not, in any tense or
   hedge.
 - Internal business detail: what has or has not shipped, sold, been filed, been
-  declined, or been staffed.
+  declined, or been staffed — including inside a work-in-progress note.
 
 ---
 
