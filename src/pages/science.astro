@@ -4,15 +4,15 @@ import Base from '../layouts/Base.astro';
 const ideas = [
   {
     title: 'Information has a rate and a direction',
-    body: 'In a chemical reaction, how fast something changes and which way it is heading matter as much as how much of it there is. The same holds for a story moving through the world. A count tells you how much. It does not tell you whether support is building or fading.',
+    body: 'In a chemical reaction, how fast something changes and which way it is heading matter as much as how much of it there is. The same bookkeeping can be written for a story moving through the world. A count tells you how much. It does not tell you whether support is building or fading. Under a linear model the expected contribution is V‖w‖cos θ (WP-01 §2, derived).',
   },
   {
     title: 'Many voices, or one voice repeated',
-    body: 'When the same statement appears in fifty places, what matters is how many independent origins sit behind it. One source copied forty-nine times is still one source. Separating copies from genuinely separate sources is the core measurement.',
+    body: 'When the same statement appears in fifty places, what matters is how many independent origins sit behind it. One source copied forty-nine times is still one source. The discount is Kish\'s design effect: n_eff = m / (1 + λ(m − 1)). At λ = 0.6, ten copies contribute 1.56 sources, not ten (WP-02, derived; λ is not a fitted corpus value).',
   },
   {
     title: 'Forces that push and hold back',
-    body: 'Some things accelerate a story: repetition, coordination, reach. Others slow it: contradiction, correction, decay over time. Modeling those forces explicitly, the way kinetics models what speeds up or slows down a reaction, is the working framework.',
+    body: 'Some things accelerate a story: repetition, coordination, reach. Others slow it: contradiction, correction, decay over time. Modeling those forces explicitly is the working framework. Two kinetics results do not transfer: copies do not consume the original, and a correction does not restore the prior state.',
   },
   {
     title: 'A decision proportional to the stakes',
@@ -22,7 +22,7 @@ const ideas = [
 ---
 <Base
   title="The Science — TruVector"
-  description="The science behind TruVector: Lane Vector applies the mathematics of chemical kinetics to how information and intent move, and TruVector is being built to turn those measurements into a decision before an AI acts."
+  description="The science behind TruVector: Lane Vector applies bookkeeping from chemical kinetics to how information moves. Three pieces transfer and are derived. Three pieces do not."
   path="/science"
 >
   <section class="room" style="padding-top:96px;padding-bottom:56px" aria-labelledby="science-title">
@@ -30,7 +30,7 @@ const ideas = [
       <p class="kicker">The science</p>
       <h1 class="suite-title" id="science-title" style="max-width:22ch">The math of how reactions move, applied to how information moves.</h1>
       <hr class="rule--champagne" style="margin-top:32px" />
-      <p class="hero-support" style="margin-top:28px;max-width:62ch">Chemical kinetics describes a reaction by its rate, its direction, and the forces that speed it up or slow it down. <a href="https://www.lanevector.com" rel="noopener">Lane Vector</a> applies the same kind of math to how information and intent move between people and machines. TruVector is where that science is put to work.</p>
+      <p class="hero-support" style="margin-top:28px;max-width:62ch">Chemical kinetics describes a reaction by its rate, its direction, and the forces that speed it up or slow it down. <a href="https://www.lanevector.com" rel="noopener">Lane Vector</a> applies the same kind of math to how information and intent move between people and machines. That is a generalization — bookkeeping that transfers where it is derived, and stops where conservation, reversibility, or an equilibrium constant would be required. TruVector is where that science is put to work.</p>
     </div>
   </section>
 
@@ -48,7 +48,7 @@ const ideas = [
           </li>
         ))}
       </ul>
-      <p class="caption reveal" style="margin-top:32px;max-width:64ch">Terms like velocity and acceleration are used as working models for how information spreads. They are hypotheses under test, not proof that information obeys physical laws. The full research program, with its methods and working papers, is at <a href="https://www.lanevector.com" rel="noopener">lanevector.com</a>.</p>
+      <p class="caption reveal" style="margin-top:32px;max-width:64ch">Terms like velocity and acceleration are used as working models for how information spreads. They are hypotheses under test, not proof that information obeys physical laws. Stiff numerical methods address timescale separation; they do not restore conservation of copies. The full research program, with its methods and working papers, is at <a href="https://www.lanevector.com" rel="noopener">lanevector.com</a>.</p>
     </div>
   </section>
 
