@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Arithmetic from '../components/Arithmetic.astro';
 ---
 <Base
   title="TruVector — A checkpoint for AI actions"
@@ -64,7 +65,9 @@ import Base from '../layouts/Base.astro';
     </div>
   </section>
 
-  <section class="room" id="not" aria-labelledby="not-title">
+  <Arithmetic />
+
+  <section class="room room--alt" id="not" aria-labelledby="not-title">
     <div class="suite suite--flagship">
       <p class="kicker">Boundaries</p>
       <h2 class="suite-title reveal" id="not-title">Three things TruVector is not.</h2>
@@ -85,7 +88,7 @@ import Base from '../layouts/Base.astro';
     </div>
   </section>
 
-  <section class="room room--alt" id="company" aria-labelledby="company-title">
+  <section class="room" id="company" aria-labelledby="company-title">
     <div class="suite suite--flagship">
       <p class="kicker">Company</p>
       <h2 class="suite-title reveal" id="company-title">Built by an engineer who measured things for a living.</h2>
@@ -104,7 +107,7 @@ import Base from '../layouts/Base.astro';
     </div>
   </section>
 
-  <section class="room" id="contact" aria-labelledby="contact-title">
+  <section class="room room--alt" id="contact" aria-labelledby="contact-title">
     <div class="suite suite--flagship">
       <p class="kicker">Contact</p>
       <h2 class="suite-title reveal" id="contact-title">Talk to the person who built it.</h2>
