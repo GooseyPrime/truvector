@@ -12,6 +12,10 @@
 
     <div class="labs">
       <div data-widget="embedding"></div>
+      <figure class="lab-figure">
+        <img src="/figures/embedding-map.png" width="1600" height="920" loading="lazy" decoding="async" alt="A map of about forty thousand words in two dimensions of an embedding. The words form eight coloured regions, one for each meaning group: royalty and history, fruit and food, technology, money and trade, sport, weather and sky, medicine and body, travel and places." />
+        <figcaption>The fuller picture. About 40,000 words in two dimensions of an embedding, coloured by meaning group. Nobody drew the groups in; they appear because words with similar meanings get similar numbers and land close together. The panel above is one small corner of a map like this. Drawn in the style of an embedding viewer; it is an illustration, not a measurement of one model.</figcaption>
+      </figure>
       <div data-widget="dial"></div>
       <div data-widget="detector"></div>
       <div data-widget="chart"></div>
@@ -59,6 +63,9 @@
   .lab-intro { margin-top: 20px; max-width: 62ch; }
   .lab-intro a { color: var(--candle); }
   .labs { display: grid; gap: 36px; margin-top: 48px; max-width: 820px; }
+  .lab-figure { margin: 0; }
+  .lab-figure img { display: block; width: 100%; height: auto; border-radius: 20px; border: 1px solid var(--bronze-edge); background: #fff; }
+  .lab-figure figcaption { margin-top: 12px; font-size: 14px; line-height: 1.55; color: var(--stone-text); max-width: 70ch; }
   .lab-sub { font-family: var(--display); font-weight: 500; font-size: 1.6rem; line-height: 1.2; color: var(--ivory); margin: 80px 0 0; text-wrap: balance; }
   .places__close { margin-top: 64px; max-width: 34ch; font-family: var(--display); font-size: 1.5rem; line-height: 1.3; color: var(--ivory); text-wrap: balance; }
 </style>
