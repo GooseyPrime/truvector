@@ -69,6 +69,29 @@ check(
     home.includes('U.S. Patent 11,949,124.')
 );
 
+const arithmetic = text('src/components/Arithmetic.astro');
+check(
+  'homepage carries the interactive arithmetic section',
+  home.includes("import Arithmetic from '../components/Arithmetic.astro';") &&
+    home.includes('<Arithmetic />') &&
+    arithmetic.includes('Move the numbers yourself.') &&
+    ['data-lab="sources"', 'data-lab="direction"', 'data-lab="rate"'].every((n) => arithmetic.includes(n))
+);
+check(
+  'arithmetic section states each formula with its working-paper section',
+  ['WP-02 &sect;3', 'WP-01 &sect;2', 'WP-01 &sect;3'].every((n) => arithmetic.includes(n))
+);
+check(
+  'every research direction carries the result that would disprove it',
+  (arithmetic.match(/class="rail__note"/g) || []).length === 5 &&
+    (arithmetic.match(/It would be disproved/g) || []).length === 5
+);
+check(
+  'arithmetic section keeps to the site vocabulary and publishes no stage',
+  !/\b(claims?|evidence|evidentiary|assertions?|witness|arbitration|lineage|sufficiency)\b/i.test(arithmetic) &&
+    !/\b(roadmap|beta|pilot|coming soon|in development|not yet built|phase \d)\b/i.test(arithmetic)
+);
+
 const technology = text('src/pages/technology.astro');
 check(
   'technology page qualifies the unbuilt decision-rule stage',

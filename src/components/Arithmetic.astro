@@ -1,0 +1,302 @@
+---
+// The home page's interactive section. Three formulas from the Lane Vector
+// working papers, each with controls a visitor can move. The arithmetic lives
+// in src/lib/lane-math.js and is tested against the published figures.
+---
+<section class="room" id="arithmetic" aria-labelledby="arithmetic-title">
+  <div class="suite suite--flagship">
+    <p class="kicker">The arithmetic</p>
+    <h2 class="suite-title reveal" id="arithmetic-title">Move the numbers yourself.</h2>
+    <p class="reveal lab-intro">Each check on this page is a formula, not a judgement call. These three come from the <a href="https://www.lanevector.com/publications" rel="noopener">Lane Vector working papers</a>. Drag a control and the result follows.</p>
+
+    <div class="labs">
+
+      <article class="lab" data-lab="sources" aria-labelledby="lab-sources-title">
+        <h3 class="lab__title" id="lab-sources-title">Fifty pages. How many sources?</h3>
+        <p class="lab__scene">A purchasing agent looks up a supplier and every page it retrieves says the same thing. Set how many of those pages trace back to each origin.</p>
+        <div class="lab__controls">
+          <label for="src-a">Pages from origin A <output data-out="a"></output></label>
+          <input id="src-a" data-in="a" type="range" min="1" max="20" step="1" value="10" />
+          <label for="src-b">Pages from origin B <output data-out="b"></output></label>
+          <input id="src-b" data-in="b" type="range" min="0" max="20" step="1" value="0" />
+          <label for="src-c">Pages from origin C <output data-out="c"></output></label>
+          <input id="src-c" data-in="c" type="range" min="0" max="20" step="1" value="0" />
+          <label for="src-lambda">How alike pages from one origin are, &lambda; <output data-out="lambda"></output></label>
+          <input id="src-lambda" data-in="lambda" type="range" min="0" max="1" step="0.05" value="0.6" />
+          <label for="src-need">Separate sources this action requires <output data-out="need"></output></label>
+          <input id="src-need" data-in="need" type="range" min="1" max="5" step="1" value="3" />
+        </div>
+        <div class="lab__figure" data-figure role="img" aria-label="Pages grouped by origin, with the share of each group that counts as a separate source"></div>
+        <dl class="lab__read">
+          <div><dt>Pages counted</dt><dd data-read="raw"></dd></div>
+          <div><dt>Count as separate sources</dt><dd data-read="eff"></dd></div>
+          <div><dt>Most one origin can ever count for</dt><dd data-read="ceiling"></dd></div>
+        </dl>
+        <p class="lab__verdict" data-verdict aria-live="polite"></p>
+        <p class="lab__formula"><span>n<sub>eff</sub> = m / (1 + &lambda;(m &minus; 1))</span>, added up over origins. &lambda; is measured for a kind of material, not chosen. WP-02 &sect;3.</p>
+      </article>
+
+      <article class="lab" data-lab="direction" aria-labelledby="lab-direction-title">
+        <h3 class="lab__title" id="lab-direction-title">Ten thousand mentions. Pointing where?</h3>
+        <p class="lab__scene">An agent is asked one question and retrieves a pile of material. Only the part that points at the question moves the answer.</p>
+        <div class="lab__controls">
+          <label for="dir-v">Volume of material, V <output data-out="v"></output></label>
+          <input id="dir-v" data-in="v" type="range" min="1000" max="20000" step="500" value="10000" />
+          <label for="dir-theta">Angle between the material and the question, &theta; <output data-out="theta"></output></label>
+          <input id="dir-theta" data-in="theta" type="range" min="0" max="90" step="1" value="60" />
+        </div>
+        <div class="lab__figure" data-figure role="img" aria-label="An arrow for the material at an angle to the direction of the question, with the part that lies along the question marked"></div>
+        <dl class="lab__read">
+          <div><dt>A count reports</dt><dd data-read="raw"></dd></div>
+          <div><dt>Points at the question</dt><dd data-read="proj"></dd></div>
+          <div><dt>cos &theta;</dt><dd data-read="cos"></dd></div>
+        </dl>
+        <p class="lab__verdict" data-verdict aria-live="polite"></p>
+        <p class="lab__formula"><span>E[y | x] = V &Vert;w&Vert; cos &theta;</span>, with &Vert;w&Vert; = 1. Exact for a linear outcome model and a first-order term otherwise. WP-01 &sect;2.</p>
+      </article>
+
+      <article class="lab" data-lab="rate" aria-labelledby="lab-rate-title">
+        <h3 class="lab__title" id="lab-rate-title">Speeding up, or just noise?</h3>
+        <p class="lab__scene">A story&rsquo;s mention count is sampled at a fixed interval. Whether an acceleration can be read from it at all is settled before any model is fitted.</p>
+        <div class="lab__controls">
+          <label for="rate-h">Sampling interval, h <output data-out="h"></output></label>
+          <input id="rate-h" data-in="h" type="range" min="1" max="24" step="1" value="1" />
+          <label for="rate-sigma">Noise in each sample, &sigma; <output data-out="sigma"></output></label>
+          <input id="rate-sigma" data-in="sigma" type="range" min="5" max="40" step="1" value="20" />
+          <label for="rate-a">Acceleration to detect, a <output data-out="acc"></output></label>
+          <input id="rate-a" data-in="acc" type="range" min="0.5" max="5" step="0.5" value="2" />
+        </div>
+        <div class="lab__figure" data-figure role="img" aria-label="Two bars comparing the acceleration to detect with the noise in the estimate"></div>
+        <dl class="lab__read">
+          <div><dt>Noise in the estimate</dt><dd data-read="noise"></dd></div>
+          <div><dt>Signal to noise</dt><dd data-read="snr"></dd></div>
+        </dl>
+        <p class="lab__verdict" data-verdict aria-live="polite"></p>
+        <p class="lab__formula"><span>sd(a) = &radic;6 &middot; &sigma; / h&sup2;</span>. Independent noise assumed; correlated noise changes the constant, not the h&sup2;. WP-01 &sect;3.</p>
+      </article>
+
+    </div>
+
+    <h3 class="lab-sub reveal" id="directions-title">Where the research has to go next.</h3>
+    <p class="reveal lab-intro">Each direction is stated with the result that would prove it wrong.</p>
+    <ul class="rail reveal" aria-labelledby="directions-title">
+      <li>
+        <span class="rail__name">Measuring &lambda; for each kind of material</span>
+        <span class="rail__note">&lambda; for syndicated news is not &lambda; for scraped product pages or for text written by a model. It would be disproved as a stable quantity if the value measured on one half of a collection falls outside the interval measured on the other half.</span>
+      </li>
+      <li>
+        <span class="rail__name">Finding the origins</span>
+        <span class="rail__note">Copying more is capped at 1/&lambda;. Making one origin look like several is not. It would be disproved if planted copies from a single controlled origin ever lift the count above that cap.</span>
+      </li>
+      <li>
+        <span class="rail__name">Agents that agree with each other</span>
+        <span class="rail__note">Copies of one model, one prompt or one retrieval run share an origin too, and sharing can be nested several levels deep. It would be disproved if a discount with a level for each kind of sharing does no better than a single &lambda; on agent groups whose shared inputs are known.</span>
+      </li>
+      <li>
+        <span class="rail__name">Direction against a plain count</span>
+        <span class="rail__note">Whether weighting material by its angle to the question predicts the outcome better than volume alone. It would be disproved if the weighting adds nothing on material held back from fitting.</span>
+      </li>
+      <li>
+        <span class="rail__name">Acceleration as an earlier warning</span>
+        <span class="rail__note">Whether a story that is speeding up can be flagged sooner than a volume threshold flags it. It would be disproved if the lead time disappears once both are held to the same false-alarm rate.</span>
+      </li>
+    </ul>
+
+    <h3 class="lab-sub reveal" id="places-title">Three places an autonomous system counts agreement.</h3>
+    <div class="places reveal">
+      <div class="places__pane">
+        <p class="places__name">What it reads</p>
+        <p>A search returns fifty pages that agree, and a system that counts pages sees fifty confirmations. Volume is the one advantage a copying campaign has. This arithmetic caps it: one origin never counts for more than 1/&lambda; sources, however many pages it produces.</p>
+      </div>
+      <div class="places__pane">
+        <p class="places__name">Who it listens to</p>
+        <p>Agents working together settle things by agreeing. Ninety copies of one agent are one voice ninety times, and the same formula describes them. A vote counts hands. This counts origins.</p>
+      </div>
+      <div class="places__pane">
+        <p class="places__name">What it is about to do</p>
+        <p>An instruction and a proposed action can be compared the way two signals are: by the angle between them. An action that has turned away from what was asked shows up as an angle before it shows up as a consequence.</p>
+      </div>
+    </div>
+    <p class="reveal places__close">A crowd is cheap to manufacture. Independence is not. That is the difference TruVector measures before an AI acts.</p>
+  </div>
+</section>
+
+<style>
+  .lab-intro { margin-top: 20px; max-width: 62ch; }
+  .lab-intro a { color: var(--candle); }
+  .labs { display: grid; gap: 28px; margin-top: 48px; }
+  @media (min-width: 1100px) { .labs { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .lab {
+    border: 1px solid var(--bronze-edge);
+    background: var(--wet-stone);
+    padding: 28px 24px;
+    display: flex; flex-direction: column; gap: 18px;
+    min-width: 0;
+  }
+  .lab__title { font-family: var(--display); font-weight: 500; font-size: 1.35rem; line-height: 1.2; color: var(--ivory); margin: 0; text-wrap: balance; }
+  .lab__scene { color: var(--parchment); font-size: 15px; margin: 0; }
+  .lab__controls { display: grid; gap: 6px; }
+  .lab__controls label {
+    display: flex; justify-content: space-between; gap: 12px; align-items: baseline;
+    font-size: 14px; color: var(--stone-text); margin-top: 8px;
+  }
+  .lab__controls output { font-family: var(--label); color: var(--ivory); font-variant-numeric: tabular-nums; }
+  .lab__controls input[type='range'] { width: 100%; accent-color: var(--champagne); }
+  .lab__controls input[type='range']:focus-visible { outline: 2px solid var(--candle); outline-offset: 4px; }
+  .lab__figure { min-height: 150px; }
+  .lab__figure :global(svg) { display: block; width: 100%; height: auto; }
+  .lab__read { display: grid; gap: 8px; margin: 0; }
+  .lab__read div { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; border-top: 1px solid var(--bronze-edge); padding-top: 8px; }
+  .lab__read dt { color: var(--stone-text); font-size: 14px; }
+  .lab__read dd { margin: 0; font-family: var(--label); color: var(--ivory); font-variant-numeric: tabular-nums; }
+  .lab__verdict { margin: 0; color: var(--candle); font-size: 15px; min-height: 3em; }
+  .lab__formula { margin: auto 0 0; font-size: 13px; line-height: 1.55; color: var(--stone-text); }
+  .lab__formula span { font-family: var(--label); color: var(--parchment); }
+  .lab-sub { font-family: var(--display); font-weight: 500; font-size: 1.6rem; line-height: 1.2; color: var(--ivory); margin: 80px 0 0; text-wrap: balance; }
+  .places { display: grid; gap: 0; margin-top: 36px; border-top: 1px solid var(--bronze-edge); }
+  @media (min-width: 900px) { .places { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .places__pane { padding: 28px 0; border-bottom: 1px solid var(--bronze-edge); }
+  @media (min-width: 900px) {
+    .places__pane { padding: 28px 28px 28px 0; border-bottom: 0; }
+    .places__pane + .places__pane { padding-left: 28px; border-left: 1px solid var(--bronze-edge); }
+  }
+  .places__name { font-family: var(--label); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--champagne); margin: 0 0 12px; }
+  .places__pane p { color: var(--parchment); font-size: 15px; }
+  .places__close { margin-top: 44px; max-width: 30ch; font-family: var(--display); font-size: 1.5rem; line-height: 1.3; color: var(--ivory); text-wrap: balance; }
+</style>
+
+<script>
+  import {
+    effectiveSources,
+    effectiveCount,
+    originCeiling,
+    projectedContribution,
+    accelerationNoise,
+    accelerationSnr
+  } from '../lib/lane-math.js';
+
+  const METAL = 'var(--champagne)';
+  const EDGE = 'var(--bronze-edge-hot)';
+  const TEXT = 'var(--stone-text)';
+  const whole = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
+
+  function wire(name: string, render: (root: HTMLElement, v: Record<string, number>) => void): void {
+    const root = document.querySelector<HTMLElement>(`[data-lab="${name}"]`);
+    if (!root) return;
+    const inputs = Array.from(root.querySelectorAll<HTMLInputElement>('[data-in]'));
+    const update = (): void => {
+      const values: Record<string, number> = {};
+      for (const input of inputs) values[input.dataset.in ?? ''] = Number(input.value);
+      render(root, values);
+    };
+    for (const input of inputs) input.addEventListener('input', update);
+    update();
+  }
+
+  function put(root: HTMLElement, selector: string, value: string): void {
+    const el = root.querySelector<HTMLElement>(selector);
+    if (el) el.textContent = value;
+  }
+
+  function draw(root: HTMLElement, svg: string): void {
+    const el = root.querySelector<HTMLElement>('[data-figure]');
+    if (el) el.innerHTML = svg;
+  }
+
+  wire('sources', (root, v) => {
+    const sizes = [v.a, v.b, v.c];
+    const names = ['A', 'B', 'C'];
+    const eff = effectiveCount(sizes, v.lambda);
+    const cap = originCeiling(v.lambda);
+    const origins = sizes.filter((m) => m > 0).length;
+    const raw = sizes.reduce((s, m) => s + m, 0);
+
+    put(root, '[data-out="a"]', String(v.a));
+    put(root, '[data-out="b"]', String(v.b));
+    put(root, '[data-out="c"]', String(v.c));
+    put(root, '[data-out="lambda"]', v.lambda.toFixed(2));
+    put(root, '[data-out="need"]', String(v.need));
+    put(root, '[data-read="raw"]', String(raw));
+    put(root, '[data-read="eff"]', eff.toFixed(2));
+    put(root, '[data-read="ceiling"]', Number.isFinite(cap) ? cap.toFixed(2) : 'no limit');
+
+    let verdict: string;
+    if (eff >= v.need) {
+      verdict = `Meets the ${v.need} this action requires.`;
+    } else if (Number.isFinite(cap) && origins * cap < v.need) {
+      verdict = `Short of ${v.need}. More copies from these origins cannot close the gap. Another origin can.`;
+    } else {
+      verdict = `Short of ${v.need}.`;
+    }
+    put(root, '[data-verdict]', verdict);
+
+    // One row per origin: a dot per page, then a bar for what the row counts as.
+    const rowH = 44;
+    let body = '';
+    sizes.forEach((m, i) => {
+      const y = 14 + i * rowH;
+      body += `<text x="0" y="${y + 5}" fill="${TEXT}" font-size="12">${names[i]}</text>`;
+      for (let k = 0; k < m; k++) {
+        body += `<circle cx="${22 + k * 13}" cy="${y}" r="4.5" fill="${METAL}" fill-opacity="${k === 0 ? 1 : 0.28}"></circle>`;
+      }
+      const n = effectiveSources(m, v.lambda);
+      const w = Math.min(n, 5) * 52;
+      body += `<rect x="22" y="${y + 12}" width="260" height="5" fill="${EDGE}"></rect>`;
+      body += `<rect x="22" y="${y + 12}" width="${w.toFixed(1)}" height="5" fill="${METAL}"></rect>`;
+      body += `<text x="288" y="${y + 18}" fill="${TEXT}" font-size="11">${n.toFixed(2)}</text>`;
+    });
+    draw(root, `<svg viewBox="0 0 320 140" font-family="var(--label)">${body}</svg>`);
+  });
+
+  wire('direction', (root, v) => {
+    const proj = projectedContribution(v.v, v.theta);
+    const cos = v.v === 0 ? 0 : proj / v.v;
+    put(root, '[data-out="v"]', whole.format(v.v));
+    put(root, '[data-out="theta"]', `${v.theta}°`);
+    put(root, '[data-read="raw"]', whole.format(v.v));
+    put(root, '[data-read="proj"]', whole.format(Math.round(proj)));
+    put(root, '[data-read="cos"]', cos.toFixed(3));
+    const share = Math.round(cos * 100);
+    put(root, '[data-verdict]', share >= 95
+      ? 'Nearly all of it points at the question. Here a count and a direction say the same thing.'
+      : `${share}% of what a count reports points at the question.`);
+
+    const ox = 24;
+    const oy = 150;
+    const len = 60 + (v.v / 20000) * 200;
+    const rad = (v.theta * Math.PI) / 180;
+    const tx = ox + len * Math.cos(rad);
+    const ty = oy - len * Math.sin(rad);
+    draw(root, `<svg viewBox="0 0 320 170" font-family="var(--label)">
+      <line x1="${ox}" y1="${oy}" x2="300" y2="${oy}" stroke="${EDGE}" stroke-width="1"></line>
+      <text x="300" y="${oy + 14}" fill="${TEXT}" font-size="11" text-anchor="end">the question</text>
+      <line x1="${tx.toFixed(1)}" y1="${ty.toFixed(1)}" x2="${tx.toFixed(1)}" y2="${oy}" stroke="${TEXT}" stroke-width="1" stroke-dasharray="3 4"></line>
+      <line x1="${ox}" y1="${oy}" x2="${tx.toFixed(1)}" y2="${ty.toFixed(1)}" stroke="var(--parchment)" stroke-width="2"></line>
+      <circle cx="${tx.toFixed(1)}" cy="${ty.toFixed(1)}" r="3.5" fill="var(--parchment)"></circle>
+      <line x1="${ox}" y1="${oy}" x2="${tx.toFixed(1)}" y2="${oy}" stroke="${METAL}" stroke-width="5"></line>
+      <circle cx="${ox}" cy="${oy}" r="3" fill="${METAL}"></circle>
+    </svg>`);
+  });
+
+  wire('rate', (root, v) => {
+    const noise = accelerationNoise(v.sigma, v.h);
+    const snr = accelerationSnr(v.acc, v.sigma, v.h);
+    put(root, '[data-out="h"]', String(v.h));
+    put(root, '[data-out="sigma"]', String(v.sigma));
+    put(root, '[data-out="acc"]', v.acc.toFixed(1));
+    put(root, '[data-read="noise"]', noise >= 10 ? noise.toFixed(1) : noise.toFixed(3));
+    put(root, '[data-read="snr"]', snr >= 10 ? snr.toFixed(1) : snr.toFixed(2));
+    put(root, '[data-verdict]', snr < 1
+      ? 'Below 1. An acceleration reported at this interval is noise. Widen the interval before fitting anything.'
+      : 'Above 1. An acceleration of this size can be read at this interval.');
+
+    const top = Math.max(noise, v.acc);
+    const scale = (x: number): string => ((x / top) * 250).toFixed(1);
+    draw(root, `<svg viewBox="0 0 320 110" font-family="var(--label)">
+      <text x="0" y="16" fill="${TEXT}" font-size="11">acceleration to detect</text>
+      <rect x="0" y="24" width="${scale(v.acc)}" height="14" fill="${METAL}"></rect>
+      <text x="0" y="70" fill="${TEXT}" font-size="11">noise in the estimate</text>
+      <rect x="0" y="78" width="${scale(noise)}" height="14" fill="${EDGE}"></rect>
+    </svg>`);
+  });
+</script>
