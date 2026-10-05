@@ -109,7 +109,7 @@ check(
 const technology = text('src/pages/technology.astro');
 check('technology separates action reading from subject checks',
   technology.includes('Separate action readings') && technology.includes('action subject score') &&
-  technology.includes('label concentration') && !technology.includes('confidence_interval'));
+  technology.includes('In words:') && technology.includes('WP-02 §7') && !technology.includes('confidence_interval'));
 check('publications route provides current documents',
   text('src/pages/publications.astro').includes('/working-papers/WP-02.pdf') &&
   text('src/pages/publications.astro').includes('/working-papers/WP-02.pdf') &&

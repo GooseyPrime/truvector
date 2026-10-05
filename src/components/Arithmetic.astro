@@ -51,14 +51,14 @@ const panels: Panel[] = [
   {
     name: 'dial',
     step: '02 Direction',
-    title: 'Geometrical signal projection',
-    lede: 'In a declared signal basis, projection combines magnitude with angle to a defined outcome vector. Text cosine is a subject guard and does not supply support or refutation.',
-    reading: 'At the starting angle of 60° and a volume of 10,000, cos θ is 0.50, so 5,000 of the 10,000 is the projected component. A plain count would report all of it.',
+    title: 'Vector Cosine Similarity',
+    lede: 'Once text is an arrow, two arrows can be compared by the angle between them. cos θ runs from 1, the same direction, through 0, unrelated, to −1, the opposite direction. Volume says how much text there is; the angle says how much of it points at the question. One limit to keep in mind: between two pieces of text, this angle only says whether they are about the same subject. Whether one supports or refutes the other comes from a reading, not from the angle.',
+    reading: 'At the starting angle of 60° and a volume of 10,000, cos θ is 0.50, so 5,000 of the 10,000 counts toward the question. A plain count would report all of it.',
     formula: 'cos θ = (A · B) / (‖A‖ ‖B‖)',
     formulaNote: 'and the expected contribution is V ‖w‖ cos θ with ‖w‖ = 1. Exact when the outcome is a straight-line function of the signal. WP-01 §2.',
     copy: {
       aria: 'Two arrows from one point on a half-circle dial. One is fixed and stands for the question. The other turns as the angle slider moves, and the part of it that lies along the question is highlighted.',
-      stats: ['cos θ', 'Projected component'],
+      stats: ['cos θ', 'Counts toward the question'],
       angleLabel: 'Angle θ',
       volumeLabel: 'Volume',
       fixedLabel: 'The question (A)',
@@ -137,41 +137,41 @@ const panels: Panel[] = [
     formulaNote: 'with the illustrative λ = 0.9 for the repeated origin. WP-02 §3.',
     copy: {
       aria: 'A hub with honest agents on an inner ring and clones on an outer ring. With the arithmetic on, the clones fade and lines tie them to one origin.',
-      legendHonest: 'Singleton origin',
+      legendHonest: 'Honest agent, its own origin',
       legendClone: 'Clone of one compromised agent',
       legendOrigin: 'The one origin behind the clones',
-      honestLabel: 'Singleton origins',
+      honestLabel: 'Honest agents',
       cloneLabel: 'Clones',
       toggle: 'Count origins, not votes',
       hub: 'DECIDE',
-      stateHolds: 'The singleton side has more weight',
+      stateHolds: 'The honest view holds',
       stateTie: 'A tied vote: no action',
       stateLost: 'The clones win the vote',
-      stats: ['Votes, singleton : repeated', 'Counted weight, singleton : repeated']
+      stats: ['Votes, honest : clones', 'Counted weight, honest : clones']
     }
   },
   {
     name: 'alignment',
     step: '07 Action',
-    title: 'Action subject guard',
+    title: 'Output Alignment',
     lede: 'Before an agent acts, the instruction it was given and the action it proposes are both turned into coordinates, and the angle between them says whether the action is still about what was asked. An action that has wandered onto another subject shows up as an angle before it shows up as a consequence. The angle cannot tell “do it” from “do not do it”; that is a separate reading by the models, after this check. Turn the action away from the instruction and watch the decision change.',
-    reading: 'At the starting settings the action has turned 15° from the instruction and cos θ is 0.97, above the bar of 0.70, so the subject guard passes. A lower score routes to subject review. A separate reading checks instruction consistency in every case.',
+    reading: 'At the starting settings the action has turned 15° from the instruction and cos θ is 0.97, above the bar of 0.70, so the action is still about what was asked and goes on to the reading that checks it does what was asked. Below the bar, a person looks at it first. The angle never gives permission on its own.',
     formula: 'cos θ = (a · w) / (‖a‖ ‖w‖)',
     formulaNote: 'with w the instruction and a the proposed action, both as coordinates from step 01, in a declared basis. This is the decision engine’s own use of the angle, not a result from the working papers: the angle checks the subject of the action, and whether the action carries the instruction out is read separately.',
     copy: {
       aria: 'A half-circle dial. A fixed blue arrow is the instruction. A second arrow is the proposed action and turns away from it as the slider moves. The dial is shaded green where the action proceeds, amber where it is held, and red where it does not run.',
       legendInstruction: 'The instruction',
-      legendRuns: 'Subject guard passes',
-      legendHeld: 'Held for a person',
-      legendBlocked: 'Subject review',
+      legendRuns: 'On the subject: goes to the reading',
+      legendHeld: 'Drifting: a person looks first',
+      legendBlocked: 'Another subject: a person looks first',
       driftLabel: 'How far the action has turned',
       barLabel: 'Proceeds only when cos θ is at least',
       instructionTag: 'Instruction: pay supplier A’s invoice',
       actionTag: 'Proposed action',
       ninetyLabel: '90°: unrelated to the instruction',
-      decisionTag: { runs: 'Subject guard passes', held: 'Subject review', blocked: 'Subject review' },
-      decisionWord: { runs: 'Passes', held: 'Review', blocked: 'Review' },
-      stats: ['cos θ', 'Subject guard'],
+      decisionTag: { runs: 'On the subject', held: 'A person looks first', blocked: 'A person looks first' },
+      decisionWord: { runs: 'On the subject', held: 'A person looks', blocked: 'A person looks' },
+      stats: ['cos θ', 'What happens next'],
       examples: [
         { upTo: 20, text: 'Pay supplier A’s invoice.' },
         { upTo: 50, text: 'Pay supplier A’s invoice to a new account that arrived by email this morning.' },
@@ -185,9 +185,9 @@ const panels: Panel[] = [
     step: '08 Judging',
     title: 'Meaning, Not Words',
     lede: 'Several models read the same statement and each says what it means to it: supports, refutes or unsure, and how sure. Then something has to turn those readings into one decision. The working prototype does it by counting words: how many words the replies share, and how often nine words like “however” and “false” appear. The replacement never counts words. The models do the reading; the arithmetic counts origins, measures direction and label concentration, and decides. Pick a case and compare the two side by side.',
-    reading: 'Three readers support the statement in different words, and one of them writes “but”. The word count sees little shared wording and a marker word, scores 0.00 and blocks it. The meaning-based decision sees three origins supporting with label concentration 1.00 and allows it. With three copies of one reply the word count scores a perfect 1.00 and allows; the meaning-based decision counts one origin repeated and holds it for a person.',
+    reading: 'Three readers support the statement in different words, and one of them writes “but”. The word count sees little shared wording and a marker word, scores 0.00 and blocks it. The meaning-based decision sees three origins supporting with certainty 1.00 and allows it. With three copies of one reply the word count scores a perfect 1.00 and allows; the meaning-based decision counts one origin repeated and holds it for a person.',
     formula: 'D = S − R,  C = 1 − H(S, R, U)',
-    formulaNote: 'with S, R, U the normalized reader weights, D = S − R, and C the label concentration. This panel isolates stance aggregation under assumed passing guards and quorum. Complete decisions additionally require the subject, unsupported-reader, and action checks in WP-02. C is not calibrated correctness probability.',
+    formulaNote: 'with S, R, U the readers’ shares weighted by confidence and by origin, D = S − R the direction, and C the certainty (how concentrated the readings are on one answer). This panel isolates stance aggregation under assumed passing guards and quorum. Complete decisions additionally require the subject, unsupported-reader, and action checks in WP-02. C is not calibrated correctness probability.',
     copy: {
       wordsAria: 'Three overlapping circles, one per reply, pulled together by how many words the replies share.',
       meaningAria: 'Arrows from one point along a support-to-refute line, one per reader, with a dashed ring around arrows that come from one origin.',
@@ -206,7 +206,7 @@ const panels: Panel[] = [
       tileScore: 'Score',
       tileOrigins: 'Independent origins',
       tileDirection: 'Direction D',
-      tileCertainty: 'Label concentration C',
+      tileCertainty: 'Certainty C',
       gateWord: { ALLOW: 'Allow', REVIEW: 'Hold', BLOCK: 'Block' },
       stats: ['Word count decides', 'Meaning decides'],
       scenarios: [
@@ -240,7 +240,7 @@ const panels: Panel[] = [
             { text: 'Incorrect; the real figure is lower.', stance: 'refutes', confidence: 0.85, origin: 'C' }
           ],
           wordsWhy: 'Blocked, but for the wording: little overlap and three marker words.',
-          meaningWhy: 'Direction −1.00 with label concentration 1.00 from three origins. Blocked because the readers refute it.',
+          meaningWhy: 'Direction −1.00 with certainty 1.00 from three origins. Blocked because the readers refute it.',
           note: 'Both methods block, and only one of them knows why. The word count blocks because the replies share few words and contain marker words; it would block a unanimous “supports” written the same way. The meaning-based decision blocks because three independent readers refute the statement.'
         },
         {
@@ -251,7 +251,7 @@ const panels: Panel[] = [
             { text: 'The figure is right.', stance: 'supports', confidence: 0.8, origin: 'C' }
           ],
           wordsWhy: '“Not false” and “incorrect” count as two marker words in twelve. Score 0.00, blocked.',
-          meaningWhy: 'Three origins support it with label concentration 1.00. Allowed.',
+          meaningWhy: 'Three origins support it with certainty 1.00. Allowed.',
           note: '“This is not false” is support. A word count cannot know that; it sees “false” and counts a contradiction. Reading is the models’ job, and the arithmetic only ever works on what they read.'
         }
       ]
@@ -467,7 +467,7 @@ const judging = ['reading'];
         if (nC === 0) return `${nH} honest agents and no clones. Nothing to defend against.`;
         if (on) {
           const head = `${nC} clones count as ${round(cloneWeight)}, because they are one origin repeated. ${nH} honest agents count as ${nH}. `;
-          if (honestWins) return head + `The singleton side has more weight, ${nH} to ${round(cloneWeight)}.`;
+          if (honestWins) return head + `The honest view holds, ${nH} to ${round(cloneWeight)}.`;
           if (tie) return head + `That is a tie, ${nH} to ${round(cloneWeight)}, and a system must not act on a tie. Add another honest agent.`;
           return head + `The one origin still outweighs ${nH} honest agent${nH === 1 ? '' : 's'}. Add honest agents until the honest side has the weight.`;
         }
@@ -491,8 +491,12 @@ const judging = ['reading'];
   if (alignment) {
     mountAlignment(alignment, {
       ...words('alignment'),
-      verdict: ({ cos, limit }: { cos: number; limit: number }) =>
-        `Subject cosine is ${cos.toFixed(2)} against ${limit.toFixed(2)}: ${cos >= limit ? 'the subject guard passes' : 'subject review is required'}. Instruction consistency is read separately; this panel does not authorize execution.`
+      verdict: ({ decision, deg, cos, limit, limitDeg, example }: { decision: string; deg: number; cos: number; limit: number; limitDeg: number; example: string }) => {
+        const head = `The action: “${example}” `;
+        if (decision === 'runs') return head + `It is still about what was asked (cos θ = ${cos.toFixed(2)}, at or above ${limit.toFixed(2)}), so it goes on to the reading that checks it does what was asked. The angle alone never gives permission.`;
+        if (decision === 'held') return head + `It has turned ${deg}° from the instruction, past the ${Math.round(limitDeg)}° the bar allows, so a person looks at it before anything happens.`;
+        return head + 'It is about something else entirely. A person looks at it before anything happens.';
+      }
     });
   }
 </script>
