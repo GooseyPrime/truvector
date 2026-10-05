@@ -75,11 +75,11 @@ check(
   home.includes("import Arithmetic from '../components/Arithmetic.astro';") &&
     home.includes('<Arithmetic />') &&
     arithmetic.includes('Move the numbers yourself.') &&
-    ['data-lab="sources"', 'data-lab="direction"', 'data-lab="rate"'].every((n) => arithmetic.includes(n))
+    ['data-widget="detector"', 'data-widget="dial"', 'data-widget="chart"'].every((n) => arithmetic.includes(n))
 );
 check(
   'arithmetic section states each formula with its working-paper section',
-  ['WP-02 &sect;3', 'WP-01 &sect;2', 'WP-01 &sect;3'].every((n) => arithmetic.includes(n))
+  ['WP-02 \\u00A73', 'WP-01 \\u00A72', 'WP-01 \\u00A73'].every((n) => arithmetic.includes(n))
 );
 check(
   'every research direction carries the result that would disprove it',

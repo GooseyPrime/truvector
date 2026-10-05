@@ -10,71 +10,9 @@
     <p class="reveal lab-intro">Each check on this page is a formula, not a judgement call. These three come from the <a href="https://www.lanevector.com/publications" rel="noopener">Lane Vector working papers</a>. Drag a control and the result follows.</p>
 
     <div class="labs">
-
-      <article class="lab" data-lab="sources" aria-labelledby="lab-sources-title">
-        <h3 class="lab__title" id="lab-sources-title">Pages. How many sources?</h3>
-        <p class="lab__scene">A purchasing agent looks up a supplier and every page it retrieves says the same thing. Set how many of those pages trace back to each origin.</p>
-        <div class="lab__controls">
-          <label for="src-a">Pages from origin A <output data-out="a"></output></label>
-          <input id="src-a" data-in="a" type="range" min="1" max="20" step="1" value="10" />
-          <label for="src-b">Pages from origin B <output data-out="b"></output></label>
-          <input id="src-b" data-in="b" type="range" min="0" max="20" step="1" value="0" />
-          <label for="src-c">Pages from origin C <output data-out="c"></output></label>
-          <input id="src-c" data-in="c" type="range" min="0" max="20" step="1" value="0" />
-          <label for="src-lambda">How alike pages from one origin are, &lambda; <output data-out="lambda"></output></label>
-          <input id="src-lambda" data-in="lambda" type="range" min="0" max="1" step="0.05" value="0.6" />
-          <label for="src-need">Separate sources this action requires <output data-out="need"></output></label>
-          <input id="src-need" data-in="need" type="range" min="1" max="5" step="1" value="3" />
-        </div>
-        <div class="lab__figure" data-figure role="img" aria-label="Pages grouped by origin, with the share of each group that counts as a separate source"></div>
-        <dl class="lab__read">
-          <div><dt>Pages counted</dt><dd data-read="raw"></dd></div>
-          <div><dt>Count as separate sources</dt><dd data-read="eff"></dd></div>
-          <div><dt>Most one origin can ever count for</dt><dd data-read="ceiling"></dd></div>
-        </dl>
-        <p class="lab__verdict" data-verdict aria-live="polite"></p>
-        <p class="lab__formula"><span>n<sub>eff</sub> = m / (1 + &lambda;(m &minus; 1))</span>, added up over origins. &lambda; is measured for a kind of material, not chosen. WP-02 &sect;3.</p>
-      </article>
-
-      <article class="lab" data-lab="direction" aria-labelledby="lab-direction-title">
-        <h3 class="lab__title" id="lab-direction-title">Ten thousand mentions. Pointing where?</h3>
-        <p class="lab__scene">An agent is asked one question and retrieves a pile of material. Only the part that points at the question moves the answer.</p>
-        <div class="lab__controls">
-          <label for="dir-v">Volume of material, V <output data-out="v"></output></label>
-          <input id="dir-v" data-in="v" type="range" min="1000" max="20000" step="500" value="10000" />
-          <label for="dir-theta">Angle between the material and the question, &theta; <output data-out="theta"></output></label>
-          <input id="dir-theta" data-in="theta" type="range" min="0" max="90" step="1" value="60" />
-        </div>
-        <div class="lab__figure" data-figure role="img" aria-label="An arrow for the material at an angle to the direction of the question, with the part that lies along the question marked"></div>
-        <dl class="lab__read">
-          <div><dt>A count reports</dt><dd data-read="raw"></dd></div>
-          <div><dt>Points at the question</dt><dd data-read="proj"></dd></div>
-          <div><dt>cos &theta;</dt><dd data-read="cos"></dd></div>
-        </dl>
-        <p class="lab__verdict" data-verdict aria-live="polite"></p>
-        <p class="lab__formula"><span>E[y | x] = V &Vert;w&Vert; cos &theta;</span>, with &Vert;w&Vert; = 1. Exact for a linear outcome model and a first-order term otherwise. WP-01 &sect;2.</p>
-      </article>
-
-      <article class="lab" data-lab="rate" aria-labelledby="lab-rate-title">
-        <h3 class="lab__title" id="lab-rate-title">Speeding up, or just noise?</h3>
-        <p class="lab__scene">A story&rsquo;s mention count is sampled at a fixed interval. Whether an acceleration can be read from it at all is settled before any model is fitted.</p>
-        <div class="lab__controls">
-          <label for="rate-h">Sampling interval, h <output data-out="h"></output></label>
-          <input id="rate-h" data-in="h" type="range" min="1" max="24" step="1" value="1" />
-          <label for="rate-sigma">Noise in each sample, &sigma; <output data-out="sigma"></output></label>
-          <input id="rate-sigma" data-in="sigma" type="range" min="5" max="40" step="1" value="20" />
-          <label for="rate-a">Acceleration to detect, a <output data-out="acc"></output></label>
-          <input id="rate-a" data-in="acc" type="range" min="0.5" max="5" step="0.5" value="2" />
-        </div>
-        <div class="lab__figure" data-figure role="img" aria-label="Two bars comparing the acceleration to detect with the noise in the estimate"></div>
-        <dl class="lab__read">
-          <div><dt>Noise in the estimate</dt><dd data-read="noise"></dd></div>
-          <div><dt>Signal to noise</dt><dd data-read="snr"></dd></div>
-        </dl>
-        <p class="lab__verdict" data-verdict aria-live="polite"></p>
-        <p class="lab__formula"><span>sd(a) = &radic;6 &middot; &sigma; / h&sup2;</span>. Independent noise assumed; correlated noise changes the constant, not the h&sup2;. WP-01 &sect;3.</p>
-      </article>
-
+      <div data-widget="detector"></div>
+      <div data-widget="dial"></div>
+      <div data-widget="chart"></div>
     </div>
 
     <h3 class="lab-sub reveal" id="directions-title">Where the research has to go next.</h3>
@@ -124,34 +62,7 @@
 <style>
   .lab-intro { margin-top: 20px; max-width: 62ch; }
   .lab-intro a { color: var(--candle); }
-  .labs { display: grid; gap: 28px; margin-top: 48px; }
-  @media (min-width: 1100px) { .labs { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-  .lab {
-    border: 1px solid var(--bronze-edge);
-    background: var(--wet-stone);
-    padding: 28px 24px;
-    display: flex; flex-direction: column; gap: 18px;
-    min-width: 0;
-  }
-  .lab__title { font-family: var(--display); font-weight: 500; font-size: 1.35rem; line-height: 1.2; color: var(--ivory); margin: 0; text-wrap: balance; }
-  .lab__scene { color: var(--parchment); font-size: 15px; margin: 0; }
-  .lab__controls { display: grid; gap: 6px; }
-  .lab__controls label {
-    display: flex; justify-content: space-between; gap: 12px; align-items: baseline;
-    font-size: 14px; color: var(--stone-text); margin-top: 8px;
-  }
-  .lab__controls output { font-family: var(--label); color: var(--ivory); font-variant-numeric: tabular-nums; }
-  .lab__controls input[type='range'] { width: 100%; accent-color: var(--champagne); }
-  .lab__controls input[type='range']:focus-visible { outline: 2px solid var(--candle); outline-offset: 4px; }
-  .lab__figure { min-height: 150px; }
-  .lab__figure :global(svg) { display: block; width: 100%; height: auto; }
-  .lab__read { display: grid; gap: 8px; margin: 0; }
-  .lab__read div { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; border-top: 1px solid var(--bronze-edge); padding-top: 8px; }
-  .lab__read dt { color: var(--stone-text); font-size: 14px; }
-  .lab__read dd { margin: 0; font-family: var(--label); color: var(--ivory); font-variant-numeric: tabular-nums; }
-  .lab__verdict { margin: 0; color: var(--candle); font-size: 15px; min-height: 3em; }
-  .lab__formula { margin: auto 0 0; font-size: 13px; line-height: 1.55; color: var(--stone-text); }
-  .lab__formula span { font-family: var(--label); color: var(--parchment); }
+  .labs { display: grid; gap: 36px; margin-top: 48px; max-width: 820px; }
   .lab-sub { font-family: var(--display); font-weight: 500; font-size: 1.6rem; line-height: 1.2; color: var(--ivory); margin: 80px 0 0; text-wrap: balance; }
   .places { display: grid; gap: 0; margin-top: 36px; border-top: 1px solid var(--bronze-edge); }
   @media (min-width: 900px) { .places { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
@@ -166,137 +77,71 @@
 </style>
 
 <script>
-  import {
-    effectiveSources,
-    effectiveCount,
-    originCeiling,
-    projectedContribution,
-    accelerationNoise,
-    accelerationSnr
-  } from '../lib/lane-math.js';
+  import { mountDetector, mountDial, mountChart } from '../lib/lane-widgets.js';
 
-  const METAL = 'var(--champagne)';
-  const EDGE = 'var(--bronze-edge-hot)';
-  const TEXT = 'var(--stone-text)';
-  const whole = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
+  const find = (name: string) => document.querySelector<HTMLElement>(`[data-widget="${name}"]`);
+  const round = (n: number): string => (n >= 100 ? Math.round(n).toLocaleString('en-US') : n.toFixed(1));
 
-  function wire(name: string, render: (root: HTMLElement, v: Record<string, number>) => void): void {
-    const root = document.querySelector<HTMLElement>(`[data-lab="${name}"]`);
-    if (!root) return;
-    const inputs = Array.from(root.querySelectorAll<HTMLInputElement>('[data-in]'));
-    const update = (): void => {
-      const values: Record<string, number> = {};
-      for (const input of inputs) values[input.dataset.in ?? ''] = Number(input.value);
-      render(root, values);
-    };
-    for (const input of inputs) input.addEventListener('input', update);
-    update();
-  }
-
-  function put(root: HTMLElement, selector: string, value: string): void {
-    const el = root.querySelector<HTMLElement>(selector);
-    if (el) el.textContent = value;
-  }
-
-  function draw(root: HTMLElement, svg: string): void {
-    const el = root.querySelector<HTMLElement>('[data-figure]');
-    if (el) el.innerHTML = svg;
-  }
-
-  wire('sources', (root, v) => {
-    const sizes = [v.a, v.b, v.c];
-    const names = ['A', 'B', 'C'];
-    const eff = effectiveCount(sizes, v.lambda);
-    const cap = originCeiling(v.lambda);
-    const origins = sizes.filter((m) => m > 0).length;
-    const raw = sizes.reduce((s, m) => s + m, 0);
-
-    put(root, '[data-out="a"]', String(v.a));
-    put(root, '[data-out="b"]', String(v.b));
-    put(root, '[data-out="c"]', String(v.c));
-    put(root, '[data-out="lambda"]', v.lambda.toFixed(2));
-    put(root, '[data-out="need"]', String(v.need));
-    put(root, '[data-read="raw"]', String(raw));
-    put(root, '[data-read="eff"]', eff.toFixed(2));
-    put(root, '[data-read="ceiling"]', Number.isFinite(cap) ? cap.toFixed(2) : 'no limit');
-
-    let verdict: string;
-    if (eff >= v.need) {
-      verdict = `Meets the ${v.need} this action requires.`;
-    } else if (Number.isFinite(cap) && origins * cap < v.need) {
-      verdict = `Short of ${v.need}. More copies from these origins cannot close the gap. Another origin can.`;
-    } else {
-      verdict = `Short of ${v.need}.`;
-    }
-    put(root, '[data-verdict]', verdict);
-
-    // One row per origin: a dot per page, then a bar for what the row counts as.
-    const rowH = 44;
-    let body = '';
-    sizes.forEach((m, i) => {
-      const y = 14 + i * rowH;
-      body += `<text x="0" y="${y + 5}" fill="${TEXT}" font-size="12">${names[i]}</text>`;
-      for (let k = 0; k < m; k++) {
-        body += `<circle cx="${22 + k * 13}" cy="${y}" r="4.5" fill="${METAL}" fill-opacity="${k === 0 ? 1 : 0.28}"></circle>`;
+  const detector = find('detector');
+  if (detector) {
+    mountDetector(detector, {
+      title: 'Astroturf Detector Simulation',
+      lede: 'An AI agent searches a topic and gets 500 posts that all agree. Each dot is one post. Switch on Astroturf Mode to see the same 500 posts when they come from only 5 accounts copying each other.',
+      aria: 'Five hundred dots. Spread out when the posts come from many separate accounts, packed into five clumps when they come from five.',
+      stats: ['Raw volume', 'Effective sources'],
+      toggle: 'Astroturf Mode',
+      slider: 'Coordination Level (\u03BB)',
+      formula: 'n_eff = m / (1 + \u03BB(m \u2212 1))',
+      formulaNote: 'worked out for each origin, then added up. \u03BB is how alike posts from one origin are. It is measured, not chosen. WP-02 \u00A73.',
+      verdict: ({ on, lambda, eff, total }: { on: boolean; lambda: number; eff: number; total: number }) => {
+        if (lambda === 0) return `With no copying at all, every post counts. ${total} posts are ${total} sources.`;
+        if (on) return `${total} posts, but only 5 origins. They count as ${round(eff)} sources. Posting more would not help: each origin tops out at ${(1 / lambda).toFixed(1)}.`;
+        return `${total} posts from 250 separate origins. They count as ${round(eff)} sources. A crowd that is really a crowd keeps most of its weight.`;
       }
-      const n = effectiveSources(m, v.lambda);
-      const w = Math.min(n, 5) * 52;
-      body += `<rect x="22" y="${y + 12}" width="260" height="5" fill="${EDGE}"></rect>`;
-      body += `<rect x="22" y="${y + 12}" width="${w.toFixed(1)}" height="5" fill="${METAL}"></rect>`;
-      body += `<text x="288" y="${y + 18}" fill="${TEXT}" font-size="11">${n.toFixed(2)}</text>`;
     });
-    draw(root, `<svg viewBox="0 0 320 140" font-family="var(--label)">${body}</svg>`);
-  });
+  }
 
-  wire('direction', (root, v) => {
-    const proj = projectedContribution(v.v, v.theta);
-    const cos = v.v === 0 ? 0 : proj / v.v;
-    put(root, '[data-out="v"]', whole.format(v.v));
-    put(root, '[data-out="theta"]', `${v.theta}°`);
-    put(root, '[data-read="raw"]', whole.format(v.v));
-    put(root, '[data-read="proj"]', whole.format(Math.round(proj)));
-    put(root, '[data-read="cos"]', cos.toFixed(3));
-    const share = Math.round(cos * 100);
-    put(root, '[data-verdict]', share >= 95
-      ? 'Nearly all of it points at the question. Here a count and a direction say the same thing.'
-      : `${share}% of what a count reports points at the question.`);
+  const dial = find('dial');
+  if (dial) {
+    mountDial(dial, {
+      title: 'Vector Cosine Similarity',
+      lede: 'Volume tells you how much text there is. The angle tells you where it points. Only the part that points at the question should move the answer.',
+      aria: 'Two arrows from one point. One is fixed. The other turns as the angle changes.',
+      stats: ['Cosine similarity', 'Counts toward the answer'],
+      angleLabel: 'Angle (degrees)',
+      volumeLabel: 'Volume',
+      fixedLabel: 'The question (A)',
+      movingLabel: 'Incoming text (B)',
+      formula: 'E[y | x] = V \u2016w\u2016 cos \u03B8',
+      formulaNote: 'with \u2016w\u2016 = 1. Exact when the outcome is a straight-line function of the signal. WP-01 \u00A72.',
+      verdict: ({ deg, cos, vol }: { deg: number; cos: number; vol: number }) => {
+        const v = vol.toLocaleString('en-US');
+        if (deg <= 10) return `Almost all of the ${v} points at the question. Here a plain count and the direction agree.`;
+        if (deg < 80) return `${Math.round(cos * 100)}% of the ${v} points at the question. A plain count would report all of it.`;
+        if (deg <= 100) return `The text is about something else. ${v} pieces of it add close to nothing.`;
+        return `The text points away from the question. The more of it there is, the harder it pushes the other way.`;
+      }
+    });
+  }
 
-    const ox = 24;
-    const oy = 150;
-    const len = 60 + (v.v / 20000) * 200;
-    const rad = (v.theta * Math.PI) / 180;
-    const tx = ox + len * Math.cos(rad);
-    const ty = oy - len * Math.sin(rad);
-    draw(root, `<svg viewBox="0 0 320 170" font-family="var(--label)">
-      <line x1="${ox}" y1="${oy}" x2="300" y2="${oy}" stroke="${EDGE}" stroke-width="1"></line>
-      <text x="300" y="${oy + 14}" fill="${TEXT}" font-size="11" text-anchor="end">the question</text>
-      <line x1="${tx.toFixed(1)}" y1="${ty.toFixed(1)}" x2="${tx.toFixed(1)}" y2="${oy}" stroke="${TEXT}" stroke-width="1" stroke-dasharray="3 4"></line>
-      <line x1="${ox}" y1="${oy}" x2="${tx.toFixed(1)}" y2="${ty.toFixed(1)}" stroke="var(--parchment)" stroke-width="2"></line>
-      <circle cx="${tx.toFixed(1)}" cy="${ty.toFixed(1)}" r="3.5" fill="var(--parchment)"></circle>
-      <line x1="${ox}" y1="${oy}" x2="${tx.toFixed(1)}" y2="${oy}" stroke="${METAL}" stroke-width="5"></line>
-      <circle cx="${ox}" cy="${oy}" r="3" fill="${METAL}"></circle>
-    </svg>`);
-  });
-
-  wire('rate', (root, v) => {
-    const noise = accelerationNoise(v.sigma, v.h);
-    const snr = accelerationSnr(v.acc, v.sigma, v.h);
-    put(root, '[data-out="h"]', String(v.h));
-    put(root, '[data-out="sigma"]', String(v.sigma));
-    put(root, '[data-out="acc"]', v.acc.toFixed(1));
-    put(root, '[data-read="noise"]', noise >= 10 ? noise.toFixed(1) : noise.toFixed(3));
-    put(root, '[data-read="snr"]', snr >= 10 ? snr.toFixed(1) : snr.toFixed(2));
-    put(root, '[data-verdict]', snr < 1
-      ? 'Below 1. An acceleration reported at this interval is noise. Widen the interval before fitting anything.'
-      : 'Above 1. An acceleration of this size can be read at this interval.');
-
-    const top = Math.max(noise, v.acc);
-    const scale = (x: number): string => ((x / top) * 250).toFixed(1);
-    draw(root, `<svg viewBox="0 0 320 110" font-family="var(--label)">
-      <text x="0" y="16" fill="${TEXT}" font-size="11">acceleration to detect</text>
-      <rect x="0" y="24" width="${scale(v.acc)}" height="14" fill="${METAL}"></rect>
-      <text x="0" y="70" fill="${TEXT}" font-size="11">noise in the estimate</text>
-      <rect x="0" y="78" width="${scale(noise)}" height="14" fill="${EDGE}"></rect>
-    </svg>`);
-  });
+  const chart = find('chart');
+  if (chart) {
+    mountChart(chart, {
+      title: 'Acceleration Signal Test',
+      lede: 'Is a story really speeding up, or is that just noise? Check too often and the noise drowns the answer. Check less often and it settles onto the true line.',
+      aria: 'A flat line for the true acceleration and a jagged line for the estimate. The jagged line calms down as the checking interval grows.',
+      stats: ['Noise in the estimate', 'Signal to noise'],
+      trueLabel: 'True acceleration',
+      estimateLabel: 'Estimate from the count',
+      bandLabel: 'Expected noise band',
+      intervalLabel: 'Checking interval (h)',
+      noiseLabel: 'Noise per check (\u03C3)',
+      accelLabel: 'True acceleration (a)',
+      formula: 'sd(a) = \u221A6 \u00B7 \u03C3 / h\u00B2',
+      formulaNote: 'for independent noise. WP-01 \u00A73.',
+      verdict: ({ snr }: { snr: number }) => snr < 1
+        ? 'Below 1. At this interval the estimate is mostly noise. Widen the interval.'
+        : 'Above 1. An acceleration this size can be read at this interval.'
+    });
+  }
 </script>
