@@ -112,7 +112,8 @@ check('technology separates action reading from subject checks',
   technology.includes('label concentration') && !technology.includes('confidence_interval'));
 check('publications route provides current documents',
   text('src/pages/publications.astro').includes('/working-papers/WP-02.pdf') &&
-  text('src/pages/publications.astro').includes('/working-papers/WP-02.docx'));
+  text('src/pages/publications.astro').includes('/working-papers/WP-02.pdf') &&
+  !text('src/pages/publications.astro').includes('.docx'));
 
 const investors = text('src/pages/investors.astro');
 check(
