@@ -1,85 +1,340 @@
 ---
-// The home page's interactive section. Three formulas from the Lane Vector
-// working papers, each with controls a visitor can move. The arithmetic lives
-// in src/lib/lane-math.js and is tested against the published figures.
+// The home page's interactive section. Seven panels: four steps that turn
+// text into a decision, then the three places inside an autonomous system
+// where that arithmetic runs. The drawing lives in src/lib/lane-widgets.js
+// and the arithmetic in src/lib/lane-math.js, tested against the papers.
+//
+// Every panel's words are defined here, rendered by the server, and handed
+// to the client script as JSON. Without JavaScript the reader still gets the
+// title, the explanation, the result at the panel's starting settings and the
+// formula; with it, the same block becomes the live panel.
+
+interface Panel {
+  name: string;
+  step: string;
+  title: string;
+  lede: string;
+  /** What the panel shows at its starting settings; the reading without JavaScript. */
+  reading: string;
+  formula: string;
+  formulaNote: string;
+  /** Plain-string fields the panel needs; functions live in the script below. */
+  copy: Record<string, unknown>;
+}
+
+const panels: Panel[] = [
+  {
+    name: 'embedding',
+    step: '01 Reading',
+    title: 'Mapping Words to Coordinates',
+    lede: 'A computer cannot do math on words. So every word, sentence or paragraph is turned into a list of numbers: a coordinate in a space with hundreds of dimensions. Two of those dimensions are drawn here. Meaning becomes distance. Words that mean similar things land close together, and a whole sentence becomes one arrow to one point.',
+    reading: 'At the starting sentence, “The queen addressed the court from the throne,” the whole sentence becomes one point and lands beside king, queen and throne. The positions on this map are schematic: they show how an embedding arranges meaning, not the numbers of one named model.',
+    formula: 'text → x ∈ ℝᵈ',
+    formulaNote: 'An embedding model turns text into d numbers, usually 384 to 1,536 of them. Two are drawn here. Which model and which basis must be stated before any angle means anything. WP-01 §2.',
+    copy: {
+      aria: 'A map of twenty words in four groups: royalty, fruit, technology companies and money. A chosen sentence is drawn as an arrow to one point on the map.',
+      groups: ['Royalty', 'Fruit', 'Technology', 'Money'],
+      axisX: 'dimension 1 of 768 (schematic)',
+      axisY: 'dimension 2',
+      choiceLabel: 'Sentence',
+      toggle: 'Show every word’s coordinates',
+      stats: ['Position (2 of 768, schematic)', 'Nearest word'],
+      sentences: [
+        { text: 'The queen addressed the court from the throne.', short: 'the queen … the throne', at: [142, 100], note: 'The whole sentence became one point, and it landed beside king, queen and throne. An embedding puts text that means similar things close together, so a sentence about royalty lands with the royalty words.' },
+        { text: 'Bananas and pears are in season.', short: 'bananas and pears', at: [148, 284], note: 'Fruit words, so a fruit point. Notice that apple sits here, as a fruit, while Apple Inc. sits far away with Microsoft. Same letters, different meaning, different coordinate.' },
+        { text: 'Apple shipped a new laptop.', short: 'Apple shipped a laptop', at: [486, 138], note: 'Here Apple means the company, and the coordinate says so. The sentence landed with Microsoft and laptop, nowhere near the orchard. Context decides where a word goes.' },
+        { text: 'The bank approved the loan.', short: 'the bank approved the loan', at: [492, 284], note: 'Money words. This is the kind of text an AI agent reads before it moves money, and its coordinate is what the next step measures an angle against.' },
+        { text: 'The prince bought an iPhone.', short: 'the prince bought an iPhone', at: [326, 118], note: 'Half royalty, half technology, so the point lands between the two groups. A coordinate can sit between meanings. The angle to a question, next, tells you how much of it is about which.' }
+      ]
+    }
+  },
+  {
+    name: 'dial',
+    step: '02 Direction',
+    title: 'Vector Cosine Similarity',
+    lede: 'Once text is an arrow, two arrows can be compared by the angle between them. cos θ runs from 1, the same direction, through 0, unrelated, to −1, the opposite direction. Volume says how much text there is. The angle says how much of it points at the question.',
+    reading: 'At the starting angle of 60° and a volume of 10,000, cos θ is 0.50, so 5,000 of the 10,000 counts toward the answer. A plain count would report all of it.',
+    formula: 'cos θ = (A · B) / (‖A‖ ‖B‖)',
+    formulaNote: 'and the expected contribution is V ‖w‖ cos θ with ‖w‖ = 1. Exact when the outcome is a straight-line function of the signal. WP-01 §2.',
+    copy: {
+      aria: 'Two arrows from one point on a half-circle dial. One is fixed and stands for the question. The other turns as the angle slider moves, and the part of it that lies along the question is highlighted.',
+      stats: ['cos θ', 'Counts toward the answer'],
+      angleLabel: 'Angle θ',
+      volumeLabel: 'Volume',
+      fixedLabel: 'The question (A)',
+      movingLabel: 'Incoming text (B)'
+    }
+  },
+  {
+    name: 'detector',
+    step: '03 Counting',
+    title: 'Astroturf Detector Simulation',
+    lede: 'An AI agent searches a topic and finds 500 accounts all saying the same thing. Each dot is one account, and it looks like a crowd of ordinary people. Switch on Astroturf Mode to see the same crowd when it is fake: 500 accounts that look separate but are run by 5 operators. λ is how alike the accounts run by one operator are, estimated from three things: how alike the wording is, how synchronized the timing is, and how much the accounts’ networks overlap.',
+    reading: 'A real crowd of 500 people who each speak for themselves counts as 500 sources. In Astroturf Mode at the starting coordination level of 0.50, the same 500 accounts run by 5 operators count as about 9.9 sources, and adding more fake accounts would not help: each operator tops out at 2.0.',
+    formula: 'n_eff = m / (1 + λ(m − 1))',
+    formulaNote: 'worked out for each origin, then added up. λ is measured, not chosen. One origin can never count for more than 1/λ, however many accounts it runs. WP-02 §3.',
+    copy: {
+      aria: 'Five hundred dots scattered like a crowd. In Astroturf Mode the crowd looks the same, but lines appear tying every dot back to one of five hidden operators.',
+      legendOrganic: 'Account speaking for itself',
+      legendPlanted: 'Account run by an operator',
+      legendOperator: 'Hidden operator',
+      stats: ['Raw volume', 'Effective sources'],
+      toggle: 'Astroturf Mode',
+      slider: 'Coordination level, λ'
+    }
+  },
+  {
+    name: 'chart',
+    step: '04 Timing',
+    title: 'Acceleration Signal Test',
+    lede: 'Is a story really speeding up, or is that just noise? Acceleration is the change in the change of a count, and the noise in that estimate is known before any data arrives. Check too often and the noise drowns the answer. Check less often and the estimate settles onto the true line.',
+    reading: 'At the starting settings (checking every 2 samples, noise of 20 per check, a true acceleration of 2) the noise in the estimate is about 12.2 and the signal-to-noise ratio about 0.16: below 1, so the estimate is mostly noise. Widen the interval and it settles onto the true line.',
+    formula: 'sd(a) = √6 · σ / h²',
+    formulaNote: 'for independent noise. Correlated noise changes the constant, not the h². WP-01 §3.',
+    copy: {
+      aria: 'A flat line for the true acceleration and a jagged line for the estimate. The jagged line calms down as the checking interval grows.',
+      stats: ['Noise in the estimate', 'Signal to noise'],
+      trueLabel: 'True acceleration',
+      estimateLabel: 'Estimate from the count',
+      bandLabel: 'Expected noise band',
+      axisX: 'time, in samples',
+      intervalLabel: 'Checking interval, h',
+      noiseLabel: 'Noise per check, σ',
+      accelLabel: 'True acceleration, a'
+    }
+  },
+  {
+    name: 'firewall',
+    step: '05 Input',
+    title: 'TruVector RAG Firewall',
+    lede: 'Most AI assistants search before they answer. An attacker who plants fifty copies of one article can make a search look like fifty sources agreeing. Here the results pass through the arithmetic from step 03 before the AI reads them. Raise the number of planted copies, then switch the filter off to see what reaches the AI without it.',
+    reading: 'At the starting settings, 50 separate sites and 50 planted copies arrive. With the filter on, the 50 copies count as about 1.1 sources, and 98% of what the AI reads comes from separate sites. With it off, the copies count as 50 and half of what the AI reads is the attacker’s.',
+    formula: 'n_eff = m / (1 + λ(m − 1))',
+    formulaNote: 'with λ = 0.95 for the planted set, because copies of one article are nearly identical. WP-02 §3.',
+    copy: {
+      aria: 'A flow diagram. Results from separate sites and planted copies flow from the left into a filter in the middle. From the filter, what counts flows to the AI and the rest is set aside.',
+      legendOrganic: 'Results from separate sites',
+      legendPlanted: 'Planted copies of one article',
+      legendFilter: 'The filter',
+      attackLabel: 'Planted copies',
+      toggle: 'TruVector filter',
+      organic: 'Separate sites',
+      planted: 'Planted copies',
+      filterOn: 'Counted by origin',
+      filterOff: 'Counted by volume',
+      reaches: 'Reaches the AI',
+      setAside: 'Set aside',
+      stats: ['Weight from separate sites', 'Planted copies count as']
+    }
+  },
+  {
+    name: 'consensus',
+    step: '06 Process',
+    title: 'TruVector Consensus Protection',
+    lede: 'Agents working together settle questions by agreeing. If an attacker copies one compromised agent ninety times, a vote goes 90 to 10 and the system does the wrong thing with confidence. This panel is a simulation of the origin discount from step 03 applied to an agent group: counting origins instead of votes changes the result. Whether one λ is enough when agents share inputs several levels deep is an open direction, stated below with the result that would disprove it. Switch the arithmetic off to see the plain vote.',
+    reading: 'At the starting settings, 10 honest agents face 90 clones of one compromised agent. A plain vote goes 90 to 10 and the clones win. Counted by origin, the 90 clones count as about 1.1, because they are one origin repeated, and the honest view holds, 10 to 1.1.',
+    formula: 'n_eff = m / (1 + λ(m − 1))',
+    formulaNote: 'with λ = 0.9 for the clones, because copies of one model with one prompt say the same thing. WP-02 §3.',
+    copy: {
+      aria: 'A hub with honest agents on an inner ring and clones on an outer ring. With the arithmetic on, the clones fade and lines tie them to one origin.',
+      legendHonest: 'Honest agent',
+      legendClone: 'Clone of one compromised agent',
+      legendOrigin: 'The one origin behind the clones',
+      honestLabel: 'Honest agents',
+      cloneLabel: 'Clones',
+      toggle: 'Count origins, not votes',
+      hub: 'DECIDE',
+      stateHolds: 'The honest view holds',
+      stateTie: 'A tied vote: no action',
+      stateLost: 'The clones win the vote',
+      stats: ['Votes, honest : clones', 'Counted weight, honest : clones']
+    }
+  },
+  {
+    name: 'alignment',
+    step: '07 Action',
+    title: 'Output Alignment',
+    lede: 'Before an agent acts, the instruction it was given and the action it proposes are both turned into coordinates, and the angle between them says whether the action is still about what was asked. An action that has wandered onto another subject shows up as an angle before it shows up as a consequence. The angle cannot tell “do it” from “do not do it”; that is a separate reading by the models, after this check. Turn the action away from the instruction and watch the decision change.',
+    reading: 'At the starting settings the action has turned 15° from the instruction and cos θ is 0.97, above the bar of 0.70, so the action is about what was asked and goes on to the reading. Past the bar it is held for a person; past 90° it is about something else and does not run.',
+    formula: 'cos θ = (a · w) / (‖a‖ ‖w‖)',
+    formulaNote: 'with w the instruction and a the proposed action, both as coordinates from step 01, in a declared basis. This is the decision engine’s own use of the angle, not a result from the working papers: the angle checks the subject of the action, and whether the action carries the instruction out is read separately.',
+    copy: {
+      aria: 'A half-circle dial. A fixed blue arrow is the instruction. A second arrow is the proposed action and turns away from it as the slider moves. The dial is shaded green where the action proceeds, amber where it is held, and red where it does not run.',
+      legendInstruction: 'The instruction',
+      legendRuns: 'Proceeds to the reading',
+      legendHeld: 'Held for a person',
+      legendBlocked: 'Does not run',
+      driftLabel: 'How far the action has turned',
+      barLabel: 'Proceeds only when cos θ is at least',
+      instructionTag: 'Instruction: pay supplier A’s invoice',
+      actionTag: 'Proposed action',
+      ninetyLabel: '90°: unrelated to the instruction',
+      decisionTag: { runs: 'Proceeds', held: 'Held for a person', blocked: 'Does not run' },
+      decisionWord: { runs: 'Proceeds', held: 'Held', blocked: 'Does not run' },
+      stats: ['cos θ', 'Decision'],
+      examples: [
+        { upTo: 20, text: 'Pay supplier A’s invoice.' },
+        { upTo: 50, text: 'Pay supplier A’s invoice to a new account that arrived by email this morning.' },
+        { upTo: 100, text: 'Email supplier A about an unrelated contract instead.' },
+        { upTo: 180, text: 'Move the whole balance to an account nobody mentioned.' }
+      ]
+    }
+  },
+  {
+    name: 'reading',
+    step: '08 Judging',
+    title: 'Meaning, Not Words',
+    lede: 'Several models read the same statement and each says what it means to it: supports, refutes or unsure, and how sure. Then something has to turn those readings into one decision. The working prototype does it by counting words: how many words the replies share, and how often nine words like “however” and “false” appear. The replacement never counts words. The models do the reading; the arithmetic counts origins, measures direction and certainty, and decides. Pick a case and compare the two side by side.',
+    reading: 'Three readers support the statement in different words, and one of them writes “but”. The word count sees little shared wording and a marker word, scores 0.00 and blocks it. The meaning-based decision sees three origins supporting with certainty 1.00 and allows it. With three copies of one reply the word count scores a perfect 1.00 and allows; the meaning-based decision counts one origin repeated and holds it for a person.',
+    formula: 'D = S − R,  C = 1 − H(S, R, U)',
+    formulaNote: 'with S, R, U the readers’ shares weighted by confidence and by origin (the n_eff of step 03 with λ = 0.9 inside one origin), and H the normalised entropy. Allow when D ≥ 0.5, C ≥ 0.5 and at least two independent origins; block when D ≤ −0.5 and C ≥ 0.5; otherwise hold. The angle checks of steps 01 and 07 run beside this and need an embedding model, so they are not drawn here.',
+    copy: {
+      wordsAria: 'Three overlapping circles, one per reply, pulled together by how many words the replies share.',
+      meaningAria: 'Arrows from one point along a support-to-refute line, one per reader, with a dashed ring around arrows that come from one origin.',
+      wordsTitle: 'Word count',
+      wordsTag: 'as scored today',
+      meaningTitle: 'Meaning',
+      meaningTag: 'the replacement',
+      choiceLabel: 'Case',
+      reader: 'Reader',
+      origin: 'origin',
+      stanceWord: { supports: 'Supports', refutes: 'Refutes', uncertain: 'Unsure' },
+      axisSupport: 'supports (+1)',
+      axisRefute: 'refutes (−1)',
+      tileOverlap: 'Shared words',
+      tileMarkers: 'Marker words',
+      tileScore: 'Score',
+      tileOrigins: 'Independent origins',
+      tileDirection: 'Direction D',
+      tileCertainty: 'Certainty C',
+      gateWord: { ALLOW: 'Allow', REVIEW: 'Hold', BLOCK: 'Block' },
+      stats: ['Word count decides', 'Meaning decides'],
+      scenarios: [
+        {
+          name: 'Same point, different words',
+          replies: [
+            { text: 'This statement is accurate.', stance: 'supports', confidence: 0.9, origin: 'A' },
+            { text: 'I can confirm the figure holds.', stance: 'supports', confidence: 0.85, origin: 'B' },
+            { text: 'Correct, but note the figure is from 2024.', stance: 'supports', confidence: 0.8, origin: 'C' }
+          ],
+          wordsWhy: 'Almost no shared words, and “but” is a marker word. Blocked for its wording.',
+          meaningWhy: 'Three origins, all supporting, nobody unsure. Allowed.',
+          note: 'Three readers agree and say so in their own words. The word count punishes the different wording and the word “but”, and blocks a statement everyone supports. The meaning-based decision reads the three stances, counts three origins, and allows it.'
+        },
+        {
+          name: 'Three copies of one reply',
+          replies: [
+            { text: 'Yes, this is completely true.', stance: 'supports', confidence: 0.9, origin: 'A' },
+            { text: 'Yes, this is completely true.', stance: 'supports', confidence: 0.9, origin: 'A' },
+            { text: 'Yes, this is completely true.', stance: 'supports', confidence: 0.9, origin: 'A' }
+          ],
+          wordsWhy: 'Identical wording scores a perfect 1.00. Allowed, on three copies.',
+          meaningWhy: 'One origin repeated counts as about 1.07. Fewer than two: held for a person.',
+          note: 'The same reply three times over, from one origin. The word count sees perfect agreement and allows it; this is the astroturf problem of step 03 inside the reading step. The meaning-based decision counts origins, not replies: three copies are 1.07 sources, and a decision needs two.'
+        },
+        {
+          name: 'A careful refutation',
+          replies: [
+            { text: 'This is false.', stance: 'refutes', confidence: 0.9, origin: 'A' },
+            { text: 'The figure contradicts the record.', stance: 'refutes', confidence: 0.9, origin: 'B' },
+            { text: 'Incorrect; the real figure is lower.', stance: 'refutes', confidence: 0.85, origin: 'C' }
+          ],
+          wordsWhy: 'Blocked, but for the wording: little overlap and three marker words.',
+          meaningWhy: 'Direction −1.00 with certainty 1.00 from three origins. Blocked because the readers refute it.',
+          note: 'Both methods block, and only one of them knows why. The word count blocks because the replies share few words and contain marker words; it would block a unanimous “supports” written the same way. The meaning-based decision blocks because three independent readers refute the statement.'
+        },
+        {
+          name: 'The marker trap',
+          replies: [
+            { text: 'This is not false.', stance: 'supports', confidence: 0.9, origin: 'A' },
+            { text: 'Nothing here is incorrect.', stance: 'supports', confidence: 0.85, origin: 'B' },
+            { text: 'The figure is right.', stance: 'supports', confidence: 0.8, origin: 'C' }
+          ],
+          wordsWhy: '“Not false” and “incorrect” count as two marker words in twelve. Score 0.00, blocked.',
+          meaningWhy: 'Three origins support it with certainty 1.00. Allowed.',
+          note: '“This is not false” is support. A word count cannot know that; it sees “false” and counts a contradiction. Reading is the models’ job, and the arithmetic only ever works on what they read.'
+        }
+      ]
+    }
+  }
+];
+
+const copyForClient = Object.fromEntries(
+  panels.map((p) => [p.name, { step: p.step, title: p.title, lede: p.lede, formula: p.formula, formulaNote: p.formulaNote, ...p.copy }])
+);
+const byName = Object.fromEntries(panels.map((p) => [p.name, p]));
+const order: (string | 'figure')[] = ['embedding', 'figure', 'dial', 'detector', 'chart'];
+const layers = ['firewall', 'consensus', 'alignment'];
+const judging = ['reading'];
 ---
 <section class="room" id="arithmetic" aria-labelledby="arithmetic-title">
   <div class="suite suite--flagship">
     <p class="kicker">The arithmetic</p>
     <h2 class="suite-title reveal" id="arithmetic-title">Move the numbers yourself.</h2>
-    <p class="reveal lab-intro">Each check on this page is a formula, not a judgement call. These three come from the <a href="https://www.lanevector.com/publications" rel="noopener">Lane Vector working papers</a>. Drag a control and the result follows.</p>
+    <p class="reveal lab-intro">This is how text becomes numbers and numbers become a decision. Four steps, then the three places inside an autonomous system where the arithmetic runs. Steps 01 to 04 each work a formula from the <a href="https://www.lanevector.com/publications" rel="noopener">Lane Vector working papers</a>; 05 to 07 show that arithmetic at work inside a system that acts. Drag a control and the result follows.</p>
 
     <div class="labs">
-
-      <article class="lab" data-lab="sources" aria-labelledby="lab-sources-title">
-        <h3 class="lab__title" id="lab-sources-title">Pages. How many sources?</h3>
-        <p class="lab__scene">A purchasing agent looks up a supplier and every page it retrieves says the same thing. Set how many of those pages trace back to each origin.</p>
-        <div class="lab__controls">
-          <label for="src-a">Pages from origin A <output data-out="a"></output></label>
-          <input id="src-a" data-in="a" type="range" min="1" max="20" step="1" value="10" />
-          <label for="src-b">Pages from origin B <output data-out="b"></output></label>
-          <input id="src-b" data-in="b" type="range" min="0" max="20" step="1" value="0" />
-          <label for="src-c">Pages from origin C <output data-out="c"></output></label>
-          <input id="src-c" data-in="c" type="range" min="0" max="20" step="1" value="0" />
-          <label for="src-lambda">How alike pages from one origin are, &lambda; <output data-out="lambda"></output></label>
-          <input id="src-lambda" data-in="lambda" type="range" min="0" max="1" step="0.05" value="0.6" />
-          <label for="src-need">Separate sources this action requires <output data-out="need"></output></label>
-          <input id="src-need" data-in="need" type="range" min="1" max="5" step="1" value="3" />
+      {order.map((name) => name === 'figure' ? (
+        <figure class="lab-figure">
+          <img src="/figures/embedding-map.png" width="1600" height="920" loading="lazy" decoding="async" alt="A map of about forty thousand words in two dimensions of an embedding. The words form eight coloured regions, one for each meaning group: royalty and history, fruit and food, technology, money and trade, sport, weather and sky, medicine and body, travel and places." />
+          <figcaption>The fuller picture. About 40,000 words in two dimensions of an embedding, coloured by meaning group. Nobody drew the groups in; they appear because words with similar meanings get similar numbers and land close together. The panel above is one small corner of a map like this. Drawn in the style of an embedding viewer; it is an illustration, not a measurement of one model.</figcaption>
+        </figure>
+      ) : (
+        <div data-widget={name} class="lw lw-static">
+          <p class="lw-step"><b>{byName[name].step.split(' ')[0]}</b>{byName[name].step.split(' ').slice(1).join(' ')}</p>
+          <h3 class="lw-title">{byName[name].title}</h3>
+          <p class="lw-lede">{byName[name].lede}</p>
+          <p class="lw-note">{byName[name].reading}</p>
+          <p class="lw-formula"><code>{byName[name].formula}</code> {byName[name].formulaNote}</p>
         </div>
-        <div class="lab__figure" data-figure role="img" aria-label="Pages grouped by origin, with the share of each group that counts as a separate source"></div>
-        <dl class="lab__read">
-          <div><dt>Pages counted</dt><dd data-read="raw"></dd></div>
-          <div><dt>Count as separate sources</dt><dd data-read="eff"></dd></div>
-          <div><dt>Most one origin can ever count for</dt><dd data-read="ceiling"></dd></div>
-        </dl>
-        <p class="lab__verdict" data-verdict aria-live="polite"></p>
-        <p class="lab__formula"><span>n<sub>eff</sub> = m / (1 + &lambda;(m &minus; 1))</span>, added up over origins. &lambda; is measured for a kind of material, not chosen. WP-02 &sect;3.</p>
-      </article>
+      ))}
+    </div>
 
-      <article class="lab" data-lab="direction" aria-labelledby="lab-direction-title">
-        <h3 class="lab__title" id="lab-direction-title">Ten thousand mentions. Pointing where?</h3>
-        <p class="lab__scene">An agent is asked one question and retrieves a pile of material. Only the part that points at the question moves the answer.</p>
-        <div class="lab__controls">
-          <label for="dir-v">Volume of material, V <output data-out="v"></output></label>
-          <input id="dir-v" data-in="v" type="range" min="1000" max="20000" step="500" value="10000" />
-          <label for="dir-theta">Angle between the material and the question, &theta; <output data-out="theta"></output></label>
-          <input id="dir-theta" data-in="theta" type="range" min="0" max="90" step="1" value="60" />
+    <h3 class="lab-sub reveal" id="layers-title">Where it goes inside an autonomous system.</h3>
+    <p class="reveal lab-intro">An AI agent reads, agrees, and acts. Each is a place the same arithmetic runs before the next step is taken. These three panels are simulations of the decision engine, a working prototype; the research directions below say what would prove each one wrong.</p>
+
+    <div class="labs">
+      {layers.map((name) => (
+        <div data-widget={name} class="lw lw-static">
+          <p class="lw-step"><b>{byName[name].step.split(' ')[0]}</b>{byName[name].step.split(' ').slice(1).join(' ')}</p>
+          <h3 class="lw-title">{byName[name].title}</h3>
+          <p class="lw-lede">{byName[name].lede}</p>
+          <p class="lw-note">{byName[name].reading}</p>
+          <p class="lw-formula"><code>{byName[name].formula}</code> {byName[name].formulaNote}</p>
         </div>
-        <div class="lab__figure" data-figure role="img" aria-label="An arrow for the material at an angle to the direction of the question, with the part that lies along the question marked"></div>
-        <dl class="lab__read">
-          <div><dt>A count reports</dt><dd data-read="raw"></dd></div>
-          <div><dt>Points at the question</dt><dd data-read="proj"></dd></div>
-          <div><dt>cos &theta;</dt><dd data-read="cos"></dd></div>
-        </dl>
-        <p class="lab__verdict" data-verdict aria-live="polite"></p>
-        <p class="lab__formula"><span>E[y | x] = V &Vert;w&Vert; cos &theta;</span>, with &Vert;w&Vert; = 1. Exact for a linear outcome model and a first-order term otherwise. WP-01 &sect;2.</p>
-      </article>
+      ))}
+    </div>
 
-      <article class="lab" data-lab="rate" aria-labelledby="lab-rate-title">
-        <h3 class="lab__title" id="lab-rate-title">Speeding up, or just noise?</h3>
-        <p class="lab__scene">A story&rsquo;s mention count is sampled at a fixed interval. Whether an acceleration can be read from it at all is settled before any model is fitted.</p>
-        <div class="lab__controls">
-          <label for="rate-h">Sampling interval, h <output data-out="h"></output></label>
-          <input id="rate-h" data-in="h" type="range" min="1" max="24" step="1" value="1" />
-          <label for="rate-sigma">Noise in each sample, &sigma; <output data-out="sigma"></output></label>
-          <input id="rate-sigma" data-in="sigma" type="range" min="5" max="40" step="1" value="20" />
-          <label for="rate-a">Acceleration to detect, a <output data-out="acc"></output></label>
-          <input id="rate-a" data-in="acc" type="range" min="0.5" max="5" step="0.5" value="2" />
+    <h3 class="lab-sub reveal" id="judging-title">The reading step, before and after.</h3>
+    <p class="reveal lab-intro">The research path from here: the models read, the arithmetic judges. Every “how alike” and “does it agree” number in the system is computed on what the models read, never on the words they used. Counting stays outside the readers, where an attacker cannot reach it, and the decision stays a formula a person can recompute by hand.</p>
+
+    <div class="labs">
+      {judging.map((name) => (
+        <div data-widget={name} class="lw lw-static">
+          <p class="lw-step"><b>{byName[name].step.split(' ')[0]}</b>{byName[name].step.split(' ').slice(1).join(' ')}</p>
+          <h3 class="lw-title">{byName[name].title}</h3>
+          <p class="lw-lede">{byName[name].lede}</p>
+          <p class="lw-note">{byName[name].reading}</p>
+          <p class="lw-formula"><code>{byName[name].formula}</code> {byName[name].formulaNote}</p>
         </div>
-        <div class="lab__figure" data-figure role="img" aria-label="Two bars comparing the acceleration to detect with the noise in the estimate"></div>
-        <dl class="lab__read">
-          <div><dt>Noise in the estimate</dt><dd data-read="noise"></dd></div>
-          <div><dt>Signal to noise</dt><dd data-read="snr"></dd></div>
-        </dl>
-        <p class="lab__verdict" data-verdict aria-live="polite"></p>
-        <p class="lab__formula"><span>sd(a) = &radic;6 &middot; &sigma; / h&sup2;</span>. Independent noise assumed; correlated noise changes the constant, not the h&sup2;. WP-01 &sect;3.</p>
-      </article>
-
+      ))}
     </div>
 
     <h3 class="lab-sub reveal" id="directions-title">Where the research has to go next.</h3>
-    <p class="reveal lab-intro">Each direction is stated with the result that would prove it wrong.</p>
+    <p class="reveal lab-intro">Each direction is stated with the result that would prove it wrong. The first three are about measuring meaning, the crucial parameter; the rest are about counting it.</p>
     <ul class="rail reveal" aria-labelledby="directions-title">
+      <li>
+        <span class="rail__name">Which model assigns the coordinates, and what the angle can carry</span>
+        <span class="rail__note">Every number in step 01 depends on the model that assigned it, so the model is named and pinned in every record. Across five embedding models the angle separated “same subject” from “unrelated” perfectly and put a sentence within a hair of its own negation; so the angle guards subject and the readers’ stances carry direction. It would be disproved as a fixed division of labour if a model’s angle separates “same point” from “opposite point” as well as a reader does.</span>
+      </li>
+      <li>
+        <span class="rail__name">Calibrating a reader’s confidence</span>
+        <span class="rail__note">A reader that says 0.9 should be right about nine times in ten. For each reader, how often a stated 0.9, 0.7 and 0.5 is right is measured on a labelled set, and a correction fitted on half is tested on the other half. It would be disproved if the correction does no better than the raw confidence on the half it never saw; then confidence is noise and the rule uses the labels alone.</span>
+      </li>
+      <li>
+        <span class="rail__name">&lambda; between readers</span>
+        <span class="rail__note">How alike are ten runs of one model, one model under two prompts, and two models from different makers? The within-family correlation sets the discount in step 08. It would be disproved as a grouping if runs inside one model family are no more alike than runs across families; then every reply is its own origin.</span>
+      </li>
       <li>
         <span class="rail__name">Measuring &lambda; for each kind of material</span>
         <span class="rail__note">&lambda; for syndicated news is not &lambda; for scraped product pages or for text written by a model. It would be disproved as a stable quantity if the value measured on one half of a collection falls outside the interval measured on the other half.</span>
@@ -100,203 +355,153 @@
         <span class="rail__name">Acceleration as an earlier warning</span>
         <span class="rail__note">Whether a story that is speeding up can be flagged sooner than a volume threshold flags it. It would be disproved if the lead time disappears once both are held to the same false-alarm rate.</span>
       </li>
+      <li>
+        <span class="rail__name">Fitting the bars once the readings are right</span>
+        <span class="rail__note">Today’s bars were fitted to word counts. The allow and block bars in step 08 are refitted on a labelled set, half for fitting and half held back. It would be disproved as a rule if the bars chosen on one half mislabel more of the other half than a plain majority of readers does.</span>
+      </li>
+      <li>
+        <span class="rail__name">The angle between an instruction and an action</span>
+        <span class="rail__note">Coordinates put a sentence close to its own negation, so the angle in step 07 can say whether an action is about what was asked, not whether it does what was asked; that is read separately. It would be disproved as a useful guard if actions on another subject slip past the bar as often as actions on the right one.</span>
+      </li>
     </ul>
 
-    <h3 class="lab-sub reveal" id="places-title">Three places an autonomous system counts agreement.</h3>
-    <div class="places reveal">
-      <div class="places__pane">
-        <p class="places__name">What it reads</p>
-        <p>A search returns fifty pages that agree, and a system that counts pages sees fifty confirmations. Volume is the one advantage a copying campaign has. This arithmetic caps it: one origin never counts for more than 1/&lambda; sources, however many pages it produces.</p>
-      </div>
-      <div class="places__pane">
-        <p class="places__name">Who it listens to</p>
-        <p>Agents working together settle things by agreeing. Ninety copies of one agent are one voice ninety times, and the same formula describes them. A vote counts hands. This counts origins.</p>
-      </div>
-      <div class="places__pane">
-        <p class="places__name">What it is about to do</p>
-        <p>An instruction and a proposed action can be compared the way two signals are: by the angle between them. An action that has turned away from what was asked shows up as an angle before it shows up as a consequence.</p>
-      </div>
-    </div>
-    <p class="reveal places__close">A crowd is cheap to manufacture. Independence is not. That is the difference TruVector measures before an AI acts.</p>
+    <p class="reveal places__close">A crowd is cheap to manufacture. Independence is not. That is the difference TruVector measures before an AI reads, before it agrees, and before it acts.</p>
   </div>
 </section>
+
+<script type="application/json" id="lab-copy" set:html={JSON.stringify(copyForClient)}></script>
 
 <style>
   .lab-intro { margin-top: 20px; max-width: 62ch; }
   .lab-intro a { color: var(--candle); }
-  .labs { display: grid; gap: 28px; margin-top: 48px; }
-  @media (min-width: 1100px) { .labs { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-  .lab {
-    border: 1px solid var(--bronze-edge);
-    background: var(--wet-stone);
-    padding: 28px 24px;
-    display: flex; flex-direction: column; gap: 18px;
-    min-width: 0;
-  }
-  .lab__title { font-family: var(--display); font-weight: 500; font-size: 1.35rem; line-height: 1.2; color: var(--ivory); margin: 0; text-wrap: balance; }
-  .lab__scene { color: var(--parchment); font-size: 15px; margin: 0; }
-  .lab__controls { display: grid; gap: 6px; }
-  .lab__controls label {
-    display: flex; justify-content: space-between; gap: 12px; align-items: baseline;
-    font-size: 14px; color: var(--stone-text); margin-top: 8px;
-  }
-  .lab__controls output { font-family: var(--label); color: var(--ivory); font-variant-numeric: tabular-nums; }
-  .lab__controls input[type='range'] { width: 100%; accent-color: var(--champagne); }
-  .lab__controls input[type='range']:focus-visible { outline: 2px solid var(--candle); outline-offset: 4px; }
-  .lab__figure { min-height: 150px; }
-  .lab__figure :global(svg) { display: block; width: 100%; height: auto; }
-  .lab__read { display: grid; gap: 8px; margin: 0; }
-  .lab__read div { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; border-top: 1px solid var(--bronze-edge); padding-top: 8px; }
-  .lab__read dt { color: var(--stone-text); font-size: 14px; }
-  .lab__read dd { margin: 0; font-family: var(--label); color: var(--ivory); font-variant-numeric: tabular-nums; }
-  .lab__verdict { margin: 0; color: var(--candle); font-size: 15px; min-height: 3em; }
-  .lab__formula { margin: auto 0 0; font-size: 13px; line-height: 1.55; color: var(--stone-text); }
-  .lab__formula span { font-family: var(--label); color: var(--parchment); }
+  .labs { display: grid; gap: 36px; margin-top: 48px; max-width: 820px; }
+  .lab-figure { margin: 0; }
+  .lab-figure img { display: block; width: 100%; height: auto; border-radius: 20px; border: 1px solid var(--bronze-edge); background: #fff; }
+  .lab-figure figcaption { margin-top: 12px; font-size: 14px; line-height: 1.55; color: var(--stone-text); max-width: 70ch; }
   .lab-sub { font-family: var(--display); font-weight: 500; font-size: 1.6rem; line-height: 1.2; color: var(--ivory); margin: 80px 0 0; text-wrap: balance; }
-  .places { display: grid; gap: 0; margin-top: 36px; border-top: 1px solid var(--bronze-edge); }
-  @media (min-width: 900px) { .places { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-  .places__pane { padding: 28px 0; border-bottom: 1px solid var(--bronze-edge); }
-  @media (min-width: 900px) {
-    .places__pane { padding: 28px 28px 28px 0; border-bottom: 0; }
-    .places__pane + .places__pane { padding-left: 28px; border-left: 1px solid var(--bronze-edge); }
-  }
-  .places__name { font-family: var(--label); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--champagne); margin: 0 0 12px; }
-  .places__pane p { color: var(--parchment); font-size: 15px; }
-  .places__close { margin-top: 44px; max-width: 30ch; font-family: var(--display); font-size: 1.5rem; line-height: 1.3; color: var(--ivory); text-wrap: balance; }
+  .places__close { margin-top: 64px; max-width: 34ch; font-family: var(--display); font-size: 1.5rem; line-height: 1.3; color: var(--ivory); text-wrap: balance; }
+  /* The server-rendered block, as it reads without JavaScript. The live panel replaces it. */
+  .lw-static { border: 1px solid var(--bronze-edge); border-radius: 20px; padding: 24px; }
+  .lw-static .lw-step { margin: 0 0 8px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--stone-text); }
+  .lw-static .lw-step b { margin-right: 8px; color: var(--candle); }
+  .lw-static .lw-title { margin: 0; font-family: var(--display); font-weight: 500; font-size: 1.4rem; color: var(--ivory); }
+  .lw-static .lw-lede, .lw-static .lw-note, .lw-static .lw-formula { margin: 14px 0 0; line-height: 1.6; max-width: 70ch; }
+  .lw-static .lw-formula { font-size: 14px; color: var(--stone-text); }
+  .lw-static code { color: var(--ivory); }
 </style>
 
 <script>
   import {
-    effectiveSources,
-    effectiveCount,
-    originCeiling,
-    projectedContribution,
-    accelerationNoise,
-    accelerationSnr
-  } from '../lib/lane-math.js';
+    mountEmbedding,
+    mountDial,
+    mountDetector,
+    mountChart,
+    mountFirewall,
+    mountConsensus,
+    mountAlignment,
+    mountReading
+  } from '../lib/lane-widgets.js';
 
-  const METAL = 'var(--champagne)';
-  const EDGE = 'var(--bronze-edge-hot)';
-  const TEXT = 'var(--stone-text)';
-  const whole = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
+  const copyEl = document.getElementById('lab-copy');
+  const copy: Record<string, Record<string, unknown>> = copyEl ? JSON.parse(copyEl.textContent || '{}') : {};
+  const find = (name: string) => document.querySelector<HTMLElement>(`[data-widget="${name}"]`);
+  const words = (name: string) => copy[name] ?? {};
+  const round = (n: number): string => (n >= 100 ? Math.round(n).toLocaleString('en-US') : n >= 10 ? n.toFixed(1) : n.toFixed(2));
+  const num = (n: number): string => n.toLocaleString('en-US');
 
-  function wire(name: string, render: (root: HTMLElement, v: Record<string, number>) => void): void {
-    const root = document.querySelector<HTMLElement>(`[data-lab="${name}"]`);
-    if (!root) return;
-    const inputs = Array.from(root.querySelectorAll<HTMLInputElement>('[data-in]'));
-    const update = (): void => {
-      const values: Record<string, number> = {};
-      for (const input of inputs) values[input.dataset.in ?? ''] = Number(input.value);
-      render(root, values);
-    };
-    for (const input of inputs) input.addEventListener('input', update);
-    update();
-  }
+  const embedding = find('embedding');
+  if (embedding) mountEmbedding(embedding, { ...words('embedding') });
 
-  function put(root: HTMLElement, selector: string, value: string): void {
-    const el = root.querySelector<HTMLElement>(selector);
-    if (el) el.textContent = value;
-  }
-
-  function draw(root: HTMLElement, svg: string): void {
-    const el = root.querySelector<HTMLElement>('[data-figure]');
-    if (el) el.innerHTML = svg;
-  }
-
-  wire('sources', (root, v) => {
-    const sizes = [v.a, v.b, v.c];
-    const names = ['A', 'B', 'C'];
-    const eff = effectiveCount(sizes, v.lambda);
-    const cap = originCeiling(v.lambda);
-    const origins = sizes.filter((m) => m > 0).length;
-    const raw = sizes.reduce((s, m) => s + m, 0);
-
-    put(root, '[data-out="a"]', String(v.a));
-    put(root, '[data-out="b"]', String(v.b));
-    put(root, '[data-out="c"]', String(v.c));
-    put(root, '[data-out="lambda"]', v.lambda.toFixed(2));
-    put(root, '[data-out="need"]', String(v.need));
-    put(root, '[data-read="raw"]', String(raw));
-    put(root, '[data-read="eff"]', eff.toFixed(2));
-    put(root, '[data-read="ceiling"]', Number.isFinite(cap) ? cap.toFixed(2) : 'no limit');
-
-    let verdict: string;
-    if (eff >= v.need) {
-      verdict = `Meets the ${v.need} this action requires.`;
-    } else if (Number.isFinite(cap) && origins * cap < v.need) {
-      verdict = `Short of ${v.need}. More copies from these origins cannot close the gap. Another origin can.`;
-    } else {
-      verdict = `Short of ${v.need}.`;
-    }
-    put(root, '[data-verdict]', verdict);
-
-    // One row per origin: a dot per page, then a bar for what the row counts as.
-    const rowH = 44;
-    let body = '';
-    sizes.forEach((m, i) => {
-      const y = 14 + i * rowH;
-      body += `<text x="0" y="${y + 5}" fill="${TEXT}" font-size="12">${names[i]}</text>`;
-      for (let k = 0; k < m; k++) {
-        body += `<circle cx="${22 + k * 13}" cy="${y}" r="4.5" fill="${METAL}" fill-opacity="${k === 0 ? 1 : 0.28}"></circle>`;
+  const dial = find('dial');
+  if (dial) {
+    mountDial(dial, {
+      ...words('dial'),
+      projectionLabel: (v: string, c: string) => `${v} of text; ${c} of it lies along the question`,
+      verdict: ({ deg, cos, vol }: { deg: number; cos: number; vol: number }) => {
+        const v = num(vol);
+        if (deg <= 10) return `Almost all of the ${v} points at the question. Here a plain count and the direction agree.`;
+        if (deg < 80) return `${Math.round(cos * 100)}% of the ${v} points at the question. A plain count would report all of it.`;
+        if (deg <= 100) return `The text is about something else. ${v} pieces of it add close to nothing to the answer.`;
+        return 'The text points against the question. It is a contradiction, and the more of it there is, the harder it pushes the other way.';
       }
-      const n = effectiveSources(m, v.lambda);
-      const w = Math.min(n, 5) * 52;
-      body += `<rect x="22" y="${y + 12}" width="260" height="5" fill="${EDGE}"></rect>`;
-      body += `<rect x="22" y="${y + 12}" width="${w.toFixed(1)}" height="5" fill="${METAL}"></rect>`;
-      body += `<text x="288" y="${y + 18}" fill="${TEXT}" font-size="11">${n.toFixed(2)}</text>`;
     });
-    draw(root, `<svg viewBox="0 0 320 140" font-family="var(--label)">${body}</svg>`);
-  });
+  }
 
-  wire('direction', (root, v) => {
-    const proj = projectedContribution(v.v, v.theta);
-    const cos = v.v === 0 ? 0 : proj / v.v;
-    put(root, '[data-out="v"]', whole.format(v.v));
-    put(root, '[data-out="theta"]', `${v.theta}°`);
-    put(root, '[data-read="raw"]', whole.format(v.v));
-    put(root, '[data-read="proj"]', whole.format(Math.round(proj)));
-    put(root, '[data-read="cos"]', cos.toFixed(3));
-    const share = Math.round(cos * 100);
-    put(root, '[data-verdict]', share >= 95
-      ? 'Nearly all of it points at the question. Here a count and a direction say the same thing.'
-      : `${share}% of what a count reports points at the question.`);
+  const detector = find('detector');
+  if (detector) {
+    mountDetector(detector, {
+      ...words('detector'),
+      verdict: ({ on, lambda, eff, total }: { on: boolean; lambda: number; eff: number; total: number }) => {
+        if (!on) return `A real crowd. ${total} people who each speak for themselves count as ${total} sources. Nobody is steering them, so the coordination level has nothing to act on.`;
+        if (lambda === 0) return `If the fake accounts shared nothing at all, they would pass as ${total} sources. Slide the coordination level up to see what happens when they repeat one script.`;
+        return `It still looks like ${total} people agreeing. It is 5 operators. The crowd counts as ${round(eff)} sources, and adding more fake accounts would not help: each operator tops out at ${(1 / lambda).toFixed(1)}.`;
+      }
+    });
+  }
 
-    const ox = 24;
-    const oy = 150;
-    const len = 60 + (v.v / 20000) * 200;
-    const rad = (v.theta * Math.PI) / 180;
-    const tx = ox + len * Math.cos(rad);
-    const ty = oy - len * Math.sin(rad);
-    draw(root, `<svg viewBox="0 0 320 170" font-family="var(--label)">
-      <line x1="${ox}" y1="${oy}" x2="300" y2="${oy}" stroke="${EDGE}" stroke-width="1"></line>
-      <text x="300" y="${oy + 14}" fill="${TEXT}" font-size="11" text-anchor="end">the question</text>
-      <line x1="${tx.toFixed(1)}" y1="${ty.toFixed(1)}" x2="${tx.toFixed(1)}" y2="${oy}" stroke="${TEXT}" stroke-width="1" stroke-dasharray="3 4"></line>
-      <line x1="${ox}" y1="${oy}" x2="${tx.toFixed(1)}" y2="${ty.toFixed(1)}" stroke="var(--parchment)" stroke-width="2"></line>
-      <circle cx="${tx.toFixed(1)}" cy="${ty.toFixed(1)}" r="3.5" fill="var(--parchment)"></circle>
-      <line x1="${ox}" y1="${oy}" x2="${tx.toFixed(1)}" y2="${oy}" stroke="${METAL}" stroke-width="5"></line>
-      <circle cx="${ox}" cy="${oy}" r="3" fill="${METAL}"></circle>
-    </svg>`);
-  });
+  const chart = find('chart');
+  if (chart) {
+    mountChart(chart, {
+      ...words('chart'),
+      verdict: ({ snr }: { snr: number }) => snr < 1
+        ? 'Below 1. At this interval the estimate is mostly noise, and no model fitted afterwards can recover it. Widen the interval first.'
+        : 'Above 1. An acceleration this size can be read at this interval.'
+    });
+  }
 
-  wire('rate', (root, v) => {
-    const noise = accelerationNoise(v.sigma, v.h);
-    const snr = accelerationSnr(v.acc, v.sigma, v.h);
-    put(root, '[data-out="h"]', String(v.h));
-    put(root, '[data-out="sigma"]', String(v.sigma));
-    put(root, '[data-out="acc"]', v.acc.toFixed(1));
-    put(root, '[data-read="noise"]', noise >= 10 ? noise.toFixed(1) : noise.toFixed(3));
-    put(root, '[data-read="snr"]', snr >= 10 ? snr.toFixed(1) : snr.toFixed(2));
-    put(root, '[data-verdict]', snr < 1
-      ? 'Below 1. An acceleration reported at this interval is noise. Widen the interval before fitting anything.'
-      : 'Above 1. An acceleration of this size can be read at this interval.');
+  const firewall = find('firewall');
+  if (firewall) {
+    mountFirewall(firewall, {
+      ...words('firewall'),
+      reachesSub: (o: number, p: number) => `${o} sources, plus ${round(p)} from the planted set`,
+      setAsideSub: (n: number) => `${num(n)} copies already counted`,
+      verdict: ({ on, V, passedPlanted, integrity }: { on: boolean; V: number; passedPlanted: number; integrity: number }) => {
+        if (V === 0) return 'No attack. Fifty separate sites reach the AI either way.';
+        if (on) return `${V} planted copies count as ${round(passedPlanted)} source${passedPlanted < 1.5 ? '' : 's'}. ${Math.round(integrity * 100)}% of what the AI reads comes from separate sites. The attack bought almost nothing.`;
+        return `Without the filter, ${V} planted copies count as ${V} sources and ${Math.round((1 - integrity) * 100)}% of what the AI reads is the attacker’s. More copies, more weight. That is the advantage the arithmetic takes away.`;
+      }
+    });
+  }
 
-    const top = Math.max(noise, v.acc);
-    const scale = (x: number): string => ((x / top) * 250).toFixed(1);
-    draw(root, `<svg viewBox="0 0 320 110" font-family="var(--label)">
-      <text x="0" y="16" fill="${TEXT}" font-size="11">acceleration to detect</text>
-      <rect x="0" y="24" width="${scale(v.acc)}" height="14" fill="${METAL}"></rect>
-      <text x="0" y="70" fill="${TEXT}" font-size="11">noise in the estimate</text>
-      <rect x="0" y="78" width="${scale(noise)}" height="14" fill="${EDGE}"></rect>
-    </svg>`);
-  });
+  const consensus = find('consensus');
+  if (consensus) {
+    mountConsensus(consensus, {
+      ...words('consensus'),
+      originTag: (n: number) => `${n} clones, 1 origin`,
+      verdict: ({ on, nH, nC, cloneWeight, honestWins, tie }: { on: boolean; nH: number; nC: number; cloneWeight: number; honestWins: boolean; tie: boolean }) => {
+        if (nC === 0) return `${nH} honest agents and no clones. Nothing to defend against.`;
+        if (on) {
+          const head = `${nC} clones count as ${round(cloneWeight)}, because they are one origin repeated. ${nH} honest agents count as ${nH}. `;
+          if (honestWins) return head + `The honest view holds, ${nH} to ${round(cloneWeight)}.`;
+          if (tie) return head + `That is a tie, ${nH} to ${round(cloneWeight)}, and a system must not act on a tie. Add another honest agent.`;
+          return head + `The one origin still outweighs ${nH} honest agent${nH === 1 ? '' : 's'}. Add honest agents until the honest side has the weight.`;
+        }
+        if (honestWins) return `A plain vote: ${nH} honest against ${nC} clones. The honest side still has the numbers, for now.`;
+        if (tie) return `A plain vote: tied at ${nH} to ${nC}. A system must not act on a tie, and one more clone would tip it.`;
+        return `A plain vote: ${nH} honest against ${nC} clones. The clones win, and the system acts on the compromised view with confidence.`;
+      }
+    });
+  }
+
+  const reading = find('reading');
+  if (reading) {
+    mountReading(reading, {
+      ...words('reading'),
+      overlapCaption: (pct: number) => `${pct}% of words shared, on average`,
+      oneOrigin: (n: number, origin: string) => `${n} replies, origin ${origin}`
+    });
+  }
+
+  const alignment = find('alignment');
+  if (alignment) {
+    mountAlignment(alignment, {
+      ...words('alignment'),
+      verdict: ({ decision, deg, cos, limit, limitDeg, example }: { decision: string; deg: number; cos: number; limit: number; limitDeg: number; example: string }) => {
+        const head = `The action: “${example}” `;
+        if (decision === 'runs') return head + `It is about what was asked (cos θ = ${cos.toFixed(2)}, at or above ${limit.toFixed(2)}). It goes on to the reading that checks it does what was asked.`;
+        if (decision === 'held') return head + `It has turned ${deg}° from the instruction, past the ${Math.round(limitDeg)}° the bar allows. It is held until a person looks.`;
+        return head + 'It is about something else entirely. It does not run.';
+      }
+    });
+  }
 </script>

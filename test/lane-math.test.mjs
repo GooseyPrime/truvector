@@ -59,3 +59,60 @@ near('SNR at h=24', accelerationSnr(2, 20, 24), 23.52, 5e-3);
 near('doubling h quadruples SNR', accelerationSnr(2, 20, 4) / accelerationSnr(2, 20, 2), 4);
 
 if (failures) process.exit(1);
+
+// Reading a statement: the word-count gate as coded today against the meaning-based decision.
+import { wordCountDecision, meaningDecision, wordOverlap } from '../src/lib/lane-math.js';
+near('word overlap of identical sets is 1', wordOverlap(new Set(['a', 'b']), new Set(['a', 'b'])), 1);
+near('word overlap of disjoint sets is 0', wordOverlap(new Set(['a']), new Set(['b'])), 0);
+{
+  // Three copies of one reply: perfect overlap, no markers → the word count allows it;
+  // one origin repeated → the meaning-based decision holds it for a person.
+  const copies = Array.from({ length: 3 }, () => ({ text: 'Yes, this is completely true.', stance: 'supports', confidence: 0.9, origin: 'A' }));
+  const wc = wordCountDecision(copies);
+  near('copies: overlap 1', wc.overlap, 1);
+  near('copies: score 1', wc.score, 1);
+  if (wc.gate !== 'ALLOW') { console.error('FAIL  copies: word count allows'); failures++; } else console.log('PASS  copies: word count allows');
+  const md = meaningDecision(copies, 0.9);
+  near('copies: 3 of one origin count as 3/(1+0.9·2)', md.effective, 3 / 2.8);
+  near('copies: direction +1', md.direction, 1);
+  if (md.gate !== 'REVIEW') { console.error('FAIL  copies: meaning holds for a person'); failures++; } else console.log('PASS  copies: meaning holds for a person');
+}
+{
+  // "This is not false" counts "false" as a marker: 2 markers in 12 words → density 1 → score 0 → BLOCK.
+  const trap = [
+    { text: 'This is not false.', stance: 'supports', confidence: 0.9, origin: 'A' },
+    { text: 'Nothing here is incorrect.', stance: 'supports', confidence: 0.85, origin: 'B' },
+    { text: 'The figure is right.', stance: 'supports', confidence: 0.8, origin: 'C' }
+  ];
+  const wc = wordCountDecision(trap);
+  near('marker trap: 2 markers', wc.markers, 2);
+  near('marker trap: density 1', wc.density, 1);
+  if (wc.gate !== 'BLOCK') { console.error('FAIL  marker trap: word count blocks'); failures++; } else console.log('PASS  marker trap: word count blocks');
+  const md = meaningDecision(trap, 0.9);
+  near('marker trap: three origins', md.effective, 3);
+  near('marker trap: certainty 1', md.certainty, 1);
+  if (md.gate !== 'ALLOW') { console.error('FAIL  marker trap: meaning allows'); failures++; } else console.log('PASS  marker trap: meaning allows');
+}
+{
+  // Unanimous refutation from three origins: BLOCK with direction −1.
+  const refute = [
+    { text: 'This is false.', stance: 'refutes', confidence: 0.9, origin: 'A' },
+    { text: 'The figure contradicts the record.', stance: 'refutes', confidence: 0.9, origin: 'B' },
+    { text: 'Incorrect; the real figure is lower.', stance: 'refutes', confidence: 0.85, origin: 'C' }
+  ];
+  const md = meaningDecision(refute, 0.9);
+  near('refutation: direction −1', md.direction, -1);
+  if (md.gate !== 'BLOCK') { console.error('FAIL  refutation: meaning blocks'); failures++; } else console.log('PASS  refutation: meaning blocks');
+  // Two-to-one split with equal confidence and separate origins: D = 1/3, C = 1 − H(2/3, 1/3, 0).
+  const split = [
+    { text: 'a', stance: 'supports', confidence: 0.9, origin: 'A' },
+    { text: 'b', stance: 'supports', confidence: 0.9, origin: 'B' },
+    { text: 'c', stance: 'refutes', confidence: 0.9, origin: 'C' }
+  ];
+  const sp = meaningDecision(split, 0.9);
+  near('split: direction 1/3', sp.direction, 1 / 3);
+  near('split: certainty', sp.certainty, 1 - (-(2 / 3) * Math.log(2 / 3) - (1 / 3) * Math.log(1 / 3)) / Math.log(3));
+  if (sp.gate !== 'REVIEW') { console.error('FAIL  split: held for a person'); failures++; } else console.log('PASS  split: held for a person');
+}
+
+if (failures > 0) { console.error(`${failures} failure(s)`); process.exit(1); }
