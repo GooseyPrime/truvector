@@ -184,41 +184,43 @@ function frame(root, text) {
 const whole = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
 
 /**
- * Copy detector. 500 items shown as dots. Spread out, they come from 250
- * separate origins. In campaign mode the same 500 come from 5 origins.
+ * Astroturf detector. 500 accounts shown as dots. The crowd looks the same in
+ * both modes, which is the point: a manufactured crowd is built to pass for a
+ * real one. In organic mode each account speaks for itself. In astroturf mode
+ * the same 500 are run by 5 hidden operators, and the strings are drawn in.
  */
 export function mountDetector(root, text) {
   const f = frame(root, text);
   const W = 640;
   const H = 320;
   const TOTAL = 500;
+  const OPERATORS = 5;
   const svg = s('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': text.aria });
   const linkLayer = s('g');
   const dotLayer = s('g');
-  svg.append(linkLayer, dotLayer);
+  const hubLayer = s('g');
+  svg.append(linkLayer, dotLayer, hubLayer);
   f.stage.append(svg);
 
   const rand = seeded(7);
-  const hubs = [[110, 95], [320, 70], [530, 100], [210, 235], [440, 240]];
+  const hubs = [[110, 95], [320, 60], [530, 100], [210, 250], [440, 255]];
+  const hubEls = hubs.map(([x, y]) => {
+    const g = s('g', { class: 'lw-link', opacity: 0 });
+    g.append(s('circle', { cx: x, cy: y, r: 11, fill: '#0e0e0e', stroke: PINK, 'stroke-width': 2 }));
+    g.append(s('circle', { cx: x, cy: y, r: 4, fill: PINK }));
+    hubLayer.append(g);
+    return g;
+  });
   const dots = [];
   for (let i = 0; i < TOTAL; i++) {
-    // Spread layout: pairs of dots side by side, one pair per origin.
-    const pair = Math.floor(i / 2);
-    const pr = seeded(1000 + pair);
-    const px = 24 + pr() * (W - 48);
-    const py = 20 + pr() * (H - 40);
-    const spread = { x: px + (i % 2) * 7, y: py + (i % 2) * 3, first: i % 2 === 0, m: 2 };
-    // Campaign layout: 100 dots packed round each of 5 hubs.
-    const hub = hubs[i % 5];
-    const k = Math.floor(i / 5);
-    const angle = rand() * Math.PI * 2;
-    const dist = k === 0 ? 0 : 10 + Math.sqrt(rand()) * 62;
-    const camp = { x: hub[0] + Math.cos(angle) * dist, y: hub[1] + Math.sin(angle) * dist * 0.85, first: k === 0, m: 100 };
-    const link = s('line', { x1: hub[0], y1: hub[1], x2: camp.x, y2: camp.y, stroke: PINK, 'stroke-width': 0.4, class: 'lw-link', opacity: 0 });
+    const x = 16 + rand() * (W - 32);
+    const y = 14 + rand() * (H - 28);
+    const hub = hubs[i % OPERATORS];
+    const link = s('line', { x1: hub[0], y1: hub[1], x2: x, y2: y, stroke: PINK, 'stroke-width': 0.35, class: 'lw-link', opacity: 0 });
     linkLayer.append(link);
-    const dot = s('circle', { r: 3.2, cx: 0, cy: 0, class: 'lw-dot' });
+    const dot = s('circle', { r: 3.2, cx: x, cy: y, fill: GREEN, class: 'lw-dot' });
     dotLayer.append(dot);
-    dots.push({ dot, link, spread, camp });
+    dots.push({ dot, link });
   }
 
   const mode = f.toggle(text.toggle, false);
@@ -227,23 +229,21 @@ export function mountDetector(root, text) {
   f.start(() => {
     const on = mode.get();
     const l = lambda.get();
-    const m = on ? 100 : 2;
+    // Organic: every account is its own origin. Astroturf: 100 accounts per operator.
+    const m = on ? TOTAL / OPERATORS : 1;
     const origins = TOTAL / m;
     const perOrigin = effectiveSources(m, l);
     const eff = origins * perOrigin;
-    // The first dot of an origin always counts in full. The rest share what
-    // is left of that origin's effective count.
-    const rest = (perOrigin - 1) / (m - 1);
+    // Each account's share of its origin's effective count.
+    const weight = perOrigin / m;
     for (const d of dots) {
-      const p = on ? d.camp : d.spread;
-      d.dot.style.transform = `translate(${p.x.toFixed(1)}px,${p.y.toFixed(1)}px)`;
-      d.dot.setAttribute('fill', p.first ? (on ? PINK : GREEN) : on ? PINK : GREEN);
-      d.dot.setAttribute('r', p.first && on ? 6 : 3.2);
-      d.dot.style.opacity = String(p.first ? 1 : 0.12 + 0.88 * rest);
-      d.link.setAttribute('opacity', on ? 0.35 : 0);
+      d.dot.setAttribute('fill', on ? PINK : GREEN);
+      d.dot.style.opacity = String(0.14 + 0.86 * weight);
+      d.link.setAttribute('opacity', on ? 0.3 : 0);
     }
+    for (const g of hubEls) g.setAttribute('opacity', on ? 1 : 0);
     f.setStats(whole.format(TOTAL), eff >= 100 ? whole.format(eff) : eff.toFixed(1));
-    f.note.textContent = text.verdict({ on, lambda: l, eff, origins, total: TOTAL, cap: l === 0 ? Infinity : origins / l });
+    f.note.textContent = text.verdict({ on, lambda: l, eff, origins, total: TOTAL });
   });
 }
 

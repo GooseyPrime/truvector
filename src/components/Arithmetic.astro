@@ -86,17 +86,17 @@
   if (detector) {
     mountDetector(detector, {
       title: 'Astroturf Detector Simulation',
-      lede: 'An AI agent searches a topic and gets 500 posts that all agree. Each dot is one post. Switch on Astroturf Mode to see the same 500 posts when they come from only 5 accounts copying each other.',
-      aria: 'Five hundred dots. Spread out when the posts come from many separate accounts, packed into five clumps when they come from five.',
+      lede: 'An AI agent searches a topic and finds 500 accounts all saying the same thing. Each dot is one account. It looks like a crowd of ordinary people. Switch on Astroturf Mode to see the same crowd when it is fake: 500 accounts that look separate but are run by 5 operators.',
+      aria: 'Five hundred dots scattered like a crowd. In Astroturf Mode the crowd looks the same, but lines appear tying every dot back to one of five hidden operators.',
       stats: ['Raw volume', 'Effective sources'],
       toggle: 'Astroturf Mode',
       slider: 'Coordination Level (\u03BB)',
       formula: 'n_eff = m / (1 + \u03BB(m \u2212 1))',
-      formulaNote: 'worked out for each origin, then added up. \u03BB is how alike posts from one origin are. It is measured, not chosen. WP-02 \u00A73.',
+      formulaNote: 'worked out for each origin, then added up. \u03BB is how alike the accounts run by one operator are. It is measured, not chosen. WP-02 \u00A73.',
       verdict: ({ on, lambda, eff, total }: { on: boolean; lambda: number; eff: number; total: number }) => {
-        if (lambda === 0) return `With no copying at all, every post counts. ${total} posts are ${total} sources.`;
-        if (on) return `${total} posts, but only 5 origins. They count as ${round(eff)} sources. Posting more would not help: each origin tops out at ${(1 / lambda).toFixed(1)}.`;
-        return `${total} posts from 250 separate origins. They count as ${round(eff)} sources. A crowd that is really a crowd keeps most of its weight.`;
+        if (!on) return `A real crowd. ${total} people who each speak for themselves count as ${total} sources. Nobody is steering them, so the coordination level has nothing to act on.`;
+        if (lambda === 0) return `If the fake accounts shared nothing at all, they would pass as ${total} sources. Slide the coordination level up to see what happens when they repeat one script.`;
+        return `It still looks like ${total} people agreeing. It is 5 operators. The crowd counts as ${round(eff)} sources, and adding more fake accounts would not help: each operator tops out at ${(1 / lambda).toFixed(1)}.`;
       }
     });
   }
