@@ -11,7 +11,7 @@ import {
 
 let failures = 0;
 function near(name, got, want, tol = 5e-4) {
-  if (Math.abs(got - want) > tol) {
+  if (!Number.isFinite(got) || Math.abs(got - want) > tol) {
     console.error(`FAIL  ${name}  — got ${got}, want ${want}`);
     failures++;
   } else {
