@@ -632,7 +632,9 @@ export function mountConsensus(root, text) {
     const nC = clones.get();
     const on = math.get();
     const cloneWeight = nC === 0 ? 0 : on ? effectiveSources(nC, LAMBDA) : nC;
-    const honestWins = nH > cloneWeight;
+    // Compare at the precision shown (one decimal), so a tie is a tie on screen too.
+    const tie = Math.abs(nH - cloneWeight) < 0.05;
+    const honestWins = !tie && nH > cloneWeight;
 
     svg.textContent = '';
     const origin = [560, 58];
@@ -652,17 +654,18 @@ export function mountConsensus(root, text) {
       svg.append(s('line', { x1: cx, y1: cy, x2: x, y2: y, stroke: BLUE, 'stroke-width': 1.6, opacity: 0.8 }));
       svg.append(s('circle', { cx: x, cy: y, r: 7, fill: BLUE }));
     }
-    svg.append(s('circle', { cx, cy, r: 22, fill: '#202124', stroke: honestWins ? GREEN : PINK, 'stroke-width': 2.5, class: 'lw-fade' }));
+    const stateColor = honestWins ? GREEN : tie ? AMBER : PINK;
+    svg.append(s('circle', { cx, cy, r: 22, fill: '#202124', stroke: stateColor, 'stroke-width': 2.5, class: 'lw-fade' }));
     svg.append(s('text', { x: cx, y: cy + 4, 'text-anchor': 'middle', fill: INK, 'font-size': 10.5, 'font-weight': 700 }, text.hub));
     if (on && nC > 0) {
       svg.append(s('circle', { cx: origin[0], cy: origin[1], r: 13, fill: '#0e0e0e', stroke: AMBER, 'stroke-width': 2 }));
       svg.append(s('circle', { cx: origin[0], cy: origin[1], r: 4.5, fill: AMBER }));
       svg.append(tag(origin[0], origin[1] - 28, text.originTag(nC), { W }));
     }
-    svg.append(tag(cx, H - 14, honestWins ? text.stateHolds : text.stateLost, { W, fill: honestWins ? '#12301c' : '#3a1a18', color: honestWins ? GREEN : PINK }));
+    svg.append(tag(cx, H - 14, honestWins ? text.stateHolds : tie ? text.stateTie : text.stateLost, { W, fill: honestWins ? '#12301c' : tie ? '#2a2206' : '#3a1a18', color: stateColor }));
 
     f.setStats(`${nH} : ${nC}`, `${nH.toFixed(1)} : ${fmt(cloneWeight)}`);
-    f.note.textContent = text.verdict({ on, nH, nC, cloneWeight, honestWins });
+    f.note.textContent = text.verdict({ on, nH, nC, cloneWeight, honestWins, tie });
   });
 }
 
@@ -674,7 +677,8 @@ export function mountAlignment(root, text) {
   const f = frame(root, text);
   const W = 640;
   const H = 330;
-  const ox = 236;
+  // Half-circle dial centred in the picture, so the arc runs the full 0° to 180°.
+  const ox = 320;
   const oy = 262;
   const R = 236;
   const svg = s('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': text.aria });
@@ -689,13 +693,15 @@ export function mountAlignment(root, text) {
     const limit = bar.get();
     const rad = (deg * Math.PI) / 180;
     const cos = Math.cos(rad);
-    const decision = cos >= limit ? 'runs' : cos > 0 ? 'held' : 'blocked';
-    const color = decision === 'runs' ? GREEN : decision === 'held' ? AMBER : PINK;
     const limitDeg = (Math.acos(limit) * 180) / Math.PI;
+    // Decide on the angle itself: cos θ ≥ limit is the same as θ ≤ acos(limit),
+    // and exactly 90° is the zero line, not a hair above it.
+    const decision = deg <= limitDeg + 1e-9 ? 'runs' : deg < 90 ? 'held' : 'blocked';
+    const color = decision === 'runs' ? GREEN : decision === 'held' ? AMBER : PINK;
     const lr = Math.acos(limit);
     const example = text.examples.find((e) => deg <= e.upTo) || text.examples[text.examples.length - 1];
-    const leftX = ox - 200;
-    const leftY = oy - R * Math.sin(Math.acos(-200 / R));
+    const leftX = ox - R;
+    const leftY = oy;
 
     svg.textContent = '';
     const defs = s('defs');

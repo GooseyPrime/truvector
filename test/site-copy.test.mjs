@@ -75,16 +75,30 @@ check(
   home.includes("import Arithmetic from '../components/Arithmetic.astro';") &&
     home.includes('<Arithmetic />') &&
     arithmetic.includes('Move the numbers yourself.') &&
-    ['data-widget="embedding"', 'data-widget="dial"', 'data-widget="detector"', 'data-widget="chart"', 'data-widget="firewall"', 'data-widget="consensus"', 'data-widget="alignment"'].every((n) => arithmetic.includes(n))
+    arithmetic.includes('data-widget={name}') &&
+    ['embedding', 'dial', 'detector', 'chart', 'firewall', 'consensus', 'alignment'].every((n) => arithmetic.includes(`name: '${n}'`))
+);
+const count = (needle) => arithmetic.split(needle).length - 1;
+check(
+  'each paper-derived panel states its formula with its working-paper section',
+  // 03, 05, 06 → WP-02 §3; 01, 02 → WP-01 §2; 04 → WP-01 §3. Panel 07 is the engine's own use of the angle and cites no paper.
+  count('WP-02 \u00A73') === 3 && count('WP-01 \u00A72') === 2 && count('WP-01 \u00A73') === 1,
+  `WP-02 §3 ×${count('WP-02 \u00A73')}, WP-01 §2 ×${count('WP-01 \u00A72')}, WP-01 §3 ×${count('WP-01 \u00A73')}`
 );
 check(
-  'arithmetic section states each formula with its working-paper section',
-  ['WP-02 \u00A73', 'WP-01 \u00A72', 'WP-01 \u00A73'].every((n) => arithmetic.includes(n))
+  'every panel is rendered by the server before any script runs',
+  (arithmetic.match(/class="lw lw-static"/g) || []).length === 2 && // two render loops, one per group
+    arithmetic.includes('id="lab-copy"') &&
+    (arithmetic.match(/reading: '/g) || []).length === 7
+);
+check(
+  'arithmetic section publishes no figure in currency',
+  !/[$€£]\s?\d/.test(arithmetic) && !/\b\d[\d,]*\s?(dollars|euros|pounds)\b/i.test(arithmetic)
 );
 check(
   'every research direction carries the result that would disprove it',
-  (arithmetic.match(/class="rail__note"/g) || []).length === 5 &&
-    (arithmetic.match(/It would be disproved/g) || []).length === 5
+  (arithmetic.match(/class="rail__note"/g) || []).length === 6 &&
+    (arithmetic.match(/It would be disproved/g) || []).length === 6
 );
 check(
   'arithmetic section keeps to the site vocabulary and publishes no stage',
