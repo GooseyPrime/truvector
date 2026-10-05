@@ -1,0 +1,157 @@
+@page {
+  size: Letter;
+  margin: 22mm 20mm 24mm 20mm;
+}
+
+html {
+  font-size: 10.5pt;
+}
+
+body {
+  font-family: "Liberation Serif", "Times New Roman", Times, serif;
+  line-height: 1.42;
+  color: #111;
+  max-width: 100%;
+  margin: 0;
+  text-align: justify;
+  hyphens: auto;
+}
+
+.running-head {
+  font-family: "Liberation Sans", Arial, sans-serif;
+  font-size: 8pt;
+  color: #555;
+  text-align: right;
+  margin: 0 0 10mm 0;
+  letter-spacing: 0.02em;
+}
+
+h1 {
+  font-family: "Liberation Sans", Arial, sans-serif;
+  font-size: 20pt;
+  line-height: 1.2;
+  text-align: center;
+  margin: 0 0 6mm 0;
+}
+
+/* The byline is the first paragraph after the title. */
+h1 + p {
+  text-align: center;
+  font-family: "Liberation Sans", Arial, sans-serif;
+  font-size: 9.5pt;
+  color: #333;
+  margin-bottom: 9mm;
+}
+
+h2 {
+  font-family: "Liberation Sans", Arial, sans-serif;
+  font-size: 12.5pt;
+  margin: 7mm 0 2.5mm 0;
+  page-break-after: avoid;
+}
+
+h3 {
+  font-family: "Liberation Sans", Arial, sans-serif;
+  font-size: 10.5pt;
+  margin: 5mm 0 2mm 0;
+  page-break-after: avoid;
+}
+
+p {
+  margin: 0 0 2.6mm 0;
+  orphans: 3;
+  widows: 3;
+}
+
+strong {
+  font-weight: 700;
+}
+
+em {
+  font-style: italic;
+}
+
+math {
+  font-family: "Latin Modern Math", "STIX Two Math", "DejaVu Math TeX Gyre", "Cambria Math", serif;
+}
+
+math[display="block"] {
+  display: block;
+  margin: 2.5mm auto 3mm auto;
+  text-align: center;
+}
+
+.katex {
+  font-size: 1.04em;
+}
+
+span.math.display {
+  display: block;
+  text-align: center;
+  margin: 2.5mm 0 3mm 0;
+  page-break-inside: avoid;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 3mm 0 4mm 0;
+  font-size: 9pt;
+  font-family: "Liberation Sans", Arial, sans-serif;
+  page-break-inside: avoid;
+}
+
+th, td {
+  border-top: 0.5pt solid #999;
+  border-bottom: 0.5pt solid #999;
+  padding: 1.4mm 1.8mm;
+  text-align: left;
+  vertical-align: top;
+}
+
+thead th {
+  border-bottom: 1pt solid #333;
+  font-weight: 700;
+}
+
+figure, p:has(> img) {
+  margin: 3mm 0 1mm 0;
+  text-align: center;
+  page-break-inside: avoid;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* The caption is the paragraph immediately after an image. */
+p:has(> img) + p {
+  font-family: "Liberation Sans", Arial, sans-serif;
+  font-size: 8.5pt;
+  color: #333;
+  text-align: left;
+  margin: 1.5mm 0 5mm 0;
+}
+
+a {
+  color: #111;
+  text-decoration: none;
+  word-break: break-all;
+}
+
+code {
+  font-family: "Liberation Mono", monospace;
+  font-size: 9pt;
+}
+
+ul, ol {
+  margin: 0 0 2.6mm 0;
+  padding-left: 6mm;
+}
+
+li {
+  margin-bottom: 1mm;
+}
