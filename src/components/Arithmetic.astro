@@ -179,6 +179,83 @@ const panels: Panel[] = [
         { upTo: 180, text: 'Move the whole balance to an account nobody mentioned.' }
       ]
     }
+  },
+  {
+    name: 'reading',
+    step: '08 Judging',
+    title: 'Meaning, Not Words',
+    lede: 'Several models read the same statement and each says what it means to it: supports, refutes or unsure, and how sure. Then something has to turn those readings into one decision. The working prototype does it by counting words: how many words the replies share, and how often nine words like “however” and “false” appear. The replacement never counts words. The models do the reading; the arithmetic counts origins, measures direction and certainty, and decides. Pick a case and compare the two side by side.',
+    reading: 'Three readers support the statement in different words, and one of them writes “but”. The word count sees little shared wording and a marker word, scores 0.00 and blocks it. The meaning-based decision sees three origins supporting with certainty 1.00 and allows it. With three copies of one reply the word count scores a perfect 1.00 and allows; the meaning-based decision counts one origin repeated and holds it for a person.',
+    formula: 'D = S − R,  C = 1 − H(S, R, U)',
+    formulaNote: 'with S, R, U the readers’ shares weighted by confidence and by origin (the n_eff of step 03 with λ = 0.9 inside one origin), and H the normalised entropy. Allow when D ≥ 0.5, C ≥ 0.5 and at least two independent origins; block when D ≤ −0.5 and C ≥ 0.5; otherwise hold. The angle checks of steps 01 and 07 run beside this and need an embedding model, so they are not drawn here.',
+    copy: {
+      wordsAria: 'Three overlapping circles, one per reply, pulled together by how many words the replies share.',
+      meaningAria: 'Arrows from one point along a support-to-refute line, one per reader, with a dashed ring around arrows that come from one origin.',
+      wordsTitle: 'Word count',
+      wordsTag: 'as scored today',
+      meaningTitle: 'Meaning',
+      meaningTag: 'the replacement',
+      choiceLabel: 'Case',
+      reader: 'Reader',
+      origin: 'origin',
+      stanceWord: { supports: 'Supports', refutes: 'Refutes', uncertain: 'Unsure' },
+      axisSupport: 'supports (+1)',
+      axisRefute: 'refutes (−1)',
+      tileOverlap: 'Shared words',
+      tileMarkers: 'Marker words',
+      tileScore: 'Score',
+      tileOrigins: 'Independent origins',
+      tileDirection: 'Direction D',
+      tileCertainty: 'Certainty C',
+      gateWord: { ALLOW: 'Allow', REVIEW: 'Hold', BLOCK: 'Block' },
+      stats: ['Word count decides', 'Meaning decides'],
+      scenarios: [
+        {
+          name: 'Same point, different words',
+          replies: [
+            { text: 'This statement is accurate.', stance: 'supports', confidence: 0.9, origin: 'A' },
+            { text: 'I can confirm the figure holds.', stance: 'supports', confidence: 0.85, origin: 'B' },
+            { text: 'Correct, but note the figure is from 2024.', stance: 'supports', confidence: 0.8, origin: 'C' }
+          ],
+          wordsWhy: 'Almost no shared words, and “but” is a marker word. Blocked for its wording.',
+          meaningWhy: 'Three origins, all supporting, nobody unsure. Allowed.',
+          note: 'Three readers agree and say so in their own words. The word count punishes the different wording and the word “but”, and blocks a statement everyone supports. The meaning-based decision reads the three stances, counts three origins, and allows it.'
+        },
+        {
+          name: 'Three copies of one reply',
+          replies: [
+            { text: 'Yes, this is completely true.', stance: 'supports', confidence: 0.9, origin: 'A' },
+            { text: 'Yes, this is completely true.', stance: 'supports', confidence: 0.9, origin: 'A' },
+            { text: 'Yes, this is completely true.', stance: 'supports', confidence: 0.9, origin: 'A' }
+          ],
+          wordsWhy: 'Identical wording scores a perfect 1.00. Allowed, on three copies.',
+          meaningWhy: 'One origin repeated counts as about 1.07. Fewer than two: held for a person.',
+          note: 'The same reply three times over, from one origin. The word count sees perfect agreement and allows it; this is the astroturf problem of step 03 inside the reading step. The meaning-based decision counts origins, not replies: three copies are 1.07 sources, and a decision needs two.'
+        },
+        {
+          name: 'A careful refutation',
+          replies: [
+            { text: 'This is false.', stance: 'refutes', confidence: 0.9, origin: 'A' },
+            { text: 'The figure contradicts the record.', stance: 'refutes', confidence: 0.9, origin: 'B' },
+            { text: 'Incorrect; the real figure is lower.', stance: 'refutes', confidence: 0.85, origin: 'C' }
+          ],
+          wordsWhy: 'Blocked, but for the wording: little overlap and three marker words.',
+          meaningWhy: 'Direction −1.00 with certainty 1.00 from three origins. Blocked because the readers refute it.',
+          note: 'Both methods block, and only one of them knows why. The word count blocks because the replies share few words and contain marker words; it would block a unanimous “supports” written the same way. The meaning-based decision blocks because three independent readers refute the statement.'
+        },
+        {
+          name: 'The marker trap',
+          replies: [
+            { text: 'This is not false.', stance: 'supports', confidence: 0.9, origin: 'A' },
+            { text: 'Nothing here is incorrect.', stance: 'supports', confidence: 0.85, origin: 'B' },
+            { text: 'The figure is right.', stance: 'supports', confidence: 0.8, origin: 'C' }
+          ],
+          wordsWhy: '“Not false” and “incorrect” count as two marker words in twelve. Score 0.00, blocked.',
+          meaningWhy: 'Three origins support it with certainty 1.00. Allowed.',
+          note: '“This is not false” is support. A word count cannot know that; it sees “false” and counts a contradiction. Reading is the models’ job, and the arithmetic only ever works on what they read.'
+        }
+      ]
+    }
   }
 ];
 
@@ -188,6 +265,7 @@ const copyForClient = Object.fromEntries(
 const byName = Object.fromEntries(panels.map((p) => [p.name, p]));
 const order: (string | 'figure')[] = ['embedding', 'figure', 'dial', 'detector', 'chart'];
 const layers = ['firewall', 'consensus', 'alignment'];
+const judging = ['reading'];
 ---
 <section class="room" id="arithmetic" aria-labelledby="arithmetic-title">
   <div class="suite suite--flagship">
@@ -227,9 +305,36 @@ const layers = ['firewall', 'consensus', 'alignment'];
       ))}
     </div>
 
+    <h3 class="lab-sub reveal" id="judging-title">The reading step, before and after.</h3>
+    <p class="reveal lab-intro">The research path from here: the models read, the arithmetic judges. Every “how alike” and “does it agree” number in the system is computed on what the models read, never on the words they used. Counting stays outside the readers, where an attacker cannot reach it, and the decision stays a formula a person can recompute by hand.</p>
+
+    <div class="labs">
+      {judging.map((name) => (
+        <div data-widget={name} class="lw lw-static">
+          <p class="lw-step"><b>{byName[name].step.split(' ')[0]}</b>{byName[name].step.split(' ').slice(1).join(' ')}</p>
+          <h3 class="lw-title">{byName[name].title}</h3>
+          <p class="lw-lede">{byName[name].lede}</p>
+          <p class="lw-note">{byName[name].reading}</p>
+          <p class="lw-formula"><code>{byName[name].formula}</code> {byName[name].formulaNote}</p>
+        </div>
+      ))}
+    </div>
+
     <h3 class="lab-sub reveal" id="directions-title">Where the research has to go next.</h3>
-    <p class="reveal lab-intro">Each direction is stated with the result that would prove it wrong.</p>
+    <p class="reveal lab-intro">Each direction is stated with the result that would prove it wrong. The first three are about measuring meaning, the crucial parameter; the rest are about counting it.</p>
     <ul class="rail reveal" aria-labelledby="directions-title">
+      <li>
+        <span class="rail__name">Which model assigns the coordinates, and what the angle can carry</span>
+        <span class="rail__note">Every number in step 01 depends on the model that assigned it, so the model is named and pinned in every record. Across five embedding models the angle separated “same subject” from “unrelated” perfectly and put a sentence within a hair of its own negation; so the angle guards subject and the readers’ stances carry direction. It would be disproved as a fixed division of labour if a model’s angle separates “same point” from “opposite point” as well as a reader does.</span>
+      </li>
+      <li>
+        <span class="rail__name">Calibrating a reader’s confidence</span>
+        <span class="rail__note">A reader that says 0.9 should be right about nine times in ten. For each reader, how often a stated 0.9, 0.7 and 0.5 is right is measured on a labelled set, and a correction fitted on half is tested on the other half. It would be disproved if the correction does no better than the raw confidence on the half it never saw; then confidence is noise and the rule uses the labels alone.</span>
+      </li>
+      <li>
+        <span class="rail__name">&lambda; between readers</span>
+        <span class="rail__note">How alike are ten runs of one model, one model under two prompts, and two models from different makers? The within-family correlation sets the discount in step 08. It would be disproved as a grouping if runs inside one model family are no more alike than runs across families; then every reply is its own origin.</span>
+      </li>
       <li>
         <span class="rail__name">Measuring &lambda; for each kind of material</span>
         <span class="rail__note">&lambda; for syndicated news is not &lambda; for scraped product pages or for text written by a model. It would be disproved as a stable quantity if the value measured on one half of a collection falls outside the interval measured on the other half.</span>
@@ -249,6 +354,10 @@ const layers = ['firewall', 'consensus', 'alignment'];
       <li>
         <span class="rail__name">Acceleration as an earlier warning</span>
         <span class="rail__note">Whether a story that is speeding up can be flagged sooner than a volume threshold flags it. It would be disproved if the lead time disappears once both are held to the same false-alarm rate.</span>
+      </li>
+      <li>
+        <span class="rail__name">Fitting the bars once the readings are right</span>
+        <span class="rail__note">Today’s bars were fitted to word counts. The allow and block bars in step 08 are refitted on a labelled set, half for fitting and half held back. It would be disproved as a rule if the bars chosen on one half mislabel more of the other half than a plain majority of readers does.</span>
       </li>
       <li>
         <span class="rail__name">The angle between an instruction and an action</span>
@@ -289,7 +398,8 @@ const layers = ['firewall', 'consensus', 'alignment'];
     mountChart,
     mountFirewall,
     mountConsensus,
-    mountAlignment
+    mountAlignment,
+    mountReading
   } from '../lib/lane-widgets.js';
 
   const copyEl = document.getElementById('lab-copy');
@@ -370,6 +480,15 @@ const layers = ['firewall', 'consensus', 'alignment'];
         if (tie) return `A plain vote: tied at ${nH} to ${nC}. A system must not act on a tie, and one more clone would tip it.`;
         return `A plain vote: ${nH} honest against ${nC} clones. The clones win, and the system acts on the compromised view with confidence.`;
       }
+    });
+  }
+
+  const reading = find('reading');
+  if (reading) {
+    mountReading(reading, {
+      ...words('reading'),
+      overlapCaption: (pct: number) => `${pct}% of words shared, on average`,
+      oneOrigin: (n: number, origin: string) => `${n} replies, origin ${origin}`
     });
   }
 

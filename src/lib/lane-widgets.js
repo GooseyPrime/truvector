@@ -3,7 +3,7 @@
 // two headline numbers, the controls, a plain-words reading of the result,
 // and the formula it evaluates. All arithmetic comes from lane-math and is
 // tested against the working papers. The drawing never invents a number.
-import { effectiveSources, projectedContribution, accelerationNoise, accelerationSnr } from './lane-math.js';
+import { effectiveSources, projectedContribution, accelerationNoise, accelerationSnr, wordCountDecision, meaningDecision } from './lane-math.js';
 
 const NS = 'http://www.w3.org/2000/svg';
 const STYLE_ID = 'lw-style';
@@ -57,7 +57,25 @@ const CSS = `
 .lw button:focus-visible,.lw input:focus-visible{outline:2px solid ${BLUE}}
 .lw-flow{stroke-dasharray:6 14;animation:lw-flow 1.4s linear infinite}
 @keyframes lw-flow{to{stroke-dashoffset:-20}}
-@container (max-width:560px){.lw-row{grid-template-columns:1fr 72px}.lw-row label{grid-column:1/-1}.lw-seg{grid-column:1/-1}}
+.lw-cmp{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.lw-card{background:#161719;border:1px solid #2a2b2e;border-radius:16px;padding:14px 14px 12px;min-width:0;display:flex;flex-direction:column;gap:10px}
+.lw-card--meaning{border-color:#3a4a62}
+.lw-card h4{margin:0;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:${MUTED};display:flex;justify-content:space-between;align-items:center;gap:8px}
+.lw-card h4 em{font-style:normal;font-size:10px;letter-spacing:.12em;padding:3px 7px;border-radius:6px;background:#2a2b2e;color:${GREY}}
+.lw-card--meaning h4 em{background:#1e2a3f;color:${BLUE}}
+.lw-reply{font-size:12.5px;line-height:1.45;color:${INK};background:#0e0e0e;border:1px solid #2a2b2e;border-radius:10px;padding:8px 10px;display:flex;flex-direction:column;gap:4px}
+.lw-reply small{font-size:10.5px;color:${GREY};display:flex;justify-content:space-between;gap:8px}
+.lw-reply mark{background:#3a1a18;color:${PINK};border-radius:4px;padding:0 3px}
+.lw-reply .lw-stance{font-weight:600;font-size:11.5px}
+.lw-card svg{display:block;width:100%;height:auto}
+.lw-tiles{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:6px}
+.lw-tiles div{background:#0e0e0e;border-radius:10px;padding:8px 6px;text-align:center}
+.lw-tiles span{display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:${GREY}}
+.lw-tiles b{display:block;font-size:16px;font-weight:600;margin-top:3px;font-variant-numeric:tabular-nums}
+.lw-verdict{display:flex;justify-content:space-between;align-items:center;gap:10px;border-top:1px solid #2a2b2e;padding-top:10px;margin-top:auto}
+.lw-verdict p{margin:0;font-size:12px;line-height:1.45;color:${MUTED}}
+.lw-badge{flex:none;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:999px;border:1px solid}
+@container (max-width:560px){.lw-row{grid-template-columns:1fr 72px}.lw-row label{grid-column:1/-1}.lw-seg{grid-column:1/-1}.lw-cmp{grid-template-columns:1fr}}
 @media (max-width:560px){.lw{padding:20px 16px;border-radius:16px}}
 @media (prefers-reduced-motion:reduce){.lw-dot,.lw-move,.lw-fade{transition:none}.lw-flow{animation:none}}
 `;
@@ -728,5 +746,162 @@ export function mountAlignment(root, text) {
 
     f.setStats(cos.toFixed(2), text.decisionWord[decision]);
     f.note.textContent = text.verdict({ decision, deg, cos, limit, limitDeg, example: example.text });
+  });
+}
+
+/* ------------------------------------------------------------------ */
+/* 8. Reading a statement: words against meaning                       */
+/* ------------------------------------------------------------------ */
+
+const MARKER_RE = /\b(however|but|contradict|disagree|incorrect|wrong|false|not true|inaccurate)\b/gi;
+
+function badgeColor(gate) {
+  return gate === 'ALLOW' ? GREEN : gate === 'BLOCK' ? PINK : AMBER;
+}
+function badgeFill(gate) {
+  return gate === 'ALLOW' ? '#12301c' : gate === 'BLOCK' ? '#3a1a18' : '#2a2206';
+}
+
+/**
+ * Two ways of reading the same three replies, side by side: the word-count
+ * gate as the working prototype computes it today, and the meaning-based
+ * decision that replaces it. Every number is computed live from the replies.
+ */
+export function mountReading(root, text) {
+  const f = frame(root, text);
+  const LAMBDA = 0.9;
+  const grid = h('div', { class: 'lw-cmp' });
+  f.stage.append(grid);
+
+  function card(kind, title, tagText) {
+    const el = h('div', { class: `lw-card${kind === 'meaning' ? ' lw-card--meaning' : ''}` });
+    const head = h('h4', {}, title);
+    head.append(h('em', {}, tagText));
+    const replies = h('div', { class: 'lw-replies' });
+    const svg = s('svg', { viewBox: '0 0 300 120', role: 'img', 'aria-label': kind === 'words' ? text.wordsAria : text.meaningAria });
+    const tiles = h('div', { class: 'lw-tiles' });
+    const verdict = h('div', { class: 'lw-verdict' });
+    const why = h('p');
+    const badge = h('span', { class: 'lw-badge' });
+    verdict.append(why, badge);
+    el.append(head, replies, svg, tiles, verdict);
+    grid.append(el);
+    return { el, replies, svg, tiles, why, badge };
+  }
+  const words = card('words', text.wordsTitle, text.wordsTag);
+  const meaning = card('meaning', text.meaningTitle, text.meaningTag);
+
+  const which = f.choice(text.choiceLabel, text.scenarios.map((x) => x.name), 0);
+
+  function tile(label, value) {
+    const d = h('div');
+    d.append(h('span', {}, label), h('b', {}, value));
+    return d;
+  }
+  function setBadge(badge, gate) {
+    badge.textContent = text.gateWord[gate];
+    badge.style.color = badgeColor(gate);
+    badge.style.borderColor = badgeColor(gate);
+    badge.style.background = badgeFill(gate);
+  }
+
+  f.start(() => {
+    const sc = text.scenarios[which.get()];
+    const replies = sc.replies;
+    const wc = wordCountDecision(replies);
+    const md = meaningDecision(replies, LAMBDA);
+
+    // Left: the replies with their marker words lit, a word-overlap picture, the word-count numbers.
+    words.replies.textContent = '';
+    replies.forEach((r, i) => {
+      const row = h('div', { class: 'lw-reply' });
+      row.append(h('small', {}, `${text.reader} ${i + 1}`));
+      const body = h('span');
+      let last = 0;
+      for (const m of r.text.matchAll(MARKER_RE)) {
+        body.append(document.createTextNode(r.text.slice(last, m.index)));
+        body.append(h('mark', {}, m[0]));
+        last = m.index + m[0].length;
+      }
+      body.append(document.createTextNode(r.text.slice(last)));
+      row.append(body);
+      words.replies.append(row);
+    });
+    words.svg.textContent = '';
+    {
+      // Three circles, pulled together by the mean word overlap: 1 = one circle, 0 = three apart.
+      const cx = 150;
+      const cy = 60;
+      const d = (1 - wc.overlap) * 34;
+      const r = 30;
+      const spots = [[cx - d, cy - d * 0.5], [cx + d, cy - d * 0.5], [cx, cy + d]];
+      const cols = [BLUE, PINK, GREEN];
+      spots.forEach(([x, y], i) => words.svg.append(s('circle', { cx: x, cy: y, r, fill: cols[i], opacity: 0.28, stroke: cols[i], 'stroke-width': 1, class: 'lw-move' })));
+      words.svg.append(s('text', { x: cx, y: 112, 'text-anchor': 'middle', fill: GREY, 'font-size': 10 }, text.overlapCaption(Math.round(wc.overlap * 100))));
+    }
+    words.tiles.textContent = '';
+    words.tiles.append(tile(text.tileOverlap, `${Math.round(wc.overlap * 100)}%`), tile(text.tileMarkers, String(wc.markers)), tile(text.tileScore, wc.score.toFixed(2)));
+    words.why.textContent = sc.wordsWhy;
+    setBadge(words.badge, wc.gate);
+
+    // Right: what each reader read, drawn on the support/refute line, grouped by origin; the meaning numbers.
+    meaning.replies.textContent = '';
+    replies.forEach((r, i) => {
+      const row = h('div', { class: 'lw-reply' });
+      const head = h('small');
+      head.append(h('span', {}, `${text.reader} ${i + 1}`), h('span', {}, `${text.origin} ${r.origin}`));
+      const stance = h('span', { class: 'lw-stance' }, `${text.stanceWord[r.stance]} · ${Math.round(r.confidence * 100)}%`);
+      stance.style.color = r.stance === 'supports' ? GREEN : r.stance === 'refutes' ? PINK : AMBER;
+      row.append(head, stance);
+      meaning.replies.append(row);
+    });
+    meaning.svg.textContent = '';
+    {
+      const cx = 150;
+      const cy = 62;
+      const L = 110;
+      const svg = meaning.svg;
+      const defs = s('defs');
+      arrowDef(defs, 'lw-rd-s', GREEN);
+      arrowDef(defs, 'lw-rd-r', PINK);
+      arrowDef(defs, 'lw-rd-u', AMBER);
+      svg.append(defs);
+      svg.append(s('line', { x1: cx - L - 10, y1: cy, x2: cx + L + 10, y2: cy, stroke: LINE, 'stroke-dasharray': '4 4' }));
+      svg.append(s('text', { x: cx + L + 10, y: cy + 16, 'text-anchor': 'end', fill: GREEN, 'font-size': 9.5 }, text.axisSupport));
+      svg.append(s('text', { x: cx - L - 10, y: cy + 16, 'text-anchor': 'start', fill: PINK, 'font-size': 9.5 }, text.axisRefute));
+      // One ring per origin that holds more than one reply.
+      const byOrigin = new Map();
+      replies.forEach((r, i) => byOrigin.set(r.origin, [...(byOrigin.get(r.origin) ?? []), i]));
+      // Arrows fan upward from the line so none covers another or the labels.
+      const angleOf = (stance, k) => (stance === 'supports' ? 6 + k * 13 : stance === 'refutes' ? 174 - k * 13 : 78 + k * 12);
+      const seen = { supports: 0, refutes: 0, uncertain: 0 };
+      replies.forEach((r) => {
+        const ang = (angleOf(r.stance, seen[r.stance]++) * Math.PI) / 180;
+        const len = 30 + 60 * r.confidence;
+        const color = r.stance === 'supports' ? GREEN : r.stance === 'refutes' ? PINK : AMBER;
+        const marker = r.stance === 'supports' ? 'lw-rd-s' : r.stance === 'refutes' ? 'lw-rd-r' : 'lw-rd-u';
+        svg.append(s('line', { x1: cx, y1: cy, x2: cx + len * Math.cos(ang), y2: cy - len * Math.sin(ang), stroke: color, 'stroke-width': 2.5, 'stroke-linecap': 'round', 'marker-end': `url(#${marker})`, class: 'lw-fade' }));
+      });
+      for (const [origin, idx] of byOrigin) {
+        if (idx.length < 2) continue;
+        // Ring around the fan of arrows that share one origin.
+        const r0 = replies[idx[0]];
+        const mid = angleOf(r0.stance, (idx.length - 1) / 2);
+        const ang = (mid * Math.PI) / 180;
+        const len = (30 + 60 * r0.confidence) * 0.78;
+        const x = cx + len * Math.cos(ang);
+        const y = cy - len * Math.sin(ang);
+        svg.append(s('circle', { cx: x, cy: y, r: 22, fill: AMBER, opacity: 0.1, stroke: AMBER, 'stroke-dasharray': '3 3' }));
+        svg.append(s('text', { x: cx + (r0.stance === 'refutes' ? -1 : 1) * 60, y: 112, 'text-anchor': 'middle', fill: AMBER, 'font-size': 9.5, 'font-weight': 600 }, text.oneOrigin(idx.length, origin)));
+      }
+      svg.append(s('circle', { cx, cy, r: 3.5, fill: INK }));
+    }
+    meaning.tiles.textContent = '';
+    meaning.tiles.append(tile(text.tileOrigins, fmt(md.effective)), tile(text.tileDirection, (md.direction >= 0 ? '+' : '') + md.direction.toFixed(2)), tile(text.tileCertainty, md.certainty.toFixed(2)));
+    meaning.why.textContent = sc.meaningWhy;
+    setBadge(meaning.badge, md.gate);
+
+    f.setStats(text.gateWord[wc.gate], text.gateWord[md.gate]);
+    f.note.textContent = sc.note;
   });
 }

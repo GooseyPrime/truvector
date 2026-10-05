@@ -76,7 +76,7 @@ check(
     home.includes('<Arithmetic />') &&
     arithmetic.includes('Move the numbers yourself.') &&
     arithmetic.includes('data-widget={name}') &&
-    ['embedding', 'dial', 'detector', 'chart', 'firewall', 'consensus', 'alignment'].every((n) => arithmetic.includes(`name: '${n}'`))
+    ['embedding', 'dial', 'detector', 'chart', 'firewall', 'consensus', 'alignment', 'reading'].every((n) => arithmetic.includes(`name: '${n}'`))
 );
 const count = (needle) => arithmetic.split(needle).length - 1;
 check(
@@ -87,9 +87,9 @@ check(
 );
 check(
   'every panel is rendered by the server before any script runs',
-  (arithmetic.match(/class="lw lw-static"/g) || []).length === 2 && // two render loops, one per group
+  (arithmetic.match(/class="lw lw-static"/g) || []).length === 3 && // three render loops, one per group
     arithmetic.includes('id="lab-copy"') &&
-    (arithmetic.match(/reading: '/g) || []).length === 7
+    (arithmetic.match(/reading: '/g) || []).length === 8
 );
 check(
   'arithmetic section publishes no figure in currency',
@@ -97,8 +97,8 @@ check(
 );
 check(
   'every research direction carries the result that would disprove it',
-  (arithmetic.match(/class="rail__note"/g) || []).length === 6 &&
-    (arithmetic.match(/It would be disproved/g) || []).length === 6
+  (arithmetic.match(/class="rail__note"/g) || []).length === 10 &&
+    (arithmetic.match(/It would be disproved/g) || []).length === 10
 );
 check(
   'arithmetic section keeps to the site vocabulary and publishes no stage',
