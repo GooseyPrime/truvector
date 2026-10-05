@@ -107,16 +107,12 @@ check(
 );
 
 const technology = text('src/pages/technology.astro');
-check(
-  'technology page qualifies the unbuilt decision-rule stage',
-  technology.includes('This stage is specified, not yet built') &&
-    technology.includes('The intended decision rule')
-);
-check(
-  'technology example includes disagreement check state',
-  technology.includes('"disagreement_check":  "checked" | "not_checked"') &&
-    technology.includes('The technical brief carries the full schema.')
-);
+check('technology separates action reading from subject checks',
+  technology.includes('Separate action readings') && technology.includes('action subject score') &&
+  technology.includes('label concentration') && !technology.includes('confidence_interval'));
+check('publications route provides current documents',
+  text('src/pages/publications.astro').includes('/working-papers/WP-02.pdf') &&
+  text('src/pages/publications.astro').includes('/working-papers/WP-02.docx'));
 
 const investors = text('src/pages/investors.astro');
 check(
@@ -154,15 +150,11 @@ const sciencePath = join(root, 'src/pages/science.astro');
 const hasScience = existsSync(sciencePath);
 check('science page exists', hasScience);
 const science = hasScience ? readFileSync(sciencePath, 'utf8') : '';
-check(
-  'science page frames the research basis and qualifies the decision rule',
-  [
-    'The math of how reactions move, applied to how information moves.',
-    'TruVector is being built to turn the measurements above into Allow, Review or Block on that basis.',
-    'Terms like velocity and acceleration are used as working models for how information spreads. They are hypotheses under test',
-    'https://www.lanevector.com'
-  ].every((needle) => science.includes(needle))
-);
+check('science separates subject similarity and directional interpretation',
+  science.includes('a high cosine therefore does not establish agreement') &&
+  science.includes('58') && science.includes('does not estimate deployment accuracy') &&
+  science.includes('https://www.lanevector.com/research'));
+
 check(
   'science route migration is documented in astro config',
   JSON.stringify(redirects) === JSON.stringify(expectedRedirects) &&

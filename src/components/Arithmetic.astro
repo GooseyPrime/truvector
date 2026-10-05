@@ -51,14 +51,14 @@ const panels: Panel[] = [
   {
     name: 'dial',
     step: '02 Direction',
-    title: 'Vector Cosine Similarity',
-    lede: 'Once text is an arrow, two arrows can be compared by the angle between them. cos θ runs from 1, the same direction, through 0, unrelated, to −1, the opposite direction. Volume says how much text there is. The angle says how much of it points at the question.',
-    reading: 'At the starting angle of 60° and a volume of 10,000, cos θ is 0.50, so 5,000 of the 10,000 counts toward the answer. A plain count would report all of it.',
+    title: 'Geometrical signal projection',
+    lede: 'In a declared signal basis, projection combines magnitude with angle to a defined outcome vector. Text cosine is a subject guard and does not supply support or refutation.',
+    reading: 'At the starting angle of 60° and a volume of 10,000, cos θ is 0.50, so 5,000 of the 10,000 is the projected component. A plain count would report all of it.',
     formula: 'cos θ = (A · B) / (‖A‖ ‖B‖)',
     formulaNote: 'and the expected contribution is V ‖w‖ cos θ with ‖w‖ = 1. Exact when the outcome is a straight-line function of the signal. WP-01 §2.',
     copy: {
       aria: 'Two arrows from one point on a half-circle dial. One is fixed and stands for the question. The other turns as the angle slider moves, and the part of it that lies along the question is highlighted.',
-      stats: ['cos θ', 'Counts toward the answer'],
+      stats: ['cos θ', 'Projected component'],
       angleLabel: 'Angle θ',
       volumeLabel: 'Volume',
       fixedLabel: 'The question (A)',
@@ -72,7 +72,7 @@ const panels: Panel[] = [
     lede: 'An AI agent searches a topic and finds 500 accounts all saying the same thing. Each dot is one account, and it looks like a crowd of ordinary people. Switch on Astroturf Mode to see the same crowd when it is fake: 500 accounts that look separate but are run by 5 operators. λ is how alike the accounts run by one operator are, estimated from three things: how alike the wording is, how synchronized the timing is, and how much the accounts’ networks overlap.',
     reading: 'A real crowd of 500 people who each speak for themselves counts as 500 sources. In Astroturf Mode at the starting coordination level of 0.50, the same 500 accounts run by 5 operators count as about 9.9 sources, and adding more fake accounts would not help: each operator tops out at 2.0.',
     formula: 'n_eff = m / (1 + λ(m − 1))',
-    formulaNote: 'worked out for each origin, then added up. λ is measured, not chosen. One origin can never count for more than 1/λ, however many accounts it runs. WP-02 §3.',
+    formulaNote: 'worked out for each origin, then added up. λ is a declared illustration parameter here and is estimated in a study. A correctly identified group approaches 1/λ for positive λ. WP-02 §3.',
     copy: {
       aria: 'Five hundred dots scattered like a crowd. In Astroturf Mode the crowd looks the same, but lines appear tying every dot back to one of five hidden operators.',
       legendOrganic: 'Account speaking for itself',
@@ -90,7 +90,7 @@ const panels: Panel[] = [
     lede: 'Is a story really speeding up, or is that just noise? Acceleration is the change in the change of a count, and the noise in that estimate is known before any data arrives. Check too often and the noise drowns the answer. Check less often and the estimate settles onto the true line.',
     reading: 'At the starting settings (checking every 2 samples, noise of 20 per check, a true acceleration of 2) the noise in the estimate is about 12.2 and the signal-to-noise ratio about 0.16: below 1, so the estimate is mostly noise. Widen the interval and it settles onto the true line.',
     formula: 'sd(a) = √6 · σ / h²',
-    formulaNote: 'for independent noise. Correlated noise changes the constant, not the h². WP-01 §3.',
+    formulaNote: 'for independent noise. Correlated noise requires covariance-aware propagation; interval-dependent covariance can change the scaling. WP-01 §3.',
     copy: {
       aria: 'A flat line for the true acceleration and a jagged line for the estimate. The jagged line calms down as the checking interval grows.',
       stats: ['Noise in the estimate', 'Signal to noise'],
@@ -134,44 +134,44 @@ const panels: Panel[] = [
     lede: 'Agents working together settle questions by agreeing. If an attacker copies one compromised agent ninety times, a vote goes 90 to 10 and the system does the wrong thing with confidence. This panel is a simulation of the origin discount from step 03 applied to an agent group: counting origins instead of votes changes the result. Whether one λ is enough when agents share inputs several levels deep is an open direction, stated below with the result that would disprove it. Switch the arithmetic off to see the plain vote.',
     reading: 'At the starting settings, 10 honest agents face 90 clones of one compromised agent. A plain vote goes 90 to 10 and the clones win. Counted by origin, the 90 clones count as about 1.1, because they are one origin repeated, and the honest view holds, 10 to 1.1.',
     formula: 'n_eff = m / (1 + λ(m − 1))',
-    formulaNote: 'with λ = 0.9 for the clones, because copies of one model with one prompt say the same thing. WP-02 §3.',
+    formulaNote: 'with the illustrative λ = 0.9 for the repeated origin. WP-02 §3.',
     copy: {
       aria: 'A hub with honest agents on an inner ring and clones on an outer ring. With the arithmetic on, the clones fade and lines tie them to one origin.',
-      legendHonest: 'Honest agent',
+      legendHonest: 'Singleton origin',
       legendClone: 'Clone of one compromised agent',
       legendOrigin: 'The one origin behind the clones',
-      honestLabel: 'Honest agents',
+      honestLabel: 'Singleton origins',
       cloneLabel: 'Clones',
       toggle: 'Count origins, not votes',
       hub: 'DECIDE',
-      stateHolds: 'The honest view holds',
+      stateHolds: 'The singleton side has more weight',
       stateTie: 'A tied vote: no action',
       stateLost: 'The clones win the vote',
-      stats: ['Votes, honest : clones', 'Counted weight, honest : clones']
+      stats: ['Votes, singleton : repeated', 'Counted weight, singleton : repeated']
     }
   },
   {
     name: 'alignment',
     step: '07 Action',
-    title: 'Output Alignment',
+    title: 'Action subject guard',
     lede: 'Before an agent acts, the instruction it was given and the action it proposes are both turned into coordinates, and the angle between them says whether the action is still about what was asked. An action that has wandered onto another subject shows up as an angle before it shows up as a consequence. The angle cannot tell “do it” from “do not do it”; that is a separate reading by the models, after this check. Turn the action away from the instruction and watch the decision change.',
-    reading: 'At the starting settings the action has turned 15° from the instruction and cos θ is 0.97, above the bar of 0.70, so the action is about what was asked and goes on to the reading. Past the bar it is held for a person; past 90° it is about something else and does not run.',
+    reading: 'At the starting settings the action has turned 15° from the instruction and cos θ is 0.97, above the bar of 0.70, so the subject guard passes. A lower score routes to subject review. A separate reading checks instruction consistency in every case.',
     formula: 'cos θ = (a · w) / (‖a‖ ‖w‖)',
     formulaNote: 'with w the instruction and a the proposed action, both as coordinates from step 01, in a declared basis. This is the decision engine’s own use of the angle, not a result from the working papers: the angle checks the subject of the action, and whether the action carries the instruction out is read separately.',
     copy: {
       aria: 'A half-circle dial. A fixed blue arrow is the instruction. A second arrow is the proposed action and turns away from it as the slider moves. The dial is shaded green where the action proceeds, amber where it is held, and red where it does not run.',
       legendInstruction: 'The instruction',
-      legendRuns: 'Proceeds to the reading',
+      legendRuns: 'Subject guard passes',
       legendHeld: 'Held for a person',
-      legendBlocked: 'Does not run',
+      legendBlocked: 'Subject review',
       driftLabel: 'How far the action has turned',
       barLabel: 'Proceeds only when cos θ is at least',
       instructionTag: 'Instruction: pay supplier A’s invoice',
       actionTag: 'Proposed action',
       ninetyLabel: '90°: unrelated to the instruction',
-      decisionTag: { runs: 'Proceeds', held: 'Held for a person', blocked: 'Does not run' },
-      decisionWord: { runs: 'Proceeds', held: 'Held', blocked: 'Does not run' },
-      stats: ['cos θ', 'Decision'],
+      decisionTag: { runs: 'Subject guard passes', held: 'Subject review', blocked: 'Subject review' },
+      decisionWord: { runs: 'Passes', held: 'Review', blocked: 'Review' },
+      stats: ['cos θ', 'Subject guard'],
       examples: [
         { upTo: 20, text: 'Pay supplier A’s invoice.' },
         { upTo: 50, text: 'Pay supplier A’s invoice to a new account that arrived by email this morning.' },
@@ -184,10 +184,10 @@ const panels: Panel[] = [
     name: 'reading',
     step: '08 Judging',
     title: 'Meaning, Not Words',
-    lede: 'Several models read the same statement and each says what it means to it: supports, refutes or unsure, and how sure. Then something has to turn those readings into one decision. The working prototype does it by counting words: how many words the replies share, and how often nine words like “however” and “false” appear. The replacement never counts words. The models do the reading; the arithmetic counts origins, measures direction and certainty, and decides. Pick a case and compare the two side by side.',
-    reading: 'Three readers support the statement in different words, and one of them writes “but”. The word count sees little shared wording and a marker word, scores 0.00 and blocks it. The meaning-based decision sees three origins supporting with certainty 1.00 and allows it. With three copies of one reply the word count scores a perfect 1.00 and allows; the meaning-based decision counts one origin repeated and holds it for a person.',
+    lede: 'Several models read the same statement and each says what it means to it: supports, refutes or unsure, and how sure. Then something has to turn those readings into one decision. The working prototype does it by counting words: how many words the replies share, and how often nine words like “however” and “false” appear. The replacement never counts words. The models do the reading; the arithmetic counts origins, measures direction and label concentration, and decides. Pick a case and compare the two side by side.',
+    reading: 'Three readers support the statement in different words, and one of them writes “but”. The word count sees little shared wording and a marker word, scores 0.00 and blocks it. The meaning-based decision sees three origins supporting with label concentration 1.00 and allows it. With three copies of one reply the word count scores a perfect 1.00 and allows; the meaning-based decision counts one origin repeated and holds it for a person.',
     formula: 'D = S − R,  C = 1 − H(S, R, U)',
-    formulaNote: 'with S, R, U the readers’ shares weighted by confidence and by origin (the n_eff of step 03 with λ = 0.9 inside one origin), and H the normalised entropy. Allow when D ≥ 0.5, C ≥ 0.5 and at least two independent origins; block when D ≤ −0.5 and C ≥ 0.5; otherwise hold. The angle checks of steps 01 and 07 run beside this and need an embedding model, so they are not drawn here.',
+    formulaNote: 'with S, R, U the normalized reader weights, D = S − R, and C the label concentration. This panel isolates stance aggregation under assumed passing guards and quorum. Complete decisions additionally require the subject, unsupported-reader, and action checks in WP-02. C is not calibrated correctness probability.',
     copy: {
       wordsAria: 'Three overlapping circles, one per reply, pulled together by how many words the replies share.',
       meaningAria: 'Arrows from one point along a support-to-refute line, one per reader, with a dashed ring around arrows that come from one origin.',
@@ -206,7 +206,7 @@ const panels: Panel[] = [
       tileScore: 'Score',
       tileOrigins: 'Independent origins',
       tileDirection: 'Direction D',
-      tileCertainty: 'Certainty C',
+      tileCertainty: 'Label concentration C',
       gateWord: { ALLOW: 'Allow', REVIEW: 'Hold', BLOCK: 'Block' },
       stats: ['Word count decides', 'Meaning decides'],
       scenarios: [
@@ -240,7 +240,7 @@ const panels: Panel[] = [
             { text: 'Incorrect; the real figure is lower.', stance: 'refutes', confidence: 0.85, origin: 'C' }
           ],
           wordsWhy: 'Blocked, but for the wording: little overlap and three marker words.',
-          meaningWhy: 'Direction −1.00 with certainty 1.00 from three origins. Blocked because the readers refute it.',
+          meaningWhy: 'Direction −1.00 with label concentration 1.00 from three origins. Blocked because the readers refute it.',
           note: 'Both methods block, and only one of them knows why. The word count blocks because the replies share few words and contain marker words; it would block a unanimous “supports” written the same way. The meaning-based decision blocks because three independent readers refute the statement.'
         },
         {
@@ -251,7 +251,7 @@ const panels: Panel[] = [
             { text: 'The figure is right.', stance: 'supports', confidence: 0.8, origin: 'C' }
           ],
           wordsWhy: '“Not false” and “incorrect” count as two marker words in twelve. Score 0.00, blocked.',
-          meaningWhy: 'Three origins support it with certainty 1.00. Allowed.',
+          meaningWhy: 'Three origins support it with label concentration 1.00. Allowed.',
           note: '“This is not false” is support. A word count cannot know that; it sees “false” and counts a contradiction. Reading is the models’ job, and the arithmetic only ever works on what they read.'
         }
       ]
@@ -291,7 +291,7 @@ const judging = ['reading'];
     </div>
 
     <h3 class="lab-sub reveal" id="layers-title">Where it goes inside an autonomous system.</h3>
-    <p class="reveal lab-intro">An AI agent reads, agrees, and acts. Each is a place the same arithmetic runs before the next step is taken. These three panels are simulations of the decision engine, a working prototype; the research directions below say what would prove each one wrong.</p>
+    <p class="reveal lab-intro">An AI agent reads, agrees, and acts. Each is a place the same arithmetic runs before the next step is taken. These three panels are analytical illustrations; the research directions below say what would prove each one wrong.</p>
 
     <div class="labs">
       {layers.map((name) => (
@@ -306,7 +306,7 @@ const judging = ['reading'];
     </div>
 
     <h3 class="lab-sub reveal" id="judging-title">The reading step, before and after.</h3>
-    <p class="reveal lab-intro">The research path from here: the models read, the arithmetic judges. Every “how alike” and “does it agree” number in the system is computed on what the models read, never on the words they used. Counting stays outside the readers, where an attacker cannot reach it, and the decision stays a formula a person can recompute by hand.</p>
+    <p class="reveal lab-intro">The research path from here: the models read, the arithmetic judges. Reader labels carry support and refutation. Embedding comparisons guard subject relevance. Source weights and thresholds determine the aggregation policy. Counting stays outside the readers, where its inputs, weights, and thresholds can be inspected, and the decision stays a formula a person can recompute by hand.</p>
 
     <div class="labs">
       {judging.map((name) => (
@@ -329,11 +329,11 @@ const judging = ['reading'];
       </li>
       <li>
         <span class="rail__name">Calibrating a reader’s confidence</span>
-        <span class="rail__note">A reader that says 0.9 should be right about nine times in ten. For each reader, how often a stated 0.9, 0.7 and 0.5 is right is measured on a labelled set, and a correction fitted on half is tested on the other half. It would be disproved if the correction does no better than the raw confidence on the half it never saw; then confidence is noise and the rule uses the labels alone.</span>
+        <span class="rail__note">A reader that says 0.9 should be right about nine times in ten. For each reader, how often a stated 0.9, 0.7 and 0.5 is right is measured on a labelled set, and a correction fitted on half is tested on the other half. It would be disproved if the correction does no better than the raw confidence on the half it never saw; then alternative confidence policies are compared with label-only weights.</span>
       </li>
       <li>
         <span class="rail__name">&lambda; between readers</span>
-        <span class="rail__note">How alike are ten runs of one model, one model under two prompts, and two models from different makers? The within-family correlation sets the discount in step 08. It would be disproved as a grouping if runs inside one model family are no more alike than runs across families; then every reply is its own origin.</span>
+        <span class="rail__note">How alike are ten runs of one model, one model under two prompts, and two models from different makers? The within-family correlation sets the discount in step 08. It would be disproved as a grouping if runs inside one model family are no more alike than runs across families; then common dependence and alternative grouping policies are evaluated.</span>
       </li>
       <li>
         <span class="rail__name">Measuring &lambda; for each kind of material</span>
@@ -369,7 +369,7 @@ const judging = ['reading'];
   </div>
 </section>
 
-<script type="application/json" id="lab-copy" set:html={JSON.stringify(copyForClient)}></script>
+<script is:inline type="application/json" id="lab-copy" set:html={JSON.stringify(copyForClient)}></script>
 
 <style>
   .lab-intro { margin-top: 20px; max-width: 62ch; }
@@ -416,14 +416,9 @@ const judging = ['reading'];
   if (dial) {
     mountDial(dial, {
       ...words('dial'),
-      projectionLabel: (v: string, c: string) => `${v} of text; ${c} of it lies along the question`,
-      verdict: ({ deg, cos, vol }: { deg: number; cos: number; vol: number }) => {
-        const v = num(vol);
-        if (deg <= 10) return `Almost all of the ${v} points at the question. Here a plain count and the direction agree.`;
-        if (deg < 80) return `${Math.round(cos * 100)}% of the ${v} points at the question. A plain count would report all of it.`;
-        if (deg <= 100) return `The text is about something else. ${v} pieces of it add close to nothing to the answer.`;
-        return 'The text points against the question. It is a contradiction, and the more of it there is, the harder it pushes the other way.';
-      }
+      projectionLabel: (v: string, c: string) => `${v} magnitude; ${c} projected onto the question`,
+      verdict: ({ deg, cos, vol }: { deg: number; cos: number; vol: number }) =>
+        `At ${deg}°, cosine is ${cos.toFixed(2)} and the projected component is ${Math.round(vol * cos).toLocaleString('en-US')}. This is a declared geometrical calculation; outcome prediction requires a fitted linear mapping.`
     });
   }
 
@@ -472,7 +467,7 @@ const judging = ['reading'];
         if (nC === 0) return `${nH} honest agents and no clones. Nothing to defend against.`;
         if (on) {
           const head = `${nC} clones count as ${round(cloneWeight)}, because they are one origin repeated. ${nH} honest agents count as ${nH}. `;
-          if (honestWins) return head + `The honest view holds, ${nH} to ${round(cloneWeight)}.`;
+          if (honestWins) return head + `The singleton side has more weight, ${nH} to ${round(cloneWeight)}.`;
           if (tie) return head + `That is a tie, ${nH} to ${round(cloneWeight)}, and a system must not act on a tie. Add another honest agent.`;
           return head + `The one origin still outweighs ${nH} honest agent${nH === 1 ? '' : 's'}. Add honest agents until the honest side has the weight.`;
         }
@@ -496,12 +491,8 @@ const judging = ['reading'];
   if (alignment) {
     mountAlignment(alignment, {
       ...words('alignment'),
-      verdict: ({ decision, deg, cos, limit, limitDeg, example }: { decision: string; deg: number; cos: number; limit: number; limitDeg: number; example: string }) => {
-        const head = `The action: “${example}” `;
-        if (decision === 'runs') return head + `It is about what was asked (cos θ = ${cos.toFixed(2)}, at or above ${limit.toFixed(2)}). It goes on to the reading that checks it does what was asked.`;
-        if (decision === 'held') return head + `It has turned ${deg}° from the instruction, past the ${Math.round(limitDeg)}° the bar allows. It is held until a person looks.`;
-        return head + 'It is about something else entirely. It does not run.';
-      }
+      verdict: ({ cos, limit }: { cos: number; limit: number }) =>
+        `Subject cosine is ${cos.toFixed(2)} against ${limit.toFixed(2)}: ${cos >= limit ? 'the subject guard passes' : 'subject review is required'}. Instruction consistency is read separately; this panel does not authorize execution.`
     });
   }
 </script>

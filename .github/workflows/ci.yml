@@ -35,10 +35,10 @@ jobs:
       - name: Confirm every page rendered
         run: |
           set -euo pipefail
-          for page in index technology roadmap investors 404 investor-request-received; do
+          for page in index technology science use-cases publications roadmap investors 404 investor-request-received; do
             test -s "dist/$page.html" || { echo "missing or empty: dist/$page.html"; exit 1; }
           done
-          echo "6 pages present."
+          echo "9 pages present."
 
       - name: Confirm no secrets were committed
         run: |

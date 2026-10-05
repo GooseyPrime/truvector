@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "TruVector — pre-execution arbitration of AI assertions. Investor and research site.",
+  "description": "TruVector reader-based assessment and source-aware decisions before AI actions.",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",

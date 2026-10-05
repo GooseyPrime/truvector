@@ -12,7 +12,7 @@ import Base from '../layouts/Base.astro';
       <p class="kicker">Investor overview</p>
       <h1 class="suite-title" id="inv-title" style="max-width:23ch">The checkpoint that decides whether an AI&rsquo;s information is good enough to act on.</h1>
       <hr class="rule--champagne" style="margin-top:32px" />
-      <p class="hero-support" style="margin-top:28px">Before an AI system acts, TruVector checks where its information came from, whether the sources are really separate, and whether they agree. It returns Allow, Review or Block: an answer a machine can follow and a person can check.</p>
+      <p class="hero-support" style="margin-top:28px">Before an AI system acts, TruVector combines reader interpretations, subject guards, source dependence, and a separate instruction-consistency check. It returns Allow, Review or Block: an answer a machine can follow and a person can check.</p>
       <div class="actions" style="margin-top:36px">
         <a class="btn btn--primary" href="#request">Request materials</a>
         <a class="btn btn--secondary" href="#thesis">Read the thesis</a>
@@ -32,13 +32,14 @@ import Base from '../layouts/Base.astro';
           <p>The question stops being whether the AI said something wrong and becomes whether it acted on something wrong.</p>
         </div>
         <div class="flagship__pane">
-          <p>Almost all investment in this space improves the answers AI produces. Guardrails, evaluations and monitoring sit on either side of the model. Very little sits in the path of the action itself, and what does is a permission lookup, not a check on the information.</p>
-          <p>TruVector sits in that path. It is infrastructure rather than an app, which makes it hard to displace once a system depends on it.</p>
+          <p>The research opportunity is to evaluate an explicit checkpoint that combines semantic interpretation and source-aware aggregation before an action. Controlled comparisons establish its value relative to majority readings, deduplication, and specialized entailment methods.</p>
+          <p>TruVector is designed for integration into retrieval and agent workflows, with a reconstructable record of the readings, weights, thresholds, and action assessment behind each decision.</p>
         </div>
       </div>
     </div>
   </section>
 
+  <section class="room"><div class="suite suite--flagship"><h2 class="suite-title">Research basis and evaluation</h2><p style="margin-top:24px;max-width:66ch">The reported preliminary 60-statement comparison produced 58 correct decisions for the reading-based replacement versus 14 for the earlier gate under the original labels. Two labels require independent wording review. The comparison is statement-only and does not estimate deployment accuracy. The whitepapers define the policy, study scope, and independent evaluation criteria.</p><div class="actions" style="margin-top:28px"><a class="btn btn--secondary" href="/publications">Read the research papers</a></div></div></section>
   <section class="room room--alt" id="why" aria-labelledby="why-title">
     <div class="suite suite--flagship">
       <p class="kicker">Founder</p>
@@ -54,7 +55,7 @@ import Base from '../layouts/Base.astro';
           </ul>
         </div>
         <div class="flagship__pane">
-          <p>He designed and built TruVector and every other InTellMe product himself. The science behind it, Lane Vector, applies the math of chemical kinetics to how information and intent move.</p>
+          <p>He designed and built TruVector and every other InTellMe product himself. The science behind it, Lane Vector, studies signal direction, temporal change, and source dependence through defined mathematical models.</p>
           <p>That means a short line between a decision and a shipped change, from a founder who has already taken a product from the lab into high-volume manufacturing.</p>
           <ul class="facts" style="margin-top:24px">
             <li>Sibling site &mdash; <a href="https://www.intellmeai.com/" rel="noopener">intellmeai.com</a></li>

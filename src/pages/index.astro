@@ -36,7 +36,7 @@ import Arithmetic from '../components/Arithmetic.astro';
         </div>
         <div class="flagship__pane">
           <p>Most AI systems now answer by retrieving material first: search results, documents, a vendor feed, a database row. Then they act on what came back.</p>
-          <p>Most AI tools work on producing better answers. Almost nothing checks the retrieved material itself, and almost nothing leaves a record someone can review afterward.</p>
+          <p>Most AI tools work on producing better answers. TruVector combines structured interpretation, source dependence, and explicit decision conditions in a record an operator can review.</p>
           <p>TruVector is built for that gap. It doesn&rsquo;t write content, it doesn&rsquo;t declare what&rsquo;s true for the world, and it doesn&rsquo;t trust a source just because it&rsquo;s a big name.</p>
         </div>
       </div>
@@ -54,17 +54,18 @@ import Arithmetic from '../components/Arithmetic.astro';
         </li>
         <li>
           <span class="rail__name">Are these really separate sources?</span>
-          <span class="rail__note">Fifty pages repeating one wire story are one source, not fifty. Copies are linked back to the original and counted once. The formula is in WP-02; it is the cluster-sampling design effect, not a reputation score.</span>
+          <span class="rail__note">Fifty pages repeating one wire story are one source, not fifty. Known shared origins receive diminishing effective weight under the selected dependence parameter. The formula is in WP-02; it is the cluster-sampling design effect, not a reputation score.</span>
         </li>
         <li>
           <span class="rail__name">Do the sources agree?</span>
           <span class="rail__note">When sources conflict, the conflict stays visible in the answer instead of being averaged away.</span>
         </li>
       </ul>
-      <p class="reveal" style="margin-top:36px;max-width:62ch">The answer is <strong>Allow</strong>, <strong>Review</strong> or <strong>Block</strong>, weighed against what the action would cost if the information turned out to be wrong. It is a recorded check on the material behind one action, not a verdict on whether the statement is true for the world.</p>
+      <p class="reveal" style="margin-top:36px;max-width:62ch">The answer is <strong>Allow</strong>, <strong>Review</strong> or <strong>Block</strong>, evaluated under the stated support, quorum, subject, and action-reading conditions. It is a recorded check on the material behind one action, not a verdict on whether the statement is true for the world.</p>
     </div>
   </section>
 
+  <section class="room"><div class="suite suite--flagship"><h2 class="suite-title">Readers interpret meaning. Arithmetic evaluates the decision.</h2><p style="margin-top:24px;max-width:66ch">Structured support, refutation, and uncertainty are combined with source weights. Embeddings guard subject relevance; separate readings assess instruction consistency. The reported 60-statement comparison produced 58 correct decisions versus 14 for the earlier gate under the original labels. This preliminary statement-only study is documented with its scope in the research papers.</p><div class="actions" style="margin-top:28px"><a class="btn btn--primary" href="/publications">Read the research papers</a></div></div></section>
   <Arithmetic />
 
   <section class="room room--alt" id="not" aria-labelledby="not-title">
@@ -100,7 +101,7 @@ import Arithmetic from '../components/Arithmetic.astro';
         </div>
         <div class="flagship__pane">
           <p>That work shaped how he builds software: every number should trace back to a measurement, uncertainty should be stated out loud, and conclusions should change when the data does.</p>
-          <p>Chemical kinetics is bookkeeping for how a reaction moves. Lane Vector uses the same bookkeeping for how information moves where the transfer is derived, and stops where it is not. TruVector puts the independence result to work before an AI acts.</p>
+          <p>Lane Vector applies an engineering discipline of defined variables, uncertainty, and controlled comparisons to signal direction, temporal change, and source dependence. TruVector combines reader interpretation with those calculations before an AI action.</p>
           <p class="caption" style="margin-top:22px">Company: <a href="https://www.intellmeai.com/" rel="noopener">InTellMe</a> &middot; The science: <a href="https://lanevector.com/" rel="noopener">Lane Vector</a></p>
         </div>
       </div>

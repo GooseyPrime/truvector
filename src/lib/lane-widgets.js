@@ -714,7 +714,7 @@ export function mountAlignment(root, text) {
     const limitDeg = (Math.acos(limit) * 180) / Math.PI;
     // Decide on the angle itself: cos θ ≥ limit is the same as θ ≤ acos(limit),
     // and exactly 90° is the zero line, not a hair above it.
-    const decision = deg <= limitDeg + 1e-9 ? 'runs' : deg < 90 ? 'held' : 'blocked';
+    const decision = deg <= limitDeg + 1e-9 ? 'runs' : 'held';
     const color = decision === 'runs' ? GREEN : decision === 'held' ? AMBER : PINK;
     const lr = Math.acos(limit);
     const example = text.examples.find((e) => deg <= e.upTo) || text.examples[text.examples.length - 1];
