@@ -1,55 +1,65 @@
-// Three interactive panels for the home page: a copy detector, a direction
-// dial and an acceleration chart. Layout follows one pattern throughout:
-// title and reset, a large picture, two headline numbers, then the controls.
-// All arithmetic comes from lane-math and is tested against the working papers.
-import {
-  effectiveSources,
-  projectedContribution,
-  accelerationNoise,
-  accelerationSnr,
-} from './lane-math.js';
+// Interactive panels for the home page. Every panel follows one layout:
+// a step label, a title with a reset button, a short lede, a large picture,
+// two headline numbers, the controls, a plain-words reading of the result,
+// and the formula it evaluates. All arithmetic comes from lane-math and is
+// tested against the working papers. The drawing never invents a number.
+import { effectiveSources, projectedContribution, accelerationNoise, accelerationSnr } from './lane-math.js';
 
 const NS = 'http://www.w3.org/2000/svg';
 const STYLE_ID = 'lw-style';
 const BLUE = '#8ab4f8';
 const GREEN = '#81c995';
-const PINK = '#f2a6a0';
-const AMBER = '#fbbc04';
+const PINK = '#f28b82';
+const AMBER = '#fdd663';
+const GREY = '#9aa0a6';
+const INK = '#e8eaed';
+const MUTED = '#bdc1c6';
+const LINE = '#3c4043';
 
 const CSS = `
-.lw{background:#0e0e0e;color:#e8eaed;border:1px solid #2a2b2e;border-radius:20px;padding:28px 28px 24px;font-family:"Google Sans",Inter,system-ui,sans-serif;min-width:0}
+.lw{background:#0e0e0e;color:${INK};border:1px solid #2a2b2e;border-radius:20px;padding:28px 28px 24px;font-family:"Google Sans",Inter,system-ui,sans-serif;min-width:0;container-type:inline-size}
 .lw *{box-sizing:border-box}
+.lw-step{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:${GREY};margin:0 0 10px}
+.lw-step b{color:${AMBER};font-weight:600;margin-right:8px}
 .lw-head{display:flex;justify-content:space-between;align-items:center;gap:16px}
-.lw-title{font-size:clamp(1.35rem,3.2vw,1.75rem);font-weight:400;line-height:1.2;margin:0;color:#e8eaed;font-family:inherit}
-.lw-reset{width:52px;height:38px;border-radius:19px;border:0;background:#2a2b2e;color:#e8eaed;font-size:18px;cursor:pointer;flex:none}
+.lw-title{font-size:clamp(1.35rem,3.2vw,1.75rem);font-weight:400;line-height:1.2;margin:0;color:${INK};font-family:inherit;letter-spacing:-.01em}
+.lw-reset{width:52px;height:38px;border-radius:19px;border:0;background:#2a2b2e;color:${INK};font-size:18px;cursor:pointer;flex:none}
 .lw-reset:hover{background:#3a3b3f}
-.lw-lede{color:#bdc1c6;font-size:15px;line-height:1.55;margin:10px 0 0;max-width:62ch}
-.lw-stage{margin:18px 0 6px}
-.lw-stage svg{display:block;width:100%;height:auto;overflow:hidden}
-.lw-dot{transition:transform .8s cubic-bezier(.2,.7,.2,1),opacity .4s}
-.lw-link{transition:opacity .6s}
-.lw-legend{display:inline-flex;flex-wrap:wrap;gap:14px;background:#1b1c1e;border-radius:14px;padding:6px 12px;font-size:12px;color:#bdc1c6}
-.lw-legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
-.lw-stats{display:grid;grid-template-columns:1fr 1px 1fr;align-items:center;margin:22px 0 26px;text-align:center}
-.lw-stats>i{height:20px;background:#5f6368}
-.lw-stats span{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#bdc1c6}
-.lw-stats b{display:block;font-size:17px;font-weight:600;margin-top:4px;font-variant-numeric:tabular-nums}
-.lw-row{display:grid;grid-template-columns:minmax(120px,170px) 1fr 76px;gap:16px;align-items:center;margin-top:12px}
-.lw-row label{font-size:15px;color:#e8eaed}
+.lw-lede{color:${MUTED};font-size:15px;line-height:1.55;margin:12px 0 0;max-width:64ch}
+.lw-stage{margin:20px 0 6px;position:relative}
+.lw-stage svg{display:block;width:100%;height:auto;overflow:visible}
+.lw-stage text{font-family:inherit}
+.lw-halo{paint-order:stroke;stroke:#0e0e0e;stroke-width:4px;stroke-linejoin:round}
+.lw-dot,.lw-move{transition:transform .8s cubic-bezier(.2,.7,.2,1),opacity .5s,r .4s}
+.lw-fade{transition:opacity .6s,fill .4s,stroke .4s}
+.lw-legend{display:inline-flex;flex-wrap:wrap;gap:6px 16px;background:#1b1c1e;border-radius:14px;padding:7px 14px;font-size:12px;color:${MUTED};margin-top:10px}
+.lw-legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:0}
+.lw-stats{display:grid;grid-template-columns:1fr 1px 1fr;align-items:center;margin:22px 0 24px;text-align:center}
+.lw-stats>i{height:22px;background:#5f6368}
+.lw-stats span{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:${MUTED}}
+.lw-stats b{display:block;font-size:18px;font-weight:600;margin-top:5px;font-variant-numeric:tabular-nums}
+.lw-row{display:grid;grid-template-columns:minmax(120px,190px) 1fr 84px;gap:16px;align-items:center;margin-top:12px}
+.lw-row label{font-size:15px;color:${INK}}
 .lw-pill{background:#1b1c1e;border-radius:12px;padding:11px 0;text-align:center;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px;font-variant-numeric:tabular-nums}
-.lw input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:2px;background:linear-gradient(to right,#fff var(--p,50%),#3c4043 var(--p,50%));outline-offset:8px;margin:0}
-.lw input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:10px;height:22px;border-radius:5px;background:#fff;border:0;cursor:pointer}
-.lw input[type=range]::-moz-range-thumb{width:10px;height:22px;border-radius:5px;background:#fff;border:0;cursor:pointer}
-.lw-switch{width:42px;height:24px;border-radius:12px;border:2px solid #9aa0a6;background:transparent;position:relative;cursor:pointer;padding:0}
-.lw-switch::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#bdc1c6;transition:transform .2s}
-.lw-switch[aria-checked=true]{background:#e8eaed;border-color:#e8eaed}
-.lw-switch[aria-checked=true]::after{transform:translateX(18px);background:#0e0e0e}
-.lw-note{margin:22px 0 0;font-size:15px;line-height:1.5;color:#e8eaed;min-height:3em}
-.lw-formula{margin:10px 0 0;font-size:13px;line-height:1.55;color:#9aa0a6}
-.lw-formula code{font-family:ui-monospace,Menlo,Consolas,monospace;color:#bdc1c6}
+.lw input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:2px;background:linear-gradient(to right,#fff var(--p,50%),${LINE} var(--p,50%));outline-offset:8px;margin:0;cursor:pointer}
+.lw input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:10px;height:22px;border-radius:5px;background:#fff;border:0}
+.lw input[type=range]::-moz-range-thumb{width:10px;height:22px;border-radius:5px;background:#fff;border:0}
+.lw-switch{width:44px;height:24px;border-radius:12px;border:2px solid ${GREY};background:transparent;position:relative;cursor:pointer;padding:0}
+.lw-switch::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:${MUTED};transition:transform .2s}
+.lw-switch[aria-checked=true]{background:${INK};border-color:${INK}}
+.lw-switch[aria-checked=true]::after{transform:translateX(20px);background:#0e0e0e}
+.lw-seg{display:flex;flex-wrap:wrap;gap:6px;grid-column:2/-1}
+.lw-seg button{border:1px solid ${LINE};background:#1b1c1e;color:${MUTED};border-radius:999px;padding:7px 12px;font:inherit;font-size:13px;cursor:pointer;line-height:1.2;text-align:left}
+.lw-seg button[aria-pressed=true]{background:${INK};color:#0e0e0e;border-color:${INK}}
+.lw-note{margin:22px 0 0;font-size:15px;line-height:1.55;color:${INK};min-height:3.1em}
+.lw-formula{margin:12px 0 0;font-size:13px;line-height:1.55;color:${GREY}}
+.lw-formula code{font-family:ui-monospace,Menlo,Consolas,monospace;color:${MUTED};background:#1b1c1e;border-radius:6px;padding:2px 7px}
 .lw button:focus-visible,.lw input:focus-visible{outline:2px solid ${BLUE}}
-@media (max-width:560px){.lw{padding:20px 16px;border-radius:16px}.lw-row{grid-template-columns:1fr 64px}.lw-row label{grid-column:1/-1}}
-@media (prefers-reduced-motion:reduce){.lw-dot,.lw-link{transition:none}}
+.lw-flow{stroke-dasharray:6 14;animation:lw-flow 1.4s linear infinite}
+@keyframes lw-flow{to{stroke-dashoffset:-20}}
+@container (max-width:560px){.lw-row{grid-template-columns:1fr 72px}.lw-row label{grid-column:1/-1}.lw-seg{grid-column:1/-1}}
+@media (max-width:560px){.lw{padding:20px 16px;border-radius:16px}}
+@media (prefers-reduced-motion:reduce){.lw-dot,.lw-move,.lw-fade{transition:none}.lw-flow{animation:none}}
 `;
 
 function ensureStyle() {
@@ -74,7 +84,7 @@ function s(tag, attrs = {}, text) {
   return el;
 }
 
-// Small repeatable random source so the picture is the same on every visit.
+// Small repeatable random source so a picture is the same on every visit.
 function seeded(seed) {
   let a = seed >>> 0;
   return () => {
@@ -91,13 +101,38 @@ function gaussian(rand) {
   return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * rand());
 }
 
+const whole = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
+const fmt = (n) => (n >= 100 ? whole.format(Math.round(n)) : n >= 10 ? n.toFixed(1) : n.toFixed(2));
 let uid = 0;
 
-/** Shared frame: title, reset, picture, two numbers, controls, note, formula. */
+/** A rounded label box in an SVG. */
+function tag(x, y, label, { anchor = 'middle', fill = '#202124', color = INK, W = 640 } = {}) {
+  const g = s('g');
+  const w = label.length * 7 + 22;
+  const left = anchor === 'middle' ? x - w / 2 : anchor === 'end' ? x - w : x;
+  const cx = Math.max(4, Math.min(W - w - 4, left));
+  g.append(s('rect', { x: cx, y: y - 14, width: w, height: 27, rx: 8, fill, stroke: LINE }));
+  g.append(s('text', { x: cx + w / 2, y: y + 4, 'text-anchor': 'middle', fill: color, 'font-size': 12.5, 'font-weight': 600 }, label));
+  return g;
+}
+
+function arrowDef(defs, id, color) {
+  const m = s('marker', { id, viewBox: '0 0 10 10', refX: 8, refY: 5, markerWidth: 7, markerHeight: 7, orient: 'auto-start-reverse' });
+  m.append(s('path', { d: 'M 0 0 L 10 5 L 0 10 z', fill: color }));
+  defs.append(m);
+}
+
+/** Shared frame. */
 function frame(root, text) {
   ensureStyle();
   root.textContent = '';
   root.classList.add('lw');
+  if (text.step) {
+    const step = h('p', { class: 'lw-step' });
+    const [num, ...rest] = text.step.split(' ');
+    step.append(h('b', {}, num), document.createTextNode(rest.join(' ')));
+    root.append(step);
+  }
   const head = h('div', { class: 'lw-head' });
   head.append(h('h3', { class: 'lw-title' }, text.title));
   const reset = h('button', { class: 'lw-reset', type: 'button', 'aria-label': 'Reset' }, '↺');
@@ -146,7 +181,7 @@ function frame(root, text) {
     paint();
     row.append(h('label', { for: id }, label), input, pill);
     rows.append(row);
-    return { get: () => Number(input.value), paint };
+    return { get: () => Number(input.value) };
   }
 
   function toggle(label, initial) {
@@ -165,15 +200,52 @@ function frame(root, text) {
     return { get: () => button.getAttribute('aria-checked') === 'true' };
   }
 
+  function choice(label, options, initial) {
+    const row = h('div', { class: 'lw-row' });
+    const seg = h('div', { class: 'lw-seg', role: 'group', 'aria-label': label });
+    let current = initial;
+    const buttons = options.map((opt, i) => {
+      const b = h('button', { type: 'button', 'aria-pressed': String(i === initial) }, opt);
+      b.addEventListener('click', () => {
+        current = i;
+        buttons.forEach((x, k) => x.setAttribute('aria-pressed', String(k === i)));
+        onChange();
+      });
+      seg.append(b);
+      return b;
+    });
+    resets.push(() => {
+      current = initial;
+      buttons.forEach((x, k) => x.setAttribute('aria-pressed', String(k === initial)));
+    });
+    row.append(h('label', {}, label), seg);
+    rows.append(row);
+    return { get: () => current };
+  }
+
+  function legend(items) {
+    const box = h('div', { class: 'lw-legend' });
+    for (const [color, label] of items) {
+      const item = h('span');
+      const mark = h('i');
+      mark.style.background = color;
+      item.append(mark, document.createTextNode(label));
+      box.append(item);
+    }
+    stage.append(box);
+  }
+
   return {
     stage,
     note,
+    legend,
     setStats: (a, b) => {
       statEls[0].value.textContent = a;
       statEls[1].value.textContent = b;
     },
     slider,
     toggle,
+    choice,
     start: (fn) => {
       onChange = fn;
       fn();
@@ -181,14 +253,146 @@ function frame(root, text) {
   };
 }
 
-const whole = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
+/* ------------------------------------------------------------------ */
+/* 1. Words to coordinates                                              */
+/* ------------------------------------------------------------------ */
+
+const WORDS = [
+  ['king', 118, 92, 0], ['queen', 152, 72, 0], ['prince', 100, 128, 0], ['throne', 168, 118, 0], ['palace', 136, 148, 0],
+  ['apple', 138, 262, 1], ['banana', 176, 292, 1], ['pear', 108, 298, 1], ['grape', 162, 246, 1], ['orchard', 118, 230, 1],
+  ['Apple Inc.', 466, 104, 2], ['Microsoft', 524, 82, 2], ['Google', 498, 152, 2], ['laptop', 448, 176, 2], ['iPhone', 556, 122, 2],
+  ['bank', 478, 278, 3], ['loan', 516, 300, 3], ['invoice', 452, 312, 3], ['payment', 500, 252, 3], ['deposit', 540, 268, 3],
+];
+const WORD_COLORS = [AMBER, GREEN, BLUE, PINK];
 
 /**
- * Astroturf detector. 500 accounts shown as dots. The crowd looks the same in
- * both modes, which is the point: a manufactured crowd is built to pass for a
- * real one. In organic mode each account speaks for itself. In astroturf mode
- * the same 500 are run by 5 hidden operators, and the strings are drawn in.
+ * Words to coordinates. A map of words in two of an embedding's hundreds of
+ * dimensions. A sentence becomes one arrow to one point. Nearness is meaning.
  */
+export function mountEmbedding(root, text) {
+  const f = frame(root, text);
+  const W = 640;
+  const H = 350;
+  const ox = 44;
+  const oy = 330;
+  const svg = s('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': text.aria });
+  f.stage.append(svg);
+  f.legend([[AMBER, text.groups[0]], [GREEN, text.groups[1]], [BLUE, text.groups[2]], [PINK, text.groups[3]]]);
+
+  const which = f.choice(text.choiceLabel, text.sentences.map((x) => x.text), 0);
+  const coords = f.toggle(text.toggle, false);
+
+  const norm = (x, y) => [((x - ox) / (W - 20 - ox)), ((oy - y) / (oy - 20))];
+
+  f.start(() => {
+    const sentence = text.sentences[which.get()];
+    const showCoords = coords.get();
+    const [px, py] = sentence.at;
+    svg.textContent = '';
+    const defs = s('defs');
+    arrowDef(defs, 'lw-emb-arrow', INK);
+    svg.append(defs);
+    for (let gx = ox; gx <= W - 20; gx += 72) svg.append(s('line', { x1: gx, y1: 20, x2: gx, y2: oy, stroke: '#1f2023' }));
+    for (let gy = oy; gy >= 20; gy -= 62) svg.append(s('line', { x1: ox, y1: gy, x2: W - 20, y2: gy, stroke: '#1f2023' }));
+    svg.append(s('line', { x1: ox, y1: oy, x2: W - 20, y2: oy, stroke: LINE }));
+    svg.append(s('line', { x1: ox, y1: oy, x2: ox, y2: 20, stroke: LINE }));
+    svg.append(s('text', { x: W - 20, y: oy + 16, 'text-anchor': 'end', fill: GREY, 'font-size': 11 }, text.axisX));
+    svg.append(s('text', { x: ox - 6, y: 16, 'text-anchor': 'start', fill: GREY, 'font-size': 11 }, text.axisY));
+
+    let nearest = null;
+    for (const [word, x, y, group] of WORDS) {
+      const d = Math.hypot(x - px, y - py);
+      if (!nearest || d < nearest.d) nearest = { word, d };
+      svg.append(s('circle', { cx: x, cy: y, r: 4.5, fill: WORD_COLORS[group], opacity: 0.95 }));
+      svg.append(s('text', { x: x + 8, y: y + 4, fill: MUTED, 'font-size': 12 }, word));
+      if (showCoords) {
+        const [nx, ny] = norm(x, y);
+        svg.append(s('text', { x: x + 8, y: y + 17, fill: GREY, 'font-size': 9.5, 'font-family': 'ui-monospace,Menlo,monospace' }, `(${nx.toFixed(2)}, ${ny.toFixed(2)})`));
+      }
+    }
+    svg.append(s('line', { x1: px, y1: py, x2: px, y2: oy, stroke: GREY, 'stroke-dasharray': '3 5' }));
+    svg.append(s('line', { x1: px, y1: py, x2: ox, y2: py, stroke: GREY, 'stroke-dasharray': '3 5' }));
+    const [nx, ny] = norm(px, py);
+    svg.append(s('text', { x: px, y: oy + 16, 'text-anchor': 'middle', fill: INK, 'font-size': 11, 'font-family': 'ui-monospace,Menlo,monospace' }, nx.toFixed(2)));
+    svg.append(s('text', { x: ox - 6, y: py + 4, 'text-anchor': 'end', fill: INK, 'font-size': 11, 'font-family': 'ui-monospace,Menlo,monospace' }, ny.toFixed(2)));
+    svg.append(s('line', { x1: ox, y1: oy, x2: px, y2: py, stroke: INK, 'stroke-width': 2.5, 'marker-end': 'url(#lw-emb-arrow)', class: 'lw-fade' }));
+    svg.append(s('circle', { cx: px, cy: py, r: 7, fill: '#0e0e0e', stroke: INK, 'stroke-width': 2.5 }));
+    // The sentence label sits in a fixed spot at the top, with a leader line
+    // back to its point, so it never covers a word.
+    const lx = 330;
+    const ly = 42;
+    svg.append(s('line', { x1: px, y1: py - 8, x2: lx, y2: ly + 14, stroke: GREY, 'stroke-dasharray': '2 4' }));
+    svg.append(tag(lx, ly, sentence.short, { W }));
+
+    f.setStats(`(${nx.toFixed(2)}, ${ny.toFixed(2)})`, nearest.word);
+    f.note.textContent = sentence.note;
+  });
+}
+
+/* ------------------------------------------------------------------ */
+/* 2. Direction (cosine similarity)                                     */
+/* ------------------------------------------------------------------ */
+
+export function mountDial(root, text) {
+  const f = frame(root, text);
+  const W = 640;
+  const H = 320;
+  const cx = 320;
+  const cy = 236;
+  const R = 176;
+  const svg = s('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': text.aria });
+  f.stage.append(svg);
+
+  const theta = f.slider(text.angleLabel, { min: 0, max: 180, step: 1, value: 60, format: (v) => `${v}°` });
+  const volume = f.slider(text.volumeLabel, { min: 1000, max: 20000, step: 500, value: 10000, format: (v) => whole.format(v) });
+
+  f.start(() => {
+    const deg = theta.get();
+    const vol = volume.get();
+    const rad = (deg * Math.PI) / 180;
+    const cos = Math.cos(rad);
+    const contribution = projectedContribution(vol, deg);
+    const len = R * (0.5 + 0.5 * (vol / 20000));
+    const bx = cx + len * Math.cos(rad);
+    const by = cy - len * Math.sin(rad);
+    const color = cos > 0.5 ? GREEN : cos > -0.2 ? AMBER : PINK;
+
+    svg.textContent = '';
+    const defs = s('defs');
+    arrowDef(defs, 'lw-dial-a', BLUE);
+    arrowDef(defs, 'lw-dial-b', color);
+    svg.append(defs);
+    svg.append(s('path', { d: `M ${cx - R} ${cy} A ${R} ${R} 0 0 1 ${cx + R} ${cy}`, fill: 'none', stroke: LINE, 'stroke-width': 1.5 }));
+    for (const a of [0, 30, 60, 90, 120, 150, 180]) {
+      const r1 = (a * Math.PI) / 180;
+      svg.append(s('line', { x1: cx + (R - 6) * Math.cos(r1), y1: cy - (R - 6) * Math.sin(r1), x2: cx + (R + 4) * Math.cos(r1), y2: cy - (R + 4) * Math.sin(r1), stroke: GREY }));
+      svg.append(s('text', { x: cx + (R + 18) * Math.cos(r1), y: cy - (R + 18) * Math.sin(r1) + 4, 'text-anchor': 'middle', fill: GREY, 'font-size': 10 }, `${a}°`));
+    }
+    svg.append(s('line', { x1: cx - R - 20, y1: cy, x2: cx + R + 20, y2: cy, stroke: LINE, 'stroke-dasharray': '4 4' }));
+    svg.append(s('line', { x1: bx, y1: by, x2: bx, y2: cy, stroke: GREY, 'stroke-dasharray': '2 4' }));
+    svg.append(s('line', { x1: cx, y1: cy, x2: bx, y2: cy, stroke: AMBER, 'stroke-width': 7, 'stroke-linecap': 'round', opacity: 0.85 }));
+    svg.append(s('line', { x1: cx, y1: cy, x2: cx + R - 8, y2: cy, stroke: BLUE, 'stroke-width': 3, 'marker-end': 'url(#lw-dial-a)' }));
+    svg.append(s('line', { x1: cx, y1: cy, x2: bx, y2: by, stroke: color, 'stroke-width': 3, 'marker-end': 'url(#lw-dial-b)', class: 'lw-fade' }));
+    if (deg > 0) {
+      const a = 36;
+      svg.append(s('path', { d: `M ${cx + a} ${cy} A ${a} ${a} 0 0 0 ${cx + a * Math.cos(rad)} ${cy - a * Math.sin(rad)}`, fill: 'none', stroke: AMBER, 'stroke-width': 2 }));
+      const mid = rad / 2;
+      svg.append(s('text', { x: cx + 56 * Math.cos(mid), y: cy - 56 * Math.sin(mid) + 4, 'text-anchor': 'middle', fill: INK, 'font-size': 13 }, `θ = ${deg}°`));
+    }
+    svg.append(s('text', { x: cx, y: cy + 50, 'text-anchor': 'middle', fill: AMBER, 'font-size': 14, 'font-weight': 700 }, `cos θ = ${cos.toFixed(2)}`));
+    svg.append(s('text', { x: cx, y: cy + 68, 'text-anchor': 'middle', fill: GREY, 'font-size': 11.5 }, text.projectionLabel(whole.format(vol), whole.format(Math.round(contribution)))));
+    svg.append(tag(cx + R - 24, cy + 24, text.fixedLabel, { W }));
+    svg.append(tag(bx, by - 26, text.movingLabel, { W }));
+
+    f.setStats(cos.toFixed(2), whole.format(Math.round(contribution)));
+    f.note.textContent = text.verdict({ deg, cos, vol, contribution });
+  });
+}
+
+/* ------------------------------------------------------------------ */
+/* 3. Astroturf detector (effective sources)                            */
+/* ------------------------------------------------------------------ */
+
 export function mountDetector(root, text) {
   const f = frame(root, text);
   const W = 640;
@@ -201,13 +405,14 @@ export function mountDetector(root, text) {
   const hubLayer = s('g');
   svg.append(linkLayer, dotLayer, hubLayer);
   f.stage.append(svg);
+  f.legend([[GREEN, text.legendOrganic], [PINK, text.legendPlanted], [AMBER, text.legendOperator]]);
 
   const rand = seeded(7);
   const hubs = [[110, 95], [320, 60], [530, 100], [210, 250], [440, 255]];
   const hubEls = hubs.map(([x, y]) => {
-    const g = s('g', { class: 'lw-link', opacity: 0 });
-    g.append(s('circle', { cx: x, cy: y, r: 11, fill: '#0e0e0e', stroke: PINK, 'stroke-width': 2 }));
-    g.append(s('circle', { cx: x, cy: y, r: 4, fill: PINK }));
+    const g = s('g', { class: 'lw-fade', opacity: 0 });
+    g.append(s('circle', { cx: x, cy: y, r: 12, fill: '#0e0e0e', stroke: AMBER, 'stroke-width': 2 }));
+    g.append(s('circle', { cx: x, cy: y, r: 4, fill: AMBER }));
     hubLayer.append(g);
     return g;
   });
@@ -216,9 +421,9 @@ export function mountDetector(root, text) {
     const x = 16 + rand() * (W - 32);
     const y = 14 + rand() * (H - 28);
     const hub = hubs[i % OPERATORS];
-    const link = s('line', { x1: hub[0], y1: hub[1], x2: x, y2: y, stroke: PINK, 'stroke-width': 0.35, class: 'lw-link', opacity: 0 });
+    const link = s('line', { x1: hub[0], y1: hub[1], x2: x, y2: y, stroke: PINK, 'stroke-width': 0.35, class: 'lw-fade', opacity: 0 });
     linkLayer.append(link);
-    const dot = s('circle', { r: 3.2, cx: x, cy: y, fill: GREEN, class: 'lw-dot' });
+    const dot = s('circle', { r: 3.2, cx: x, cy: y, fill: GREEN, class: 'lw-fade' });
     dotLayer.append(dot);
     dots.push({ dot, link });
   }
@@ -229,12 +434,10 @@ export function mountDetector(root, text) {
   f.start(() => {
     const on = mode.get();
     const l = lambda.get();
-    // Organic: every account is its own origin. Astroturf: 100 accounts per operator.
     const m = on ? TOTAL / OPERATORS : 1;
     const origins = TOTAL / m;
     const perOrigin = effectiveSources(m, l);
     const eff = origins * perOrigin;
-    // Each account's share of its origin's effective count.
     const weight = perOrigin / m;
     for (const d of dots) {
       d.dot.setAttribute('fill', on ? PINK : GREEN);
@@ -242,72 +445,15 @@ export function mountDetector(root, text) {
       d.link.setAttribute('opacity', on ? 0.3 : 0);
     }
     for (const g of hubEls) g.setAttribute('opacity', on ? 1 : 0);
-    f.setStats(whole.format(TOTAL), eff >= 100 ? whole.format(eff) : eff.toFixed(1));
+    f.setStats(whole.format(TOTAL), fmt(eff));
     f.note.textContent = text.verdict({ on, lambda: l, eff, origins, total: TOTAL });
   });
 }
 
-/** Direction dial: a fixed arrow, a moving arrow, and the angle between them. */
-export function mountDial(root, text) {
-  const f = frame(root, text);
-  const W = 640;
-  const H = 320;
-  const cx = 320;
-  const cy = 230;
-  const R = 170;
-  const svg = s('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': text.aria });
-  f.stage.append(svg);
+/* ------------------------------------------------------------------ */
+/* 4. Acceleration chart                                                */
+/* ------------------------------------------------------------------ */
 
-  const theta = f.slider(text.angleLabel, { min: 0, max: 180, step: 1, value: 60, format: (v) => String(v) });
-  const volume = f.slider(text.volumeLabel, { min: 1000, max: 20000, step: 500, value: 10000, format: (v) => whole.format(v) });
-
-  const tag = (x, y, label, anchor = 'middle') => {
-    const g = s('g');
-    const w = label.length * 7.2 + 22;
-    const left = anchor === 'middle' ? x - w / 2 : x;
-    const clamped = Math.max(4, Math.min(W - w - 4, left));
-    g.append(s('rect', { x: clamped, y: y - 15, width: w, height: 28, rx: 8, fill: '#202124', stroke: '#3c4043' }));
-    g.append(s('text', { x: clamped + w / 2, y: y + 4, 'text-anchor': 'middle', fill: '#e8eaed', 'font-size': 13, 'font-weight': 600 }, label));
-    return g;
-  };
-
-  f.start(() => {
-    const deg = theta.get();
-    const vol = volume.get();
-    const rad = (deg * Math.PI) / 180;
-    const cos = Math.cos(rad);
-    const contribution = projectedContribution(vol, deg);
-    const len = R * (0.45 + 0.55 * (vol / 20000));
-    const bx = cx + len * Math.cos(rad);
-    const by = cy - len * Math.sin(rad);
-
-    svg.textContent = '';
-    svg.append(s('path', { d: `M ${cx - R} ${cy} A ${R} ${R} 0 0 1 ${cx + R} ${cy}`, fill: 'none', stroke: '#3c4043', 'stroke-width': 1.5 }));
-    svg.append(s('line', { x1: cx - R - 30, y1: cy, x2: cx + R + 30, y2: cy, stroke: '#5f6368', 'stroke-dasharray': '4 4' }));
-    svg.append(s('line', { x1: cx, y1: cy + 30, x2: cx, y2: cy - R - 22, stroke: '#5f6368', 'stroke-dasharray': '4 4' }));
-    // The part of the moving arrow that lies along the fixed one.
-    svg.append(s('line', { x1: bx, y1: by, x2: bx, y2: cy, stroke: '#9aa0a6', 'stroke-dasharray': '2 4' }));
-    svg.append(s('line', { x1: cx, y1: cy, x2: bx, y2: cy, stroke: AMBER, 'stroke-width': 6, 'stroke-linecap': 'round', opacity: 0.9 }));
-    svg.append(s('line', { x1: cx, y1: cy, x2: cx + R, y2: cy, stroke: BLUE, 'stroke-width': 2.5, 'stroke-linecap': 'round' }));
-    svg.append(s('line', { x1: cx, y1: cy, x2: bx, y2: by, stroke: GREEN, 'stroke-width': 3, 'stroke-linecap': 'round' }));
-    svg.append(s('circle', { cx: bx, cy: by, r: 5, fill: GREEN }));
-    svg.append(s('circle', { cx: cx + R, cy, r: 4, fill: BLUE }));
-    if (deg > 0) {
-      const a = 34;
-      svg.append(s('path', { d: `M ${cx + a} ${cy} A ${a} ${a} 0 0 0 ${cx + a * Math.cos(rad)} ${cy - a * Math.sin(rad)}`, fill: 'none', stroke: AMBER, 'stroke-width': 2 }));
-      const mid = rad / 2;
-      svg.append(s('text', { x: cx + 54 * Math.cos(mid), y: cy - 54 * Math.sin(mid) + 4, 'text-anchor': 'middle', fill: '#e8eaed', 'font-size': 13 }, `${deg}°`));
-    }
-    svg.append(s('text', { x: cx, y: cy + 52, 'text-anchor': 'middle', fill: AMBER, 'font-size': 14, 'font-weight': 700 }, `cos(θ) = ${cos.toFixed(2)}`));
-    svg.append(tag(cx + R - 20, cy + 26, text.fixedLabel));
-    svg.append(tag(bx, by - 26, text.movingLabel));
-
-    f.setStats(cos.toFixed(2), whole.format(Math.round(contribution)));
-    f.note.textContent = text.verdict({ deg, cos, vol, contribution });
-  });
-}
-
-/** Acceleration chart: the true value as a flat line, the estimate as a jagged one. */
 export function mountChart(root, text) {
   const f = frame(root, text);
   const W = 640;
@@ -319,17 +465,8 @@ export function mountChart(root, text) {
   const clipId = `lw-clip-${++uid}`;
   const svg = s('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': text.aria });
   f.stage.append(svg);
-  const legend = h('div', { class: 'lw-legend' });
-  for (const [color, label] of [[BLUE, text.trueLabel], [PINK, text.estimateLabel], [GREEN, text.bandLabel]]) {
-    const item = h('span');
-    const mark = h('i');
-    mark.style.background = color;
-    item.append(mark, document.createTextNode(label));
-    legend.append(item);
-  }
-  f.stage.append(legend);
+  f.legend([[BLUE, text.trueLabel], [PINK, text.estimateLabel], [GREEN, text.bandLabel]]);
 
-  // One fixed noise draw per time step, scaled by the noise slider.
   const rand = seeded(42);
   const draws = Array.from({ length: T + 1 }, () => gaussian(rand));
 
@@ -355,15 +492,14 @@ export function mountChart(root, text) {
     svg.append(defs);
     for (let v = -8; v <= 12; v += 4) {
       svg.append(s('line', { x1: pad.l, y1: y(v), x2: W - pad.r, y2: y(v), stroke: '#2a2b2e' }));
-      svg.append(s('text', { x: pad.l - 8, y: y(v) + 4, 'text-anchor': 'end', fill: '#9aa0a6', 'font-size': 11 }, String(v)));
+      svg.append(s('text', { x: pad.l - 8, y: y(v) + 4, 'text-anchor': 'end', fill: GREY, 'font-size': 11 }, String(v)));
     }
     for (let t = 0; t <= T; t += 40) {
-      svg.append(s('text', { x: x(t), y: H - 12, 'text-anchor': 'middle', fill: '#9aa0a6', 'font-size': 11 }, String(t)));
+      svg.append(s('text', { x: x(t), y: H - 12, 'text-anchor': 'middle', fill: GREY, 'font-size': 11 }, String(t)));
     }
+    svg.append(s('text', { x: W - pad.r, y: H - 2, 'text-anchor': 'end', fill: GREY, 'font-size': 10 }, text.axisX));
     const plot = s('g', { 'clip-path': `url(#${clipId})` });
     plot.append(s('rect', { x: pad.l, y: y(a + noise), width: W - pad.l - pad.r, height: Math.max(1, y(a - noise) - y(a + noise)), fill: GREEN, opacity: 0.13 }));
-    // Second difference of (true curve + noise) at spacing `step`. The true
-    // part gives exactly `a`; the noise part is what the formula describes.
     let d = '';
     for (let t = step; t + step <= T; t += step) {
       const est = a + ((draws[t + step] - 2 * draws[t] + draws[t - step]) * sd) / (step * step);
@@ -373,7 +509,218 @@ export function mountChart(root, text) {
     plot.append(s('line', { x1: pad.l, y1: y(a), x2: W - pad.r, y2: y(a), stroke: BLUE, 'stroke-width': 2.5 }));
     svg.append(plot);
 
-    f.setStats(noise >= 10 ? noise.toFixed(1) : noise.toFixed(2), snr >= 10 ? snr.toFixed(1) : snr.toFixed(2));
+    f.setStats(fmt(noise), fmt(snr));
     f.note.textContent = text.verdict({ snr, noise, step });
+  });
+}
+
+/* ------------------------------------------------------------------ */
+/* 5. Retrieval firewall (flow diagram)                                 */
+/* ------------------------------------------------------------------ */
+
+function ribbon(x1, t1, b1, x2, t2, b2) {
+  const mx = (x1 + x2) / 2;
+  return `M ${x1} ${t1} C ${mx} ${t1}, ${mx} ${t2}, ${x2} ${t2} L ${x2} ${b2} C ${mx} ${b2}, ${mx} ${b1}, ${x1} ${b1} Z`;
+}
+function ribbonMid(x1, t1, b1, x2, t2, b2) {
+  const mx = (x1 + x2) / 2;
+  const m1 = (t1 + b1) / 2;
+  const m2 = (t2 + b2) / 2;
+  return `M ${x1} ${m1} C ${mx} ${m1}, ${mx} ${m2}, ${x2} ${m2}`;
+}
+
+export function mountFirewall(root, text) {
+  const f = frame(root, text);
+  const W = 640;
+  const H = 330;
+  const ORGANIC = 50;
+  const LAMBDA = 0.95;
+  const svg = s('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': text.aria });
+  f.stage.append(svg);
+  f.legend([[BLUE, text.legendOrganic], [PINK, text.legendPlanted], [AMBER, text.legendFilter]]);
+
+  const attack = f.slider(text.attackLabel, { min: 0, max: 200, step: 5, value: 50, format: (v) => String(v) });
+  const filter = f.toggle(text.toggle, true);
+
+  const L = 30;
+  const M = 318;
+  const Rr = 598;
+  const BAR = 12;
+  const top = 26;
+  const usable = 250;
+
+  f.start(() => {
+    const V = attack.get();
+    const on = filter.get();
+    const passedPlanted = V === 0 ? 0 : on ? effectiveSources(V, LAMBDA) : V;
+    const setAside = V - passedPlanted;
+    const total = ORGANIC + V;
+    const unit = usable / Math.max(total, 60);
+    const gap = 18;
+
+    svg.textContent = '';
+    const oT = top;
+    const oB = oT + ORGANIC * unit;
+    const pT = oB + gap;
+    const pB = pT + V * unit;
+    const mT = top + gap / 2;
+    const mB = mT + total * unit;
+    const mOrgB = mT + ORGANIC * unit;
+    const mPassB = mOrgB + passedPlanted * unit;
+    const rT = top;
+    const rPassB = rT + (ORGANIC + passedPlanted) * unit;
+    const sT = rPassB + gap;
+    const sB = sT + setAside * unit;
+
+    const flows = [
+      [BLUE, L + BAR, oT, oB, M, mT, mOrgB],
+      [PINK, L + BAR, pT, pB, M, mOrgB, mB],
+      [BLUE, M + BAR, mT, mOrgB, Rr, rT, rT + ORGANIC * unit],
+      [PINK, M + BAR, mOrgB, mPassB, Rr, rT + ORGANIC * unit, rPassB],
+      [PINK, M + BAR, mPassB, mB, Rr, sT, sB],
+    ];
+    for (const [color, x1, t1, b1, x2, t2, b2] of flows) {
+      if (b1 - t1 < 0.2) continue;
+      svg.append(s('path', { d: ribbon(x1, t1, b1, x2, t2, b2), fill: color, opacity: 0.28, class: 'lw-fade' }));
+      svg.append(s('path', { d: ribbonMid(x1, t1, b1, x2, t2, b2), fill: 'none', stroke: color, 'stroke-width': Math.max(1, Math.min(3, (b1 - t1) / 8)), opacity: 0.7, class: 'lw-flow' }));
+    }
+    svg.append(s('rect', { x: L, y: oT, width: BAR, height: Math.max(2, oB - oT), rx: 3, fill: BLUE }));
+    svg.append(s('rect', { x: L, y: pT, width: BAR, height: Math.max(2, pB - pT), rx: 3, fill: PINK }));
+    svg.append(s('rect', { x: M, y: mT, width: BAR, height: mB - mT, rx: 3, fill: on ? AMBER : LINE }));
+    svg.append(s('rect', { x: Rr, y: rT, width: BAR, height: Math.max(2, rPassB - rT), rx: 3, fill: GREEN }));
+    svg.append(s('rect', { x: Rr, y: sT, width: BAR, height: Math.max(2, sB - sT), rx: 3, fill: GREY }));
+
+    svg.append(s('text', { x: L + BAR + 10, y: (oT + oB) / 2 + 4, fill: INK, 'font-size': 12.5, 'font-weight': 600, class: 'lw-halo' }, `${text.organic} (${ORGANIC})`));
+    svg.append(s('text', { x: L + BAR + 10, y: Math.max(pT + 14, (pT + pB) / 2 + 4), fill: INK, 'font-size': 12.5, 'font-weight': 600, class: 'lw-halo' }, `${text.planted} (${V})`));
+    svg.append(tag(M + BAR / 2, mB + 22, on ? text.filterOn : text.filterOff, { W, fill: on ? '#2a2206' : '#202124', color: on ? AMBER : GREY }));
+    svg.append(s('text', { x: Rr - 10, y: (rT + rPassB) / 2 + 4, 'text-anchor': 'end', fill: INK, 'font-size': 12.5, 'font-weight': 600, class: 'lw-halo' }, text.reaches));
+    svg.append(s('text', { x: Rr - 10, y: (rT + rPassB) / 2 + 20, 'text-anchor': 'end', fill: GREY, 'font-size': 11, class: 'lw-halo' }, text.reachesSub(ORGANIC, passedPlanted)));
+    if (setAside > 0.2) {
+      svg.append(s('text', { x: Rr - 10, y: Math.max(sT + 14, (sT + sB) / 2 + 4), 'text-anchor': 'end', fill: INK, 'font-size': 12.5, 'font-weight': 600, class: 'lw-halo' }, text.setAside));
+      svg.append(s('text', { x: Rr - 10, y: Math.max(sT + 30, (sT + sB) / 2 + 20), 'text-anchor': 'end', fill: GREY, 'font-size': 11, class: 'lw-halo' }, text.setAsideSub(Math.round(setAside))));
+    }
+
+    const integrity = ORGANIC / (ORGANIC + passedPlanted);
+    f.setStats(`${Math.round(integrity * 100)}%`, V === 0 ? '0' : fmt(passedPlanted));
+    f.note.textContent = text.verdict({ on, V, passedPlanted, integrity, organic: ORGANIC });
+  });
+}
+
+/* ------------------------------------------------------------------ */
+/* 6. Consensus among agents                                            */
+/* ------------------------------------------------------------------ */
+
+export function mountConsensus(root, text) {
+  const f = frame(root, text);
+  const W = 640;
+  const H = 330;
+  const cx = 320;
+  const cy = 165;
+  const LAMBDA = 0.9;
+  const svg = s('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': text.aria });
+  f.stage.append(svg);
+  f.legend([[BLUE, text.legendHonest], [PINK, text.legendClone], [AMBER, text.legendOrigin]]);
+
+  const honest = f.slider(text.honestLabel, { min: 1, max: 20, step: 1, value: 10, format: (v) => String(v) });
+  const clones = f.slider(text.cloneLabel, { min: 0, max: 90, step: 1, value: 90, format: (v) => String(v) });
+  const math = f.toggle(text.toggle, true);
+  const rand = seeded(11);
+  const jitter = Array.from({ length: 90 }, () => [rand(), rand()]);
+
+  f.start(() => {
+    const nH = honest.get();
+    const nC = clones.get();
+    const on = math.get();
+    const cloneWeight = nC === 0 ? 0 : on ? effectiveSources(nC, LAMBDA) : nC;
+    const honestWins = nH > cloneWeight;
+
+    svg.textContent = '';
+    const origin = [560, 58];
+    for (let i = 0; i < nC; i++) {
+      const ang = (i / nC) * Math.PI * 2 + jitter[i][0] * 0.3;
+      const r = 118 + jitter[i][1] * 36;
+      const x = cx + r * Math.cos(ang);
+      const y = cy + r * Math.sin(ang) * 0.9;
+      svg.append(s('line', { x1: cx, y1: cy, x2: x, y2: y, stroke: PINK, 'stroke-width': 0.6, opacity: on ? 0.12 : 0.45, class: 'lw-fade' }));
+      if (on) svg.append(s('line', { x1: origin[0], y1: origin[1], x2: x, y2: y, stroke: AMBER, 'stroke-width': 0.4, opacity: 0.35, class: 'lw-fade' }));
+      svg.append(s('circle', { cx: x, cy: y, r: 4, fill: PINK, opacity: on ? 0.35 : 0.95, class: 'lw-fade' }));
+    }
+    for (let i = 0; i < nH; i++) {
+      const ang = (i / nH) * Math.PI * 2 - Math.PI / 2;
+      const x = cx + 78 * Math.cos(ang);
+      const y = cy + 78 * Math.sin(ang) * 0.9;
+      svg.append(s('line', { x1: cx, y1: cy, x2: x, y2: y, stroke: BLUE, 'stroke-width': 1.6, opacity: 0.8 }));
+      svg.append(s('circle', { cx: x, cy: y, r: 7, fill: BLUE }));
+    }
+    svg.append(s('circle', { cx, cy, r: 22, fill: '#202124', stroke: honestWins ? GREEN : PINK, 'stroke-width': 2.5, class: 'lw-fade' }));
+    svg.append(s('text', { x: cx, y: cy + 4, 'text-anchor': 'middle', fill: INK, 'font-size': 10.5, 'font-weight': 700 }, text.hub));
+    if (on && nC > 0) {
+      svg.append(s('circle', { cx: origin[0], cy: origin[1], r: 13, fill: '#0e0e0e', stroke: AMBER, 'stroke-width': 2 }));
+      svg.append(s('circle', { cx: origin[0], cy: origin[1], r: 4.5, fill: AMBER }));
+      svg.append(tag(origin[0], origin[1] - 28, text.originTag(nC), { W }));
+    }
+    svg.append(tag(cx, H - 14, honestWins ? text.stateHolds : text.stateLost, { W, fill: honestWins ? '#12301c' : '#3a1a18', color: honestWins ? GREEN : PINK }));
+
+    f.setStats(`${nH} : ${nC}`, `${nH.toFixed(1)} : ${fmt(cloneWeight)}`);
+    f.note.textContent = text.verdict({ on, nH, nC, cloneWeight, honestWins });
+  });
+}
+
+/* ------------------------------------------------------------------ */
+/* 7. Instruction and action (output alignment)                         */
+/* ------------------------------------------------------------------ */
+
+export function mountAlignment(root, text) {
+  const f = frame(root, text);
+  const W = 640;
+  const H = 330;
+  const ox = 236;
+  const oy = 262;
+  const R = 236;
+  const svg = s('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': text.aria });
+  f.stage.append(svg);
+  f.legend([[BLUE, text.legendInstruction], [GREEN, text.legendRuns], [AMBER, text.legendHeld], [PINK, text.legendBlocked]]);
+
+  const drift = f.slider(text.driftLabel, { min: 0, max: 180, step: 1, value: 15, format: (v) => `${v}°` });
+  const bar = f.slider(text.barLabel, { min: 0.3, max: 0.95, step: 0.05, value: 0.7, format: (v) => v.toFixed(2) });
+
+  f.start(() => {
+    const deg = drift.get();
+    const limit = bar.get();
+    const rad = (deg * Math.PI) / 180;
+    const cos = Math.cos(rad);
+    const decision = cos >= limit ? 'runs' : cos > 0 ? 'held' : 'blocked';
+    const color = decision === 'runs' ? GREEN : decision === 'held' ? AMBER : PINK;
+    const limitDeg = (Math.acos(limit) * 180) / Math.PI;
+    const lr = Math.acos(limit);
+    const example = text.examples.find((e) => deg <= e.upTo) || text.examples[text.examples.length - 1];
+    const leftX = ox - 200;
+    const leftY = oy - R * Math.sin(Math.acos(-200 / R));
+
+    svg.textContent = '';
+    const defs = s('defs');
+    arrowDef(defs, 'lw-al-i', BLUE);
+    arrowDef(defs, 'lw-al-a', color);
+    svg.append(defs);
+    svg.append(s('path', { d: `M ${ox} ${oy} L ${ox + R} ${oy} A ${R} ${R} 0 0 0 ${ox + R * Math.cos(lr)} ${oy - R * Math.sin(lr)} Z`, fill: GREEN, opacity: 0.12, class: 'lw-fade' }));
+    svg.append(s('path', { d: `M ${ox} ${oy} L ${ox + R * Math.cos(lr)} ${oy - R * Math.sin(lr)} A ${R} ${R} 0 0 0 ${ox} ${oy - R} Z`, fill: AMBER, opacity: 0.08 }));
+    svg.append(s('path', { d: `M ${ox} ${oy} L ${ox} ${oy - R} A ${R} ${R} 0 0 0 ${leftX} ${leftY} Z`, fill: PINK, opacity: 0.07 }));
+    svg.append(s('path', { d: `M ${leftX} ${leftY} A ${R} ${R} 0 0 1 ${ox + R} ${oy}`, fill: 'none', stroke: LINE }));
+    svg.append(s('line', { x1: ox, y1: oy, x2: ox + R * Math.cos(lr), y2: oy - R * Math.sin(lr), stroke: AMBER, 'stroke-dasharray': '4 5', opacity: 0.8 }));
+    svg.append(s('text', { x: ox + (R + 10) * Math.cos(lr), y: oy - (R + 10) * Math.sin(lr), fill: AMBER, 'font-size': 11 }, `cos θ = ${limit.toFixed(2)}`));
+    svg.append(s('line', { x1: ox, y1: oy, x2: ox, y2: oy - R, stroke: LINE, 'stroke-dasharray': '4 5' }));
+    svg.append(s('text', { x: ox, y: oy - R - 8, 'text-anchor': 'middle', fill: GREY, 'font-size': 11 }, text.ninetyLabel));
+    svg.append(s('line', { x1: ox, y1: oy, x2: ox + R - 10, y2: oy, stroke: BLUE, 'stroke-width': 3.5, 'marker-end': 'url(#lw-al-i)' }));
+    const ax = ox + (R - 24) * Math.cos(rad);
+    const ay = oy - (R - 24) * Math.sin(rad);
+    svg.append(s('line', { x1: ox, y1: oy, x2: ax, y2: ay, stroke: color, 'stroke-width': 3.5, 'marker-end': 'url(#lw-al-a)', class: 'lw-fade' }));
+    svg.append(s('circle', { cx: ox, cy: oy, r: 5, fill: INK }));
+    svg.append(tag(ox + R - 40, oy + 26, text.instructionTag, { W }));
+    svg.append(tag(ax, ay - 26, text.actionTag, { W }));
+    svg.append(tag(W - 10, 24, text.decisionTag[decision], { W, anchor: 'end', fill: decision === 'runs' ? '#12301c' : decision === 'held' ? '#2a2206' : '#3a1a18', color }));
+    svg.append(s('text', { x: ox + 60, y: oy + 50, fill: INK, 'font-size': 13 }, `θ = ${deg}°, cos θ = ${cos.toFixed(2)}`));
+
+    f.setStats(cos.toFixed(2), text.decisionWord[decision]);
+    f.note.textContent = text.verdict({ decision, deg, cos, limit, limitDeg, example: example.text });
   });
 }
