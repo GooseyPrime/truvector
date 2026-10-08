@@ -1,6 +1,6 @@
 # Lane Vector and TruVector working papers
 
-Edition: 5 October 2026. Author: Michael Brandon Lane, InTellMe AI.
+Edition: 8 October 2026. Author: Michael Brandon Lane, InTellMe AI.
 
 The collection comprises WP-01 (signal direction, rate, and source structure), WP-02 (source dependence and decisions from model readings), WP-03 (the research in plain language), and the companion validation framework. Both research websites publish identical PDFs.
 

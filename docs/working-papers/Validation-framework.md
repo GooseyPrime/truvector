@@ -1,6 +1,6 @@
 # Lane Vector and TruVector validation framework
 
-Companion research methods | Michael Brandon Lane | InTellMe AI | 5 October 2026
+Companion research methods | Michael Brandon Lane | InTellMe AI | 8 October 2026
 
 ## Purpose
 
@@ -28,7 +28,7 @@ The first comparison of 60 statements is balanced across true, false, and unsett
 
 Two unsettled items state an unproven result as proven and were refuted by the readers; they are counted as misses under the original labels, and the labeling rule for later sets is to label the statement as worded. The item records, labels, full prompts, model replies, and intermediate scores exist as files and accompany any reproduction. The figures describe this set; they are not estimates of accuracy in use.
 
-The angle measurement covers 30 reason pairs and 20 exact-negation pairs per model across five embedding models. It motivates the subject-guard design. The larger pair set varies wording overlap, entity and quantity changes, scope, and negation structure, and its pair-level inputs, vectors, score definitions, and uncertainty estimates complete the reproduction package.
+The angle measurement was made twice across five embedding models: on 30 reason pairs and 20 exact-negation pairs, and on a larger set of 210 reason pairs and 50 negation pairs built so that shared words could not decide the result. Both support the subject-guard design: same-subject separation of 0.997 to 1.000 against 0.977 for word overlap, and no usable separation of a point from its opposite. Pair texts, per-pair cosines, and score definitions are kept with the records.
 
 ## Reproducibility package
 
@@ -75,7 +75,7 @@ Graphical minimum widths are display properties and are never substituted into c
 
 ## Planned measurements and their records
 
-The next measurements are, in order: the 200-pair and 50-pair angle sets that settle the embedding choice and the negation question; the 300-statement set with independent labels and reported labeler agreement; the confidence correction, the reader-dependence estimate, and the basis-sensitivity count on that set; the planted-copy test; and the frozen threshold refit with its held-out evaluation. Workflow tests then establish operating criteria for retrieval, reader aggregation, and action assessment in a particular application.
+The next measurements are, in order: the 300-statement set with independent labels and reported labeler agreement, including the readers' accuracy on its 50 negation pairs; the confidence correction, the reader-dependence estimate, and the basis-sensitivity count on that set; the planted-copy test; and the frozen threshold refit with its held-out evaluation. Workflow tests then establish operating criteria for retrieval, reader aggregation, and action assessment in a particular application.
 
 Each completed measurement produces a versioned record with its configuration, its acceptance criterion as written beforehand, the result, its uncertainty, and the policy decision that followed. That record, not a summary, is the unit of progress.
 

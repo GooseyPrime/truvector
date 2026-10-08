@@ -1,6 +1,6 @@
 # TruVector: source dependence and decisions from model readings
 
-Working paper WP-02 | Michael Brandon Lane | InTellMe AI | 5 October 2026
+Working paper WP-02 | Michael Brandon Lane | InTellMe AI | 8 October 2026
 
 ## Abstract
 
@@ -163,23 +163,28 @@ The first comparison used 60 statements drafted from public records: 20 labeled 
 
 The old gate was right on 14 of 60: it allowed none of the true statements, held or blocked all of them, and blocked every unsettled one. The revised rule was right on 58 of 60. The two misses are unsettled statements that the rule blocked because the readers refuted them. Both state an unproven result as proven, and a reader that reads them as worded is right to refute them; the question is a labeling one, and the labeling rule for later sets is to label the statement as worded rather than its broader subject. The total is reported as 58 of 60 under the original labels, and any relabeling after seeing the predictions is recorded separately. Re-scoring the same 60 under the v2.1 rule left every decision unchanged, because the v2.1 changes concern action checks and the naming of the reasons guard, and these statements carry no actions.
 
-This set is easy by design. The harder groups (numbers, recent events, contested statements, negations) are in the 300-statement set that is being built with independent labels from three stronger models of three families, majority rule, and reported agreement. Those results are not available and are not cited here.
+This set is easy by design. The harder groups (numbers, recent events, contested statements, negations) make up a 300-statement set whose labels are checked against their sources and then set independently by three stronger models of three families, by majority, with agreement reported. Its results are not cited until that labelling and the reading are complete.
 
-| Embedding model | Same point, mean cosine | Opposite point, mean | Unrelated, mean | Same above opposite | Sentence vs. its negation, mean |
-| --- | --- | --- | --- | --- | --- |
-| OpenAI text-embedding-3-small | 0.73 | 0.77 | 0.06 | 0.29 | 0.90 |
-| OpenAI text-embedding-3-large | 0.75 | 0.74 | 0.06 | 0.47 | 0.78 |
-| Qwen3 embedding 8B | 0.84 | 0.80 | 0.21 | 0.74 | 0.78 |
-| Google gemini-embedding-001 | 0.85 | 0.87 | 0.51 | 0.38 | 0.93 |
-| BAAI bge-m3 | 0.81 | 0.81 | 0.35 | 0.54 | 0.90 |
+Two angle measurements were made under five embedding models. The first used 30 reason pairs and 20 negation pairs; its opposite-point pairs reused most of their partner's words. The second, larger set removed that advantage: 210 reason pairs (70 same point, 70 opposite point, 70 unrelated, no two on the same subject), with at least 40 opposite-point pairs written as opposite meanings in different words and at least 20 same-point pairs sharing almost no words, and 50 negation pairs with the true sentence first in exactly half.
 
-The reason measurement used 30 pairs (10 same point in different words, 10 opposite point, 10 unrelated) and the negation measurement 20 sentence-and-exact-negation pairs, under each of the five models. "Same above opposite" is the chance that a same-point pair scores above an opposite-point pair, with 0.50 a coin toss. Every model separated same-subject from unrelated pairs perfectly on this set, and all 100 negation values exceeded 0.6. The opposite-point pairs retain substantial word overlap, which limits the direction finding; Qwen3's 0.74 shows that some separation is possible for some models, so directional separation is model-specific here and is measured again on the 200-pair set with different wording on both sides. The design reserves direction for readers because these measurements do not justify a cosine-only decision.
+| Embedding model | Same point | Opposite point | Unrelated | Same above opposite | Same subject above unrelated | Sentence vs. its negation |
+| --- | --- | --- | --- | --- | --- | --- |
+| OpenAI text-embedding-3-small | 0.770 | 0.761 | 0.240 | 0.465 | 1.000 | 0.868 |
+| OpenAI text-embedding-3-large | 0.765 | 0.727 | 0.186 | 0.528 | 1.000 | 0.792 |
+| Qwen3 embedding 8B | 0.823 | 0.749 | 0.367 | 0.618 | 0.999 | 0.767 |
+| Google gemini-embedding-001 | 0.881 | 0.858 | 0.597 | 0.658 | 1.000 | 0.895 |
+| BAAI bge-m3 | 0.841 | 0.781 | 0.491 | 0.692 | 0.997 | 0.890 |
+| Word overlap (Jaccard), same pairs | 0.267 | 0.505 | 0.052 | 0.294 | 0.977 | — |
+
+The first three columns of numbers are mean cosines on the larger set; "Same above opposite" and "Same subject above unrelated" are the chance that a pair of the first kind scores above a pair of the second (0.50 is a coin toss); the last column is the mean cosine between a sentence and its exact negation over 50 pairs. All 250 negation values exceeded 0.6, and 5, 0, 0, 21, and 17 of the 50 exceeded 0.9 for the five models in order. The first, smaller set gave the same picture: same above opposite 0.29, 0.47, 0.74, 0.38, and 0.54, perfect same-subject separation, and negation means of 0.90, 0.78, 0.78, 0.93, and 0.90.
+
+Every embedding model separates same-subject from unrelated pairs, and does so better than word overlap; that is the job the design gives the angle, and research direction R1 passes on it. No model separates a point from its opposite well enough to use; the best, bge-m3 at 0.69, would still misorder about three pairs in ten. Word overlap does worse than chance at that task (0.29), because opposite-point pairs share more words than same-point pairs, which is the same failure that sank the old gate. The embedding choice therefore stays OpenAI text-embedding-3-small, and direction stays with the readers.
 
 ![Angle illustration](figures/angles.png)
 
-Figure 5. Mean cosine by pair type under the five embedding models. The same-point and opposite-point bars are close for every model while the unrelated bar is far below; a sentence and its exact negation are closer still.
+Figure 5. Mean cosine by pair type under the five embedding models on the larger set (210 reason pairs, 50 negation pairs). The same-point and opposite-point bars are close for every model while the unrelated bar is far below; a sentence and its exact negation are as close as, or closer than, two sentences making the same point.
 
-**In plain terms.** On the first sixty statements the old gate got 14 right and the new rule got 58. The sixty were easy, so the number to watch is the next one, on three hundred harder statements with labels set before anyone sees the answers.
+**In plain terms.** On the first sixty statements the old gate got 14 right and the new rule got 58. The sixty were easy, so the number to watch is the next one, on three hundred harder statements with labels set before anyone sees the answers. The larger angle test settled the other question: the map of meaning reliably tells what a sentence is about, and still cannot tell which side it takes.
 
 ## 11 Study configuration and reproducibility
 
@@ -187,13 +192,13 @@ The pinned readers are openai/gpt-5.4-mini, anthropic/claude-haiku-4.5, google/g
 
 The working basis is OpenAI text-embedding-3-small, 1,536 dimensions. A record includes all compared vectors or a stable archived reference, normalization, raw and corrected confidences, group assignment, $\lambda$ and its status (declared or measured), weights, $S$, $R$, $U$, $D$, $C$, subject scores, action readings, flags, quorum, thresholds, and every reason for the decision. Temperature 0 alone does not guarantee identical outputs across provider revisions or routes.
 
-The record files for §10 are the 60 statements with their labels, the 239 reader replies, the per-statement results under both scorings, the 30 reason pairs and 20 negation pairs, and the per-pair cosines under every model. The old and revised scorings ran on the identical stored replies, which isolates the scoring change. The move from the earlier combined statement-and-action prompt to the stance-only prompt is a second intervention and is compared in a separate controlled arm. Comparisons report per-category errors and Review rates, not accuracy alone.
+The record files for §10 are the 60 statements with their labels, the 239 reader replies, the per-statement results under both scorings, both sets of reason and negation pairs, and the per-pair cosines under every model. The old and revised scorings ran on the identical stored replies, which isolates the scoring change. The move from the earlier combined statement-and-action prompt to the stance-only prompt is a second intervention and is compared in a separate controlled arm. Comparisons report per-category errors and Review rates, not accuracy alone.
 
 ## 12 Eight research directions, each with the result that would disprove it
 
-R1, subject guard. Compare at least three embedding models from two providers on same-point, opposite-point, and unrelated pairs, controlling word overlap. Disproved as a basis for the guard if the best model separates same-subject from unrelated no better than word overlap on held-out pairs. The first measurement answered this for the subject guard (every model separates cleanly); direction is measured under R2.
+R1, subject guard. Compare at least three embedding models from two providers on same-point, opposite-point, and unrelated pairs, controlling word overlap. Disproved as a basis for the guard if the best model separates same-subject from unrelated no better than word overlap on held-out pairs. Answered on the 210-pair set: every model separates same-subject from unrelated pairs (0.997 to 1.000) better than word overlap (0.977), so the guard stands; none separates a point from its opposite (0.47 to 0.69), so direction is not taken from the angle.
 
-R2, negation. Compare reader classifications with a cosine-threshold baseline on the same negation pairs. Disproved, as a reason to rely on reading, if the readers are no more accurate than a threshold on the angle. The set includes double negation, modal verbs, quantifiers, changed entities, numerical conditions, and instruction reversals, and is sized and frozen before evaluation. Specialized entailment and contradiction methods are additional baselines.
+R2, negation. Compare reader classifications with a cosine-threshold baseline on the same negation pairs. Disproved, as a reason to rely on reading, if the readers are no more accurate than a threshold on the angle. The angle half is answered: on 50 balanced pairs every model places a sentence and its negation above 0.6, so no threshold on the angle can tell which is true. The reader half runs on the same pairs inside the 300-statement set. The set includes double negation, modal verbs, quantifiers, changed entities, numerical conditions, and instruction reversals, and is sized and frozen before evaluation. Specialized entailment and contradiction methods are additional baselines.
 
 R3, confidence correction. Fit each reader's correction on development data; evaluate Brier score and reliability on held-out items. Disproved if the correction does not improve the prespecified score over label-only weights, in which case confidence is treated as noise and the rule uses labels alone. A scalar confidence in the chosen label supports a binary correctness Brier score; a three-class score would need a full probability vector, which the reply schema does not provide.
 
@@ -237,4 +242,4 @@ First comparison: under the old gate the true group's 15 blocks and 5 holds are 
 
 ## Suggested citation
 
-Lane, M. B. (2026). TruVector: source dependence and decisions from model readings (Working paper WP-02, revised 5 October 2026). InTellMe AI.
+Lane, M. B. (2026). TruVector: source dependence and decisions from model readings (Working paper WP-02, revised 8 October 2026). InTellMe AI.

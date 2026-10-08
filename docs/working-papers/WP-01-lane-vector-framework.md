@@ -1,6 +1,6 @@
 # Lane Vector: signal direction, rate, and source structure
 
-Working paper WP-01 | Michael Brandon Lane | InTellMe AI | 5 October 2026
+Working paper WP-01 | Michael Brandon Lane | InTellMe AI | 8 October 2026
 
 ## Abstract
 
@@ -70,9 +70,11 @@ A vector autoregression can model lagged associations among defined time series.
 
 An embedding model turns a text into a list of numbers; the cosine of the angle between two such lists is the standard measure of how alike the texts are. The question for the decision procedure in WP-02 was whether that angle could carry direction: whether "A supports the statement" and "A refutes the statement" sit far enough apart to be told apart by angle alone.
 
-A first measurement on 30 reason pairs under five embedding models answered no. Ten pairs made the same point in different words, ten made opposite points, and ten were unrelated. The chance that a same-point pair scored above an opposite-point pair was 0.29, 0.47, 0.74, 0.38, and 0.54 for OpenAI text-embedding-3-small, OpenAI text-embedding-3-large, Qwen3 embedding 8B, Google gemini-embedding-001, and BAAI bge-m3 respectively; 0.50 is a coin toss. Every model separated same-subject pairs from unrelated pairs perfectly (1.00) on the same set. A second measurement on 20 sentence-and-exact-negation pairs gave mean cosines of 0.90, 0.78, 0.78, 0.93, and 0.90 between a sentence and its own negation, and every one of the 100 model-pair values exceeded 0.6. The per-model means are tabulated in WP-02 §10; the pair texts and every angle are in the record files named in WP-02 §11.
+A first measurement on 30 reason pairs under five embedding models answered no. Ten pairs made the same point in different words, ten made opposite points, and ten were unrelated. The chance that a same-point pair scored above an opposite-point pair was 0.29, 0.47, 0.74, 0.38, and 0.54 for OpenAI text-embedding-3-small, OpenAI text-embedding-3-large, Qwen3 embedding 8B, Google gemini-embedding-001, and BAAI bge-m3 respectively; 0.50 is a coin toss. Every model separated same-subject pairs from unrelated pairs perfectly (1.00) on the same set. A second measurement on 20 sentence-and-exact-negation pairs gave mean cosines of 0.90, 0.78, 0.78, 0.93, and 0.90 between a sentence and its own negation, and every one of the 100 model-pair values exceeded 0.6. The pair texts and every angle are in the record files named in WP-02 §11.
 
-Two caveats are stated beside those numbers. The opposite-point pairs reuse most of their partner's wording and flip one clause, which favors any measure that rewards shared words; the larger 200-pair set uses different wording on both sides. And 30 and 20 pairs are enough to change a design, not to settle a literature. Published work agrees in direction: HEROS documents that sentence encoders differ widely in negation sensitivity [1], and SparseCL shows that retrieving contradictions needs a representation and metric built for the purpose [2].
+The opposite-point pairs in that first set reused most of their partner's wording and flipped one clause, which favors any measure that rewards shared words, so the measurement was repeated on a larger set built to remove that advantage: 210 reason pairs (70 same point, 70 opposite point, 70 unrelated, no two pairs on the same subject), with at least 40 of the opposite-point pairs written as opposite meanings in different words rather than one sentence plus "not", and at least 20 same-point pairs sharing almost no words. The result held. Every model separated same-subject pairs from unrelated pairs almost perfectly (1.000, 1.000, 0.999, 1.000, 0.997 in the order above), slightly better than plain word overlap on the same pairs (0.977). None separated a point from its opposite: 0.47, 0.53, 0.62, 0.66, and 0.69, against 0.29 for word overlap, which does worse than a coin toss because opposite-point pairs share more words than same-point pairs. On 50 sentence-and-exact-negation pairs, balanced so that the true sentence is first in half of them, the mean cosine between a sentence and its negation was 0.87, 0.79, 0.77, 0.90, and 0.89, and all 250 model-pair values exceeded 0.6. The per-model figures are tabulated in WP-02 §10.
+
+Published work agrees in direction: HEROS documents that sentence encoders differ widely in negation sensitivity [1], and SparseCL shows that retrieving contradictions needs a representation and metric built for the purpose [2].
 
 The conclusion drawn is narrow and is the one the design rests on: the general-purpose embeddings tested should not be used as a stand-alone reading of direction. It is not that every embedding method must fail. The angle is kept for what it measures well: whether two texts are about the same thing. Direction (support, refute, unsure) comes from a reading made by a model that is asked that question and whose answer is recorded. An action needs its own reading of whether it carries out the instruction, because negation, recipient, amount, and scope can all change without a large geometrical separation.
 
@@ -80,7 +82,7 @@ The conclusion drawn is narrow and is the one the design rests on: the general-p
 
 Figure 3. Same subject does not imply the same instruction. "Delete the file" and "Do not delete the file" sit close in a subject representation and require opposite readings. The schematic assigns no measured coordinates.
 
-The working embedding choice is OpenAI text-embedding-3-small with 1,536 dimensions, kept until the 200-pair measurement is complete. The embedding of a reason checks that the reason concerns the statement; it cannot certify that the reason is logically adequate.
+The embedding choice is OpenAI text-embedding-3-small with 1,536 dimensions. On the larger set it separates same-subject from unrelated pairs perfectly, which is the only job the design gives the angle; the models that separate direction somewhat better (BAAI bge-m3, Google gemini-embedding-001) do not separate it well enough to be used for it, so the cheaper pinned model is kept. The embedding of a reason checks that the reason concerns the statement; it cannot certify that the reason is logically adequate.
 
 **In plain terms.** A map of meaning puts "the bridge is safe" and "the bridge is not safe" almost on top of each other, because both are about the bridge. The map is excellent at telling you what a sentence is about and useless at telling you which side it takes. So the map is used only to check that everyone is talking about the same thing, and a reader is asked which side each sentence takes.
 
@@ -118,7 +120,7 @@ Second difference: the coefficients $1, -2, 1$ have squares summing to 6. With $
 
 Origin groups: five known groups of 100 at $\lambda = 0.5$ each contribute $100/50.5 = 1.980198$, summing to 9.900990. For 250 known groups of two at the same $\lambda$, the sum is $250 \times 2/1.5 = 333.333$. For 500 singleton groups the sum is 500. These are three different assumed origin maps for one raw count of 500, not competing estimates of one observed crowd.
 
-Angles: the ranking measure in §4 is the fraction of (same-point, opposite-point) pair combinations in which the same-point pair has the higher cosine, computed over all 10 × 10 = 100 combinations per model, with a tie counted as one half. It is the area under the receiver operating curve for that two-class separation. The negation means are the arithmetic means of 20 cosines per model.
+Angles: the ranking measure in §4 is the fraction of (same-point, opposite-point) pair combinations in which the same-point pair has the higher cosine, computed over all 10 × 10 = 100 combinations per model, with a tie counted as one half. It is the area under the receiver operating curve for that two-class separation. The negation means are the arithmetic means of 20 cosines per model in the first set and 50 in the larger one. Word overlap is the Jaccard overlap of the two sentences' lowercase word sets, ranked the same way.
 
 ## References
 
@@ -132,4 +134,4 @@ Angles: the ranking measure in §4 is the fraction of (same-point, opposite-poin
 
 ## Suggested citation
 
-Lane, M. B. (2026). Lane Vector: signal direction, rate, and source structure (Working paper WP-01, revised 5 October 2026). InTellMe AI.
+Lane, M. B. (2026). Lane Vector: signal direction, rate, and source structure (Working paper WP-01, revised 8 October 2026). InTellMe AI.
