@@ -1,0 +1,312 @@
+---
+import Base from '../../layouts/Base.astro';
+
+// Every number on this page is copied from the study report (Study TV-001,
+// report/STUDY-REPORT.md in the study repository). Nothing is computed here
+// except the sizes of the marks drawn from those numbers.
+const gates = ['Allow', 'Review', 'Block'];
+const rows = [
+  { label: 'Supported', calls: 'Allow', n: 120 },
+  { label: 'Unsettled', calls: 'Review', n: 60 },
+  { label: 'Refuted', calls: 'Block', n: 120 }
+];
+const methods = [
+  {
+    key: 'words',
+    name: 'Word-overlap scoring',
+    right: 101,
+    cells: [[1, 31, 88], [0, 1, 59], [0, 21, 99]]
+  },
+  {
+    key: 'meaning',
+    name: 'Meaning-based scoring',
+    right: 282,
+    cells: [[108, 12, 0], [0, 57, 3], [0, 3, 117]]
+  }
+];
+const side = (n: number) => (n === 0 ? 0 : Math.max(0.12, Math.sqrt(n / 120))).toFixed(3);
+
+const groups = [
+  { name: 'Plain', what: 'plain statements', n: 60, words: 13, meaning: 59, diff: '+76.7' },
+  { name: 'Numbers', what: 'statements that turn on numbers', n: 60, words: 24, meaning: 60, diff: '+60.0' },
+  { name: 'Recent', what: 'recent events', n: 40, words: 15, meaning: 25, diff: '+25.0' },
+  { name: 'Contested', what: 'contested statements', n: 40, words: 1, meaning: 38, diff: '+92.5' },
+  { name: 'Negation', what: '50 sentences, each with its exact negation', n: 100, words: 48, meaning: 100, diff: '+52.0' }
+];
+const pct = (a: number, b: number) => ((100 * a) / b).toFixed(1);
+
+// Six of the 50 pairs in the test set (test-set/negation-pairs.jsonl), unedited.
+const pairs = [
+  { t: 'Mercury is the closest planet to the Sun.', f: 'Mercury is not the closest planet to the Sun.' },
+  { t: 'Alpha Centauri is the closest star system to the Solar System.', f: 'Alpha Centauri is not the closest star system to the Solar System.' },
+  { t: 'Sirius is the brightest star in the night sky.', f: 'Sirius is not the brightest star in the night sky.' },
+  { t: 'Mount Kilimanjaro is in Tanzania.', f: 'Mount Kilimanjaro is not in Tanzania.' },
+  { t: 'The Kuiper belt lies beyond Neptune.', f: 'The Kuiper belt does not lie beyond Neptune.' },
+  { t: 'Ganymede is the largest moon in the Solar System.', f: 'Ganymede is not the largest moon in the Solar System.' }
+];
+const fifty = Array.from({ length: 50 });
+
+const scores = [
+  { name: 'Word overlap', note: 'share of words two texts have in common', v: 0.296, lo: 0.203, hi: 0.388 },
+  { name: 'Embedding cosine', note: 'closeness of two texts on a map of meaning', v: 0.465, lo: 0.363, hi: 0.568 },
+  { name: 'Readers', note: 'four models asked how the two texts relate', v: 0.997, lo: 0.993, hi: 1.0 }
+];
+const at = (x: number) => `${(x * 100).toFixed(1)}%`;
+---
+<Base title="Counting shared words against reading meaning — TruVector" description="Study TV-001: 300 statements with sourced labels, four readers, one set of stored replies scored two ways. Word-overlap scoring made the right decision on 101 of 300; meaning-based scoring on 282 of 300." path="/publications/word-overlap-vs-meaning">
+
+<section class="room" style="padding-top:96px"><div class="suite suite--flagship"><p class="kicker">TruVector &middot; Study TV-001</p><h1 class="suite-title">Counting shared words against reading meaning</h1><p class="hero-support" style="margin-top:28px;max-width:66ch">300 statements, four readers, one set of stored replies scored two ways. Scoring by shared words made the right decision on 101 of 300. Scoring by what the readers concluded made the right decision on 282 of 300. Neither let through a statement it should have stopped.</p><div class="actions" style="margin-top:32px"><a class="btn btn--primary" href="/working-papers/WP-04.pdf">Read WP-04 PDF</a><a class="btn btn--secondary" href="#results">Go to the results</a></div></div></section>
+
+<section class="room room--alt" aria-labelledby="s-problem"><div class="suite suite--flagship"><h2 class="suite-title" id="s-problem">The problem</h2>
+<p style="margin-top:24px;max-width:70ch">TruVector asks several language models, called readers, what they make of a statement before an AI system acts on it. Something then has to turn their replies into a decision: go ahead (Allow), have a person look (Review), or stop (Block).</p>
+<p style="max-width:70ch">The earlier method did this by counting. It measured how many words the replies shared and how often words such as &ldquo;however&rdquo; or &ldquo;incorrect&rdquo; appeared. Counting shared words fails in two ways that matter.</p>
+<p style="max-width:70ch"><strong>Agreement in different words looks like disagreement.</strong> One reader writes &ldquo;the bridge passed its inspection&rdquo; and another writes &ldquo;engineers found the span sound&rdquo;. They agree, and they share almost no words.</p>
+<p style="max-width:70ch"><strong>A sentence and its opposite look almost identical.</strong> &ldquo;The bridge is safe&rdquo; and &ldquo;the bridge is not safe&rdquo; differ by one word and share all the rest.</p>
+<p style="max-width:70ch">The replacement uses what each reader concluded: supports, refutes, or unsure. It counts readers by where they come from, and applies a written decision rule. An earlier comparison on 60 statements (WP-02) gave 14 right decisions for word counting and 58 for the replacement. That set was small and easy. This study asks the same question on 300 harder statements, with the analysis fixed before any reply was collected.</p>
+<p style="max-width:70ch"><strong>In plain terms.</strong> Two people can agree without using the same words, and two sentences can use the same words and say opposite things. A method that counts words cannot see either case. This study measures how much that costs.</p>
+</div></section>
+
+<section class="room" aria-labelledby="s-method"><div class="suite suite--flagship"><h2 class="suite-title" id="s-method">What was done</h2>
+<p style="margin-top:24px;max-width:70ch"><strong>The plan was written down first.</strong> The question, the test set, the readers, the exact prompts, the scoring settings, the statistical tests, and the rule for what would count as a result were committed in a dated document before any reader was asked anything. Five amendments were made, each dated and each entered before any test-set reply existed. A plan fixed in advance means the analysis cannot be adjusted afterwards to make the result look better.</p>
+<p style="max-width:70ch"><strong>300 statements, each with a sourced label.</strong> A sourced label is a label backed by an exact quote from a public source. 120 statements are labelled supported, 120 refuted, and 60 unsettled, meaning the source itself says the matter is not resolved. No model labelled anything. The statements fall into five groups:</p>
+<ul class="rail" style="margin-top:8px;max-width:70ch">
+{groups.map((g) => <li><span class="rail__name">{g.name} ({g.n})</span> <span class="rail__note">&mdash; {g.what}</span></li>)}
+</ul>
+<p style="margin-top:28px;max-width:70ch"><strong>Four readers from four companies.</strong> Anthropic Claude Opus 5.5, DeepSeek V4.1 Flash, Moonshot Kimi K3, and Meta Muse Glimmer 30B. Each read every statement once and answered in a fixed form: supports, refutes, or unsure; a confidence from 0 to 1; and a reason of one to three sentences. Each company is one origin. An origin is the place a reply comes from; the origin discount means several replies from one origin count as little more than one, so four readers from four origins count as four. A statement needs at least three usable replies; below that the decision is Block under both methods. One statement of the 300 fell below that line. Usable replies out of 300, by reader: Claude Opus 5.5 299, DeepSeek V4.1 Flash 291, Kimi K3 238, Muse Glimmer 30B 299.</p>
+<p style="max-width:70ch"><strong>Each reply was stored once and scored two ways.</strong> Word-overlap scoring is the earlier word-count gate of WP-02 &sect;4: it looks only at the wording of the replies. Meaning-based scoring is the decision rule of WP-02 &sect;7: it looks at what the readers concluded and how confident they were, counts origins, and decides. Its thresholds were set before the study and were not adjusted on this set.</p>
+<p style="max-width:70ch"><strong>What counts as right.</strong> Allow for a supported statement, Block for a refuted one, Review for an unsettled one. Anything else is counted as wrong.</p>
+<p style="max-width:70ch"><strong>Why the comparison is fair.</strong> Both methods received exactly the same stored replies. Neither had a better reader, a better prompt, or a second try. The only thing that differs between the two columns of every table below is the scoring.</p>
+<p style="max-width:70ch"><strong>In plain terms.</strong> The rules were set before the game. Four different models read 300 statements whose answers were already known from public sources, their replies were saved, and the same saved replies were handed to both scoring methods.</p>
+</div></section>
+
+<section class="room room--alt" id="results" aria-labelledby="s-results"><div class="suite suite--flagship"><h2 class="suite-title" id="s-results">The results</h2>
+<p style="margin-top:24px;max-width:70ch">Word-overlap scoring made the right decision on <strong>101 of 300</strong> statements (33.7%; 95% interval 28.6% to 39.2%). Meaning-based scoring made the right decision on <strong>282 of 300</strong> (94.0%; 95% interval 90.7% to 96.2%). The difference is +60.3 percentage points (95% interval 54.1 to 65.7).</p>
+<p style="max-width:70ch">A 95% interval is the range the figure would plausibly fall in if the study were run again on a similar set of 300; a narrow range means the count is large enough to pin the figure down.</p>
+<p style="max-width:70ch">On 184 statements only meaning-based scoring was right. On 3 statements only word-overlap scoring was right. The exact McNemar test, which asks how likely a split as lopsided as 184 to 3 would be if the two methods were really equally good, gives p = 1.1e-50: a decimal point, 49 zeros, then 11. This was the one test named in advance as the test of the study.</p>
+
+<figure class="tv-fig" aria-labelledby="fig-a-cap">
+  <figcaption id="fig-a-cap"><strong>Where the 300 decisions landed.</strong> Each row is what the sourced label calls for; each column is the decision given. A larger square means more statements. Outlined cells are right decisions. Choose a view.</figcaption>
+  <input class="tv-radio" type="radio" name="tv-view" id="tv-both" checked />
+  <input class="tv-radio" type="radio" name="tv-view" id="tv-words" />
+  <input class="tv-radio" type="radio" name="tv-view" id="tv-meaning" />
+  <div class="tv-switch" role="group" aria-label="Which scoring to show">
+    <label for="tv-both">Side by side</label>
+    <label for="tv-words">Word overlap</label>
+    <label for="tv-meaning">Meaning</label>
+  </div>
+  <div class="tv-grids">
+    {methods.map((m) => (
+      <table class={`tv-grid tv-grid--${m.key}`}>
+        <caption>{m.name}: {m.right} of 300 right</caption>
+        <thead><tr><th scope="col">Label calls for</th>{gates.map((g) => <th scope="col">Given {g}</th>)}</tr></thead>
+        <tbody>
+          {rows.map((r, i) => (
+            <tr>
+              <th scope="row">{r.calls}<span class="tv-sub">{r.label}, {r.n}</span></th>
+              {m.cells[i].map((n, j) => (
+                <td class={i === j ? 'is-right' : j === 0 && i > 0 ? 'is-danger' : ''}>
+                  <span class="tv-sq" style={`--s:${side(n)}`} aria-hidden="true"></span>
+                  <span class="tv-n">{n}</span>
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    ))}
+  </div>
+  <p class="caption" style="max-width:70ch">The first column of the two lower rows is the dangerous error: a refuted or unsettled statement given Allow. It is 0 in both tables.</p>
+</figure>
+
+<p style="max-width:70ch"><strong>The dangerous error did not occur under either method.</strong> Of the 180 statements labelled refuted or unsettled, word-overlap scoring gave Allow to 0 and meaning-based scoring gave Allow to 0 (each 0.0%; 95% interval 0.0% to 2.1%). Word-overlap scoring reached that by allowing almost nothing: it gave Allow to 1 statement of 300.</p>
+<p style="max-width:70ch"><strong>The cost of that showed on the supported statements.</strong> Word-overlap scoring gave Block to 88 of the 120 supported statements (73.3%; 95% interval 64.8% to 80.4%). Meaning-based scoring gave Block to 0 of 120 (0.0%; 95% interval 0.0% to 3.1%).</p>
+<p style="max-width:70ch"><strong>Agreement with the labels beyond chance.</strong> Cohen&rsquo;s kappa measures how far a set of decisions agrees with the labels beyond what guessing would produce: 0 is what guessing gets, 1 is perfect agreement. Word-overlap scoring: &minus;0.044 (95% interval &minus;0.085 to &minus;0.003). Meaning-based scoring: 0.907 (95% interval 0.866 to 0.948).</p>
+
+<h3 class="room-title" style="margin-top:56px">By group</h3>
+<div class="tv-scroll">
+<table class="tv-table">
+  <caption class="caption">Right decisions in each group. Bars share one scale from 0% to 100%.</caption>
+  <thead><tr><th scope="col">Group</th><th scope="col">Statements</th><th scope="col">Word overlap right</th><th scope="col">Meaning right</th><th scope="col">Difference</th></tr></thead>
+  <tbody>
+    {groups.map((g) => (
+      <tr>
+        <th scope="row">{g.name}</th>
+        <td>{g.n}</td>
+        <td><span class="tv-bar tv-bar--words" style={`--w:${pct(g.words, g.n)}%`} aria-hidden="true"></span>{g.words} ({pct(g.words, g.n)}%)</td>
+        <td><span class="tv-bar tv-bar--meaning" style={`--w:${pct(g.meaning, g.n)}%`} aria-hidden="true"></span>{g.meaning} ({pct(g.meaning, g.n)}%)</td>
+        <td>{g.diff} points</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+</div>
+<p style="margin-top:24px;max-width:70ch"><strong>The weak spot is recent events.</strong> Meaning-based scoring was right on 25 of 40 recent statements (62.5%), against 15 of 40 for word-overlap scoring. The gain there, +25.0 points (95% interval 5.8 to 41.5), is the smallest of the five groups, and all 3 statements on which only word-overlap scoring was right are in this group. The readers were given each statement alone, with no retrieved material, so on recent events they could answer only from what they already knew. That is a likely reason; this study did not measure it.</p>
+<p style="max-width:70ch"><strong>In plain terms.</strong> Scored by shared words, the same replies gave the right decision about one time in three. Scored by what the readers concluded, they gave it about nineteen times in twenty. Neither method waved through something false. The word-count method was safe only because it said no to nearly everything, including most of what was true.</p>
+</div></section>
+
+<section class="room" aria-labelledby="s-negation"><div class="suite suite--flagship"><h2 class="suite-title" id="s-negation">A sentence and its exact opposite</h2>
+<p style="margin-top:24px;max-width:70ch">The test set holds 50 pairs made of a sentence and its exact negation, such as &ldquo;Mercury is the closest planet to the Sun&rdquo; and &ldquo;Mercury is not the closest planet to the Sun&rdquo;. One of each pair is true. A method that reads meaning should give the two sentences opposite decisions: Allow for one and Block for the other.</p>
+
+<figure class="tv-fig" aria-labelledby="fig-b-cap">
+  <figcaption id="fig-b-cap"><strong>Pairs given opposite decisions, of 50.</strong> One square is one pair; a filled square is a pair that received one Allow and one Block.</figcaption>
+  <div class="tv-pips-row">
+    <p class="tv-pips-label">Word-overlap scoring <strong>0 of 50</strong></p>
+    <div class="tv-pips" role="img" aria-label="0 of 50 squares filled">{fifty.map(() => <span></span>)}</div>
+  </div>
+  <div class="tv-pips-row">
+    <p class="tv-pips-label">Meaning-based scoring <strong>50 of 50</strong></p>
+    <div class="tv-pips tv-pips--on" role="img" aria-label="50 of 50 squares filled">{fifty.map(() => <span></span>)}</div>
+  </div>
+  <details class="tv-details" open>
+    <summary>Six of the 50 pairs, as they appear in the test set</summary>
+    <div class="tv-scroll">
+    <table class="tv-table">
+      <thead><tr><th scope="col">True sentence</th><th scope="col">Its negation</th><th scope="col">Word-overlap scoring</th><th scope="col">Meaning-based scoring</th></tr></thead>
+      <tbody>
+        {pairs.map((p) => (
+          <tr>
+            <td>{p.t}</td>
+            <td>{p.f}</td>
+            <td>Not given opposite decisions</td>
+            <td><span class="tv-tag tv-tag--allow">Allow</span> the true sentence, <span class="tv-tag tv-tag--block">Block</span> its negation</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    </div>
+  </details>
+</figure>
+
+<p style="max-width:70ch">Under meaning-based scoring all 50 pairs also met the stricter test: Allow for the true sentence and Block for the false one. The difference between the methods is +100.0 points (95% interval 89.9 to 100.0), exact McNemar p = 1.8e-15.</p>
+<p style="max-width:70ch"><strong>In plain terms.</strong> Adding the word &ldquo;not&rdquo; turns a true sentence into a false one and changes almost none of its words. The word-count method never once told the two apart. Reading what the readers concluded told them apart every time.</p>
+</div></section>
+
+<section class="room room--alt" aria-labelledby="s-reasons"><div class="suite suite--flagship"><h2 class="suite-title" id="s-reasons">Telling agreeing reasons from disagreeing ones</h2>
+<p style="margin-top:24px;max-width:70ch">A second part of the study used pairs of short reasons: 70 pairs that agree, 70 that disagree, and 70 that are about unrelated things. Three scores were tried on the agreeing and disagreeing pairs. <strong>Word overlap</strong> is the share of words two texts have in common: two texts with ten different words between them, of which three appear in both, score 0.3. <strong>Embedding cosine</strong> comes from a model that places each text as a point on a map of meaning, so that texts about similar things sit close together; the cosine is how close two points are, with 1 meaning the same spot. <strong>Readers</strong> means the four models were asked directly whether the two texts agree, disagree, or are unrelated.</p>
+<p style="max-width:70ch">Each score is graded with one number, the AUROC. Take one agreeing pair and one disagreeing pair at random: the AUROC is how often the score rates the agreeing pair higher. 1.0 means always, 0.5 is a coin toss, and below 0.5 means the score more often rates the disagreeing pair higher.</p>
+
+<figure class="tv-fig" aria-labelledby="fig-c-cap">
+  <figcaption id="fig-c-cap"><strong>Three scores on one scale.</strong> The mark is the AUROC; the band is its 95% interval. The vertical line at 0.5 is a coin toss.</figcaption>
+  <ol class="tv-scale">
+    {scores.map((s) => (
+      <li>
+        <p class="tv-scale__name"><strong>{s.name}: {s.v.toFixed(3)}</strong> <span class="tv-sub">{s.note}; 95% interval {s.lo.toFixed(3)} to {s.hi.toFixed(3)}</span></p>
+        <div class="tv-track" aria-hidden="true">
+          <span class="tv-coin"></span>
+          <span class="tv-band" style={`left:${at(s.lo)};width:${at(s.hi - s.lo)}`}></span>
+          <span class="tv-mark" style={`left:${at(s.v)}`}></span>
+        </div>
+      </li>
+    ))}
+  </ol>
+  <div class="tv-axis" aria-hidden="true"><span>0</span><span>0.5 coin toss</span><span>1.0</span></div>
+</figure>
+
+<p style="max-width:70ch">Word overlap scored 0.296, well below a coin toss. The disagreeing pairs shared more words on average (0.498) than the agreeing pairs (0.261), because a disagreement often repeats the other sentence and changes one part of it. Embedding cosine scored 0.465, about a coin toss: the map put agreeing pairs (mean 0.770) and disagreeing pairs (mean 0.761) at nearly the same distance, and unrelated pairs far away (mean 0.240). The readers scored 0.997. The difference between the readers and word overlap is 0.702 (95% interval 0.609 to 0.795; DeLong test p = 1.8e-49).</p>
+<p style="max-width:70ch"><strong>In plain terms.</strong> Shared words pointed the wrong way more often than not. The map of meaning could tell that two texts were about the same subject and could not tell which side each took. Asking readers what the texts say separated agreement from disagreement almost perfectly. This is why TruVector uses the map only to check the subject, and takes the side from a reading.</p>
+</div></section>
+
+<section class="room" aria-labelledby="s-now"><div class="suite suite--flagship"><h2 class="suite-title" id="s-now">How the system performs with meaning-based scoring</h2>
+<p style="margin-top:24px;max-width:70ch">On this set of 300 statements, with these four readers:</p>
+<ul class="rail" style="margin-top:8px;max-width:70ch">
+  <li><span class="rail__name">Right decision on 282 of 300 (94.0%).</span> <span class="rail__note">108 of 120 supported statements were given Allow, 117 of 120 refuted statements were given Block, and 57 of 60 unsettled statements were sent to Review.</span></li>
+  <li><span class="rail__name">No refuted or unsettled statement was given Allow (0 of 180).</span> <span class="rail__note">The 95% interval runs from 0.0% to 2.1%, so the study does not show the rate is zero in general.</span></li>
+  <li><span class="rail__name">No supported statement was given Block (0 of 120).</span> <span class="rail__note">12 supported statements went to Review, each because the readers were mixed or unsure.</span></li>
+  <li><span class="rail__name">All 18 misses moved one step, never two.</span> <span class="rail__note">12 supported statements sent to Review, 3 unsettled statements given Block, 3 refuted statements sent to Review.</span></li>
+  <li><span class="rail__name">Every negation pair was told apart (50 of 50).</span> <span class="rail__note">Allow for the true sentence and Block for its negation in every pair.</span></li>
+  <li><span class="rail__name">Recent events are the weak spot (25 of 40).</span> <span class="rail__note">The other four groups were right on 59 of 60, 60 of 60, 38 of 40, and 100 of 100.</span></li>
+</ul>
+<p style="margin-top:28px;max-width:70ch">The test set carries statements only, with no instruction and no proposed action. Allow here means the readings met the rule for a supported statement. It is not permission to carry out an action; the action reading is a separate check that this study does not measure.</p>
+<p style="max-width:70ch"><strong>In plain terms.</strong> With meaning-based scoring, the mistakes that remained were cautious ones: sending a true statement to a person, or being stricter than the label on an unsettled one. It never allowed something false and never blocked something true. It is clearly weaker on recent events than on everything else.</p>
+</div></section>
+
+<section class="room room--alt" aria-labelledby="s-limits"><div class="suite suite--flagship"><h2 class="suite-title" id="s-limits">What the study does not show</h2>
+<ul class="rail" style="margin-top:32px;max-width:70ch">
+  <li><span class="rail__name">One test set, built by the same team.</span> <span class="rail__note">Every label is backed by a quote from a public source, but the choice of statements and of the five groups is the authors&rsquo;. The results describe this set. They are not an estimate for every statement an AI system may meet.</span></li>
+  <li><span class="rail__name">The mix of groups shapes the headline figure.</span> <span class="rail__note">One third of the set is negation pairs, where meaning-based scoring was right every time. A set with more recent events would give a lower overall figure. The by-group table shows each part separately.</span></li>
+  <li><span class="rail__name">Recent events.</span> <span class="rail__note">25 of 40 is far below the other groups, and the interval on the gain there is wide (5.8 to 41.5 points). This study does not show the method is dependable on recent events without retrieved material.</span></li>
+  <li><span class="rail__name">The readers are AI models.</span> <span class="rail__note">Four companies were used so that there were four origins to count, but models from different companies may have learned from the same sources. Their independence is assumed here, not measured.</span></li>
+  <li><span class="rail__name">One reading per reader.</span> <span class="rail__note">Each reader was asked once per statement. How much a reader&rsquo;s answer changes from one run to the next was not measured.</span></li>
+  <li><span class="rail__name">Unsettled is the hardest label.</span> <span class="rail__note">It rests on a source saying the matter is not resolved. A reader that knows more or less than that source can be marked wrong for a defensible answer.</span></li>
+  <li><span class="rail__name">The thresholds were not fitted to this set.</span> <span class="rail__note">They are the starting values set earlier. Whether refitted thresholds do better on fresh material is a separate measurement.</span></li>
+  <li><span class="rail__name">Word-overlap scoring was applied to structured replies.</span> <span class="rail__note">The readers answer in a fixed form, and the word-count method scored the text of those same replies. That is the fair same-replies comparison, but it is one way of using that method.</span></li>
+  <li><span class="rail__name">The reason pairs were written for the purpose.</span> <span class="rail__note">The agreeing pairs share few words and the disagreeing pairs avoid the word &ldquo;not&rdquo;, which is exactly the case word overlap cannot handle. On ordinary text its score could be higher.</span></li>
+  <li><span class="rail__name">One result was the pre-set test.</span> <span class="rail__note">Only the headline comparison of right decisions was named in advance as the single test. The group results are corrected among themselves; the other figures are supporting measurements reported with their intervals.</span></li>
+  <li><span class="rail__name">Statements, not actions.</span> <span class="rail__note">The study does not measure the action reading and does not estimate accuracy in use.</span></li>
+</ul>
+<h3 class="room-title" style="margin-top:56px">Research direction: a test set from outside</h3>
+<p style="margin-top:20px;max-width:70ch">The measurement that answers the first limitation is the same comparison, with the same frozen settings, on a public benchmark of labelled statements assembled by other researchers. It would be disproved as a general result if, on such a set, meaning-based scoring does not make more right decisions than word-overlap scoring, or if it gives Allow to refuted statements at a rate the interval above rules out.</p>
+<p style="max-width:70ch"><strong>In plain terms.</strong> This is a careful result on a test the team wrote itself. It shows the scoring change does what it was designed to do. It does not yet show how the method does on a test somebody else wrote, and it shows a clear weakness on recent events.</p>
+</div></section>
+
+<section class="room" aria-labelledby="s-repeat"><div class="suite suite--flagship"><h2 class="suite-title" id="s-repeat">How to repeat it</h2>
+<p style="margin-top:24px;max-width:70ch">The study keeps everything needed to recompute every number on this page: the dated plan with its five amendments, the 300 statements with their labels and sources, the 210 reason pairs and 50 negation pairs, every stored reader reply, the decision under both scorings for every statement, and the analysis code. The statistics code is tested against published worked examples.</p>
+<p style="max-width:70ch">Repeating it takes three steps. Score the stored replies under both methods. Score the reason pairs. Run the analysis, which writes the report. None of the three steps calls a reader, so the same files give the same numbers. Asking the readers again is a fourth, optional step, and may give slightly different replies because model providers revise their models.</p>
+<p style="max-width:70ch">The data and code are available on request: <a href="mailto:brandon@intellmeai.com?subject=Study%20TV-001%20data%20and%20code">brandon@intellmeai.com</a>. The full tables are in <a href="/working-papers/WP-04.pdf">WP-04</a>; the scoring methods are defined in <a href="/working-papers/WP-02.pdf">WP-02</a>.</p>
+<p style="max-width:70ch"><strong>In plain terms.</strong> Nothing here has to be taken on trust. The saved replies and the code that scores them are available, and running the code on the replies reproduces the tables.</p>
+<div class="actions" style="margin-top:36px"><a class="btn btn--primary" href="/working-papers/WP-04.pdf">Read WP-04 PDF</a><a class="btn btn--secondary" href="/publications">Read the research papers</a></div>
+</div></section>
+</Base>
+
+<style>
+  .tv-fig { margin: 48px 0 40px; padding: 28px 0 8px; border-top: 1px solid var(--bronze-edge); border-bottom: 1px solid var(--bronze-edge); }
+  .tv-fig figcaption { max-width: 70ch; color: var(--parchment); margin-bottom: 20px; }
+  .tv-sub { display: block; font-weight: 400; font-size: 13px; color: var(--stone-text); }
+  .tv-scroll { overflow-x: auto; }
+
+  /* view switch: three radio buttons, no script */
+  .tv-radio { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .tv-switch { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--bronze-edge-hot); margin-bottom: 24px; }
+  .tv-switch label { padding: 10px 16px; font-family: var(--label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--stone-text); cursor: pointer; }
+  .tv-switch label + label { border-left: 1px solid var(--bronze-edge-hot); }
+  #tv-both:checked ~ .tv-switch label[for='tv-both'],
+  #tv-words:checked ~ .tv-switch label[for='tv-words'],
+  #tv-meaning:checked ~ .tv-switch label[for='tv-meaning'] { background: var(--smoked-bronze); color: var(--ivory); }
+  #tv-both:focus-visible ~ .tv-switch label[for='tv-both'],
+  #tv-words:focus-visible ~ .tv-switch label[for='tv-words'],
+  #tv-meaning:focus-visible ~ .tv-switch label[for='tv-meaning'] { outline: 2px solid var(--champagne); outline-offset: 2px; }
+  #tv-words:checked ~ .tv-grids .tv-grid--meaning,
+  #tv-meaning:checked ~ .tv-grids .tv-grid--words { display: none; }
+
+  .tv-grids { display: grid; gap: 32px; overflow-x: auto; }
+  @media (min-width: 1024px) { .tv-grids { grid-template-columns: 1fr 1fr; } }
+  .tv-grid { border-collapse: collapse; width: 100%; max-width: 560px; }
+  .tv-grid caption { text-align: left; color: var(--ivory); font-weight: 500; padding-bottom: 12px; }
+  .tv-grid th { font-family: var(--label); font-weight: 400; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--stone-text); text-align: left; padding: 8px; }
+  .tv-grid td { position: relative; width: 26%; height: 96px; border: 1px solid var(--bronze-edge); text-align: center; vertical-align: middle; }
+  .tv-grid td.is-right { outline: 1px solid var(--champagne); outline-offset: -1px; }
+  .tv-grid { --cell: 84px; }
+  @media (max-width: 640px) { .tv-grid { --cell: 60px; } }
+  .tv-sq { position: absolute; left: 50%; top: 50%; width: calc(var(--s) * var(--cell)); height: calc(var(--s) * var(--cell)); transform: translate(-50%, -50%); background: var(--bronze-edge-hot); }
+  .tv-grid--meaning .tv-sq { background: var(--aged-brass); }
+  .tv-grid td.is-danger .tv-sq { background: var(--danger); }
+  .tv-n { position: relative; font-family: var(--label); font-size: 15px; color: var(--ivory); text-shadow: 0 0 6px var(--obsidian), 0 0 2px var(--obsidian); }
+
+  .tv-table { border-collapse: collapse; width: 100%; max-width: 980px; font-size: 15px; }
+  .tv-table caption { text-align: left; padding-bottom: 10px; }
+  .tv-table th, .tv-table td { text-align: left; vertical-align: top; padding: 12px 16px 12px 0; border-top: 1px solid var(--bronze-edge); }
+  .tv-table thead th { font-family: var(--label); font-weight: 400; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--stone-text); border-top: 0; }
+  .tv-table tbody th { color: var(--ivory); font-weight: 500; }
+  .tv-bar { display: block; height: 6px; width: var(--w); min-width: 2px; max-width: 100%; margin-bottom: 6px; background: var(--bronze-edge-hot); }
+  .tv-bar--meaning { background: var(--champagne); }
+
+  .tv-pips-row { margin-bottom: 20px; }
+  .tv-pips-label { margin: 0 0 8px; color: var(--parchment); }
+  .tv-pips { display: grid; grid-template-columns: repeat(25, 1fr); gap: 4px; max-width: 520px; }
+  .tv-pips span { aspect-ratio: 1; border: 1px solid var(--bronze-edge-hot); }
+  .tv-pips--on span { background: var(--champagne); border-color: var(--champagne); }
+  .tv-details { margin-top: 28px; }
+  .tv-details summary { cursor: pointer; color: var(--ivory); padding: 8px 0 16px; }
+  .tv-tag { font-family: var(--label); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 6px; border: 1px solid var(--bronze-edge-hot); color: var(--ivory); }
+  .tv-tag--allow { border-color: var(--champagne); }
+  .tv-tag--block { border-color: var(--danger); }
+
+  .tv-scale { list-style: none; margin: 0; padding: 0; max-width: 760px; }
+  .tv-scale li { margin-bottom: 18px; }
+  .tv-scale__name { margin: 0 0 8px; }
+  .tv-track { position: relative; height: 22px; border-left: 1px solid var(--bronze-edge-hot); border-right: 1px solid var(--bronze-edge-hot); background: linear-gradient(var(--bronze-edge), var(--bronze-edge)) center / 100% 1px no-repeat; }
+  .tv-coin { position: absolute; left: 50%; top: -6px; bottom: -6px; width: 0; border-left: 1px dashed var(--stone-text); }
+  .tv-band { position: absolute; top: 7px; height: 8px; min-width: 3px; background: var(--champagne-soft); border: 1px solid var(--aged-brass); }
+  .tv-mark { position: absolute; top: 2px; width: 4px; height: 18px; margin-left: -2px; background: var(--candle); }
+  .tv-axis { display: flex; justify-content: space-between; max-width: 760px; font-family: var(--label); font-size: 11px; letter-spacing: 0.06em; color: var(--stone-text); }
+</style>
