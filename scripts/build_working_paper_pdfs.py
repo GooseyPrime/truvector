@@ -36,6 +36,7 @@ PAPERS = {
     "WP-01-lane-vector-framework.md": "WP-01.pdf",
     "WP-02-source-independence.md": "WP-02.pdf",
     "WP-03-plain-language.md": "WP-03.pdf",
+    "WP-04-word-overlap-vs-meaning.md": "WP-04.pdf",
     "Validation-framework.md": "Validation-framework.pdf",
 }
 

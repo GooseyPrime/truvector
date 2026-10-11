@@ -17,6 +17,11 @@
     "Validation-framework.pdf": {
       "sha256": "7dddc914f063487d1a223c4f478bda28257da70174d17b0aea0fbacba32e5115",
       "bytes": 105300
+    },
+    "WP-04.pdf": {
+      "sha256": "fef8a503f8ed6a090cf88119ec2389b6a8cc6167af36a4ed929b3aa9cd917449",
+      "bytes": 36153,
+      "edition": "2026-10-11"
     }
   }
 }
