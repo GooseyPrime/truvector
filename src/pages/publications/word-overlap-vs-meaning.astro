@@ -124,7 +124,7 @@ const at = (x: number) => `${(x * 100).toFixed(1)}%`;
 
 <h3 class="room-title" style="margin-top:56px">By group</h3>
 <div class="tv-scroll">
-<table class="tv-table">
+<table class="tv-table tv-table--groups">
   <caption class="caption">Right decisions in each group. Bars share one scale from 0% to 100%.</caption>
   <thead><tr><th scope="col">Group</th><th scope="col">Statements</th><th scope="col">Word overlap right</th><th scope="col">Meaning right</th><th scope="col">Difference</th></tr></thead>
   <tbody>
@@ -287,7 +287,12 @@ const at = (x: number) => `${(x * 100).toFixed(1)}%`;
   .tv-table th, .tv-table td { text-align: left; vertical-align: top; padding: 12px 16px 12px 0; border-top: 1px solid var(--bronze-edge); }
   .tv-table thead th { font-family: var(--label); font-weight: 400; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--stone-text); border-top: 0; }
   .tv-table tbody th { color: var(--ivory); font-weight: 500; }
-  .tv-bar { display: block; height: 6px; width: var(--w); min-width: 2px; max-width: 100%; margin-bottom: 6px; background: var(--bronze-edge-hot); }
+  .tv-bar { display: block; height: 6px; width: var(--w); min-width: 2px; max-width: 100%; margin-bottom: 6px; background: var(--stone-text); }
+  @media (max-width: 640px) {
+    .tv-table--groups { font-size: 13px; }
+    .tv-table--groups th, .tv-table--groups td { padding-right: 10px; }
+    .tv-table--groups th:nth-child(2), .tv-table--groups td:nth-child(2) { display: none; }
+  }
   .tv-bar--meaning { background: var(--champagne); }
 
   .tv-pips-row { margin-bottom: 20px; }
