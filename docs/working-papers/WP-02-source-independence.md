@@ -1,6 +1,6 @@
 # TruVector: source dependence and decisions from model readings
 
-Working paper WP-02 | Michael Brandon Lane | InTellMe AI | 8 October 2026
+Working paper WP-02 | Michael Brandon Lane | InTellMe AI | 11 October 2026
 
 ## Abstract
 
@@ -163,7 +163,7 @@ The first comparison used 60 statements drafted from public records: 20 labeled 
 
 The old gate was right on 14 of 60: it allowed none of the true statements, held or blocked all of them, and blocked every unsettled one. The revised rule was right on 58 of 60. The two misses are unsettled statements that the rule blocked because the readers refuted them. Both state an unproven result as proven, and a reader that reads them as worded is right to refute them; the question is a labeling one, and the labeling rule for later sets is to label the statement as worded rather than its broader subject. The total is reported as 58 of 60 under the original labels, and any relabeling after seeing the predictions is recorded separately. Re-scoring the same 60 under the v2.1 rule left every decision unchanged, because the v2.1 changes concern action checks and the naming of the reasons guard, and these statements carry no actions.
 
-This set is easy by design. The harder groups (numbers, recent events, contested statements, negations) make up a 300-statement set whose labels are checked against their sources and then set independently by three stronger models of three families, by majority, with agreement reported. Its results are not cited until that labelling and the reading are complete.
+This set is easy by design. The harder groups (numbers, recent events, contested statements, negations) make up a 300-statement set in which every label is backed by an exact quote from a public source and no model labelled anything. On the same stored replies of that set, meaning-based scoring (the reading-based rule) made the right decision on 282 of 300 statements against 101 of 300 for word-overlap scoring (the word-count gate), exact McNemar p = 1.1e-50; neither gave Allow to any of the 180 refuted or unsettled statements, and a sentence and its exact negation received opposite decisions in 50 of 50 pairs against 0 of 50. The full tables are in WP-04; the set was built by the same team and carries no actions, so the result describes that set.
 
 Two angle measurements were made under five embedding models. The first used 30 reason pairs and 20 negation pairs; its opposite-point pairs reused most of their partner's words. The second, larger set removed that advantage: 210 reason pairs (70 same point, 70 opposite point, 70 unrelated, no two on the same subject), with at least 40 opposite-point pairs written as opposite meanings in different words and at least 20 same-point pairs sharing almost no words, and 50 negation pairs with the true sentence first in exactly half.
 
@@ -184,7 +184,7 @@ Every embedding model separates same-subject from unrelated pairs, and does so b
 
 Figure 5. Mean cosine by pair type under the five embedding models on the larger set (210 reason pairs, 50 negation pairs). The same-point and opposite-point bars are close for every model while the unrelated bar is far below; a sentence and its exact negation are as close as, or closer than, two sentences making the same point.
 
-**In plain terms.** On the first sixty statements the old gate got 14 right and the new rule got 58. The sixty were easy, so the number to watch is the next one, on three hundred harder statements with labels set before anyone sees the answers. The larger angle test settled the other question: the map of meaning reliably tells what a sentence is about, and still cannot tell which side it takes.
+**In plain terms.** On the first sixty statements the old gate got 14 right and the new rule got 58. The sixty were easy; on three hundred harder statements, each with a label backed by a quote from a public source, the old gate got 101 right and the new rule got 282 (WP-04). The larger angle test settled the other question: the map of meaning reliably tells what a sentence is about, and still cannot tell which side it takes.
 
 ## 11 Study configuration and reproducibility
 
@@ -198,7 +198,7 @@ The record files for §10 are the 60 statements with their labels, the 239 reade
 
 R1, subject guard. Compare at least three embedding models from two providers on same-point, opposite-point, and unrelated pairs, controlling word overlap. Disproved as a basis for the guard if the best model separates same-subject from unrelated no better than word overlap on held-out pairs. Answered on the 210-pair set: every model separates same-subject from unrelated pairs (0.997 to 1.000) better than word overlap (0.977), so the guard stands; none separates a point from its opposite (0.47 to 0.69), so direction is not taken from the angle.
 
-R2, negation. Compare reader classifications with a cosine-threshold baseline on the same negation pairs. Disproved, as a reason to rely on reading, if the readers are no more accurate than a threshold on the angle. The angle half is answered: on 50 balanced pairs every model places a sentence and its negation above 0.6, so no threshold on the angle can tell which is true. The reader half runs on the same pairs inside the 300-statement set. The set includes double negation, modal verbs, quantifiers, changed entities, numerical conditions, and instruction reversals, and is sized and frozen before evaluation. Specialized entailment and contradiction methods are additional baselines.
+R2, negation. Compare reader classifications with a cosine-threshold baseline on the same negation pairs. Disproved, as a reason to rely on reading, if the readers are no more accurate than a threshold on the angle. The angle half is answered: on 50 balanced pairs every model places a sentence and its negation above 0.6, so no threshold on the angle can tell which is true. The reader half is reported in WP-04: on the 50 negation pairs of the 300-statement set, scoring by the readers' stances gave Allow to the true sentence and Block to the false one in all 50, against 0 of 50 opposite decisions under word overlap. That set holds 50 pairs, each a sentence and its exact negation, sized and frozen before evaluation; a harder set with double negation, modal verbs, quantifiers, changed entities, numerical conditions, and instruction reversals is a later measurement. Specialized entailment and contradiction methods are additional baselines.
 
 R3, confidence correction. Fit each reader's correction on development data; evaluate Brier score and reliability on held-out items. Disproved if the correction does not improve the prespecified score over label-only weights, in which case confidence is treated as noise and the rule uses labels alone. A scalar confidence in the chosen label supports a binary correctness Brier score; a three-class score would need a full probability vector, which the reply schema does not provide.
 
@@ -242,4 +242,4 @@ First comparison: under the old gate the true group's 15 blocks and 5 holds are 
 
 ## Suggested citation
 
-Lane, M. B. (2026). TruVector: source dependence and decisions from model readings (Working paper WP-02, revised 8 October 2026). InTellMe AI.
+Lane, M. B. (2026). TruVector: source dependence and decisions from model readings (Working paper WP-02, revised 11 October 2026). InTellMe AI.

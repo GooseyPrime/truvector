@@ -1,6 +1,6 @@
 # Lane Vector and TruVector validation framework
 
-Companion research methods | Michael Brandon Lane | InTellMe AI | 8 October 2026
+Companion research methods | Michael Brandon Lane | InTellMe AI | 11 October 2026
 
 ## Purpose
 
@@ -75,7 +75,9 @@ Graphical minimum widths are display properties and are never substituted into c
 
 ## Planned measurements and their records
 
-The next measurements are, in order: the 300-statement set with independent labels and reported labeler agreement, including the readers' accuracy on its 50 negation pairs; the confidence correction, the reader-dependence estimate, and the basis-sensitivity count on that set; the planted-copy test; and the frozen threshold refit with its held-out evaluation. Workflow tests then establish operating criteria for retrieval, reader aggregation, and action assessment in a particular application.
+Reported in WP-04 (Study TV-001): the 300-statement comparison, 282 of 300 right decisions for meaning-based scoring against 101 of 300 for word-overlap scoring on the same stored replies, held in the study record (the dated plan and its amendments, the 300 statements with labels and sources, the reason pairs and negation pairs, every stored reply, the per-statement decisions under both scorings, the per-pair scores, and the analysis code); the set was built by the same team, so the result describes that set.
+
+The next measurements are, in order: the same comparison, with the same frozen settings, on a public benchmark of labelled statements assembled by other researchers, disproved as a general result if meaning-based scoring does not make more right decisions than word-overlap scoring on such a set; the confidence correction, the reader-dependence estimate, and the basis-sensitivity count on the 300-statement set; the planted-copy test; and the frozen threshold refit with its held-out evaluation. Workflow tests then establish operating criteria for retrieval, reader aggregation, and action assessment in a particular application.
 
 Each completed measurement produces a versioned record with its configuration, its acceptance criterion as written beforehand, the result, its uncertainty, and the policy decision that followed. That record, not a summary, is the unit of progress.
 

@@ -1,6 +1,6 @@
 # Lane Vector and TruVector: the research in plain language
 
-Working paper WP-03 | Michael Brandon Lane | InTellMe AI | 8 October 2026
+Working paper WP-03 | Michael Brandon Lane | InTellMe AI | 11 October 2026
 
 This overview is written for a reader with no background in statistics or machine learning. It says what the research is for, how the pieces fit, what has been measured so far, and what is measured next. The formulas, the worked calculations, and the exact study configuration are in WP-01 and WP-02; the measurement plan is in the companion validation framework.
 
@@ -46,11 +46,15 @@ Figure 1. Decisions on the first 60 statements under both scorings. The set was 
 
 A second measurement tested the map of meaning directly, first on 30 pairs of reasons and 20 sentences paired with their exact negations, then on a larger set of 210 reason pairs and 50 negation pairs written so that shared words could not give the answer away. Under all five embedding models, both times, the map told related from unrelated almost perfectly, and a little better than simply counting shared words. No model reliably told a point from its opposite, and every model placed a sentence close to its own negation. That result changed the design: the angle between texts became a guard, and direction became a reading.
 
-Those are the only numbers this paper reports. The reading of the 300 harder statements is cited once its labels and readings are complete.
+A third measurement, Study TV-001, scored the same stored replies both ways on 300 harder statements, each with a label backed by a quote from a public source: meaning-based scoring made the right decision on 282 of 300 against 101 of 300 for word overlap (exact McNemar p = 1.1e-50), neither gave Allow to any of the 180 refuted or unsettled statements, and a sentence and its exact negation received opposite decisions in 50 of 50 pairs against 0 of 50. The set was built by the same team, so the result describes that set; the full tables are in WP-04.
+
+Those are the only numbers this paper reports.
 
 ## Planned measurements
 
 Each planned measurement is written down with the result that would prove it wrong, so that an outcome either way is informative.
+
+An outside benchmark. The same comparison, with the same frozen settings, is run on a public set of labelled statements assembled by other researchers. Wrong, as a general result, if meaning-based scoring does not make more right decisions than word-overlap scoring on such a set.
 
 Negation. Readers and a plain angle threshold are compared on the same negation pairs. Wrong if the readers are no more accurate than the threshold.
 
@@ -82,4 +86,4 @@ Lane Vector supplies the research framework. TruVector supplies the checkpoint p
 
 ## Suggested citation
 
-Lane, M. B. (2026). Lane Vector and TruVector: the research in plain language (Working paper WP-03, revised 8 October 2026). InTellMe AI.
+Lane, M. B. (2026). Lane Vector and TruVector: the research in plain language (Working paper WP-03, revised 11 October 2026). InTellMe AI.

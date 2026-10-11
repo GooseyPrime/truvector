@@ -1,27 +1,26 @@
 {
-  "edition": "2026-10-08",
+  "edition": "2026-10-11",
   "author": "Michael Brandon Lane",
   "files": {
     "WP-01.pdf": {
-      "sha256": "fa46eec6dcabb3875eb35d2f5b5415de2c2c4d0b3fe44aa6ea97587f682f9a0d",
-      "bytes": 248608
+      "sha256": "226375d6fcfaf7b877fbf6c140c4c7b72b48ae902ce9f02e5bc8b27c3bc113df",
+      "bytes": 248412
     },
     "WP-02.pdf": {
-      "sha256": "b3724c67e2a36e5dcee92f81a501b38dc8fee937a04cebbbedf4a08fa3cb60f1",
-      "bytes": 469484
+      "sha256": "4282ed268d8b4667759d76baaba2db1d6b02f40ed50e0344f5c43922ac4067f1",
+      "bytes": 470385
     },
     "WP-03.pdf": {
-      "sha256": "0c047228c234acf8c67e7b66aea96b002e7e8565f2de314351c6b1c8f64475a9",
-      "bytes": 144204
-    },
-    "Validation-framework.pdf": {
-      "sha256": "7dddc914f063487d1a223c4f478bda28257da70174d17b0aea0fbacba32e5115",
-      "bytes": 105300
+      "sha256": "bff163d97b43ddd861fea3af134a3494a2edc580862f996c9a1cc9b96d3be3d7",
+      "bytes": 145462
     },
     "WP-04.pdf": {
-      "sha256": "fef8a503f8ed6a090cf88119ec2389b6a8cc6167af36a4ed929b3aa9cd917449",
-      "bytes": 36153,
-      "edition": "2026-10-11"
+      "sha256": "b0a74510c4da4ed8a2c5e83643a5cc63f19e72419c5468d3b7b93dea5d41794f",
+      "bytes": 147414
+    },
+    "Validation-framework.pdf": {
+      "sha256": "54ee544e79d74b5d188c2acf6ff0a28eeecf827154e9c041cf99259f2a4e1a6b",
+      "bytes": 106113
     }
   }
 }

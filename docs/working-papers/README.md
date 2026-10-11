@@ -1,6 +1,6 @@
 # Lane Vector and TruVector working papers
 
-Edition: 8 October 2026. Author: Michael Brandon Lane, InTellMe AI.
+Edition: 11 October 2026. Author: Michael Brandon Lane, InTellMe AI.
 
 The collection comprises WP-01 (signal direction, rate, and source structure), WP-02 (source dependence and decisions from model readings), WP-03 (the research in plain language), and the companion validation framework. Both research websites publish identical PDFs.
 
@@ -14,7 +14,7 @@ The Markdown files in this folder are the authoring sources and the searchable t
 
 ## WP-04
 
-WP-04 (counting shared words against reading meaning, Study TV-001) was added on 11 October 2026. Its published PDF is rendered by `scripts/build_wp04_pdf.py`, which draws the same page design with the standard PDF fonts and updates only the WP-04 entry in `manifest.json`, so the four earlier PDFs and their digests are unchanged. WP-04 is also listed in `scripts/build_working_paper_pdfs.py` and is rendered with the rest of the collection the next time the whole collection is rebuilt. Every number in WP-04 is copied from the study report of Study TV-001.
+WP-04 (counting shared words against reading meaning, Study TV-001) was added on 11 October 2026. Since the edition of 11 October 2026 its PDF is rendered with the rest of the collection by `scripts/build_working_paper_pdfs.py`; `scripts/build_wp04_pdf.py` (standard PDF fonts, WP-04 only) remains as a fallback renderer. Every number in WP-04 is copied from the study report of Study TV-001.
 
 ## Editing rules
 
