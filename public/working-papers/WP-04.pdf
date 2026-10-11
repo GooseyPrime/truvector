@@ -1,0 +1,1550 @@
+%PDF-1.4
+%---- ReportLab Generated PDF document (opensource)
+1 0 obj
+<<
+/F1 2 0 R /F2 3 0 R /F3 4 0 R /F4 5 0 R
+>>
+endobj
+2 0 obj
+<<
+/BaseFont /Helvetica /Encoding /WinAnsiEncoding /Name /F1 /Subtype /Type1 /Type /Font
+>>
+endobj
+3 0 obj
+<<
+/BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding /Name /F2 /Subtype /Type1 /Type /Font
+>>
+endobj
+4 0 obj
+<<
+/BaseFont /Times-Roman /Encoding /WinAnsiEncoding /Name /F3 /Subtype /Type1 /Type /Font
+>>
+endobj
+5 0 obj
+<<
+/BaseFont /Times-Bold /Encoding /WinAnsiEncoding /Name /F4 /Subtype /Type1 /Type /Font
+>>
+endobj
+6 0 obj
+<<
+/Contents 14 0 R /MediaBox [ 0 0 612 792 ] /Parent 13 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+7 0 obj
+<<
+/Contents 15 0 R /MediaBox [ 0 0 612 792 ] /Parent 13 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+8 0 obj
+<<
+/Contents 16 0 R /MediaBox [ 0 0 612 792 ] /Parent 13 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+9 0 obj
+<<
+/Contents 17 0 R /MediaBox [ 0 0 612 792 ] /Parent 13 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+10 0 obj
+<<
+/Contents 18 0 R /MediaBox [ 0 0 612 792 ] /Parent 13 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+11 0 obj
+<<
+/PageMode /UseNone /Pages 13 0 R /Type /Catalog
+>>
+endobj
+12 0 obj
+<<
+/Author (Michael Brandon Lane) /CreationDate (D:20000101000000+00'00') /Creator (scripts/build_wp04_pdf.py) /Keywords () /ModDate (D:20000101000000+00'00') /Producer (ReportLab PDF Library - \(opensource\)) 
+  /Subject (Study TV-001) /Title (TruVector: counting shared words against reading meaning \(WP-04\)) /Trapped /False
+>>
+endobj
+13 0 obj
+<<
+/Count 5 /Kids [ 6 0 R 7 0 R 8 0 R 9 0 R 10 0 R ] /Type /Pages
+>>
+endobj
+14 0 obj
+<<
+/Length 3805
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 62.69291 711.6378 cm
+q
+.333333 .333333 .333333 rg
+BT 1 0 0 1 0 4 Tm /F1 8 Tf 12 TL 296.1422 0 Td (InTellMe AI | Lane Vector and TruVector | 2026-10-11) Tj T* -296.1422 0 Td ET
+Q
+Q
+q
+1 0 0 1 62.69291 635.2913 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 28 Tm /F2 20 Tf 24 TL 3.257087 0 Td (TruVector: counting shared words against reading) Tj T* 198.93 0 Td (meaning) Tj T* -202.1871 0 Td ET
+Q
+Q
+q
+1 0 0 1 62.69291 606.2835 cm
+q
+.2 .2 .2 rg
+BT 1 0 0 1 0 2.5 Tm /F1 9.5 Tf 12 TL 78.03084 0 Td (Working paper WP-04 | Michael Brandon Lane | InTellMe AI | 11 October 2026) Tj T* -78.03084 0 Td ET
+Q
+Q
+q
+1 0 0 1 62.69291 565.7717 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2.5 Tm /F2 12.5 Tf 15 TL (Abstract) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 454.385 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 93.8 Tm /F3 10.5 Tf 14.9 TL 1.058775 Tw (Study TV-001 compares two ways of turning the replies of several language models \(readers\) into a decision of) Tj T* 0 Tw .011863 Tw (Allow, Review, or Block. Word-overlap scoring is the earlier word-count gate of WP-02 section 4: it measures how) Tj T* 0 Tw .253363 Tw (many words the replies share and how often nine marker words appear. Meaning-based scoring is the decision rule) Tj T* 0 Tw .481954 Tw (of WP-02 section 7: it uses the stance each reader returned, counts readers by origin, and applies fixed thresholds.) Tj T* 0 Tw 1.406537 Tw (Four readers from four companies read 300 statements whose labels are each backed by a quote from a public) Tj T* 0 Tw .488088 Tw (source. Every reply was stored once and scored both ways, and the analysis was fixed in a dated document before) Tj T* 0 Tw (any reply was collected.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 372.515 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 64 Tm /F3 10.5 Tf 14.9 TL 1.014042 Tw (Word-overlap scoring made the right decision on 101 of 300 statements \(33.7%, 95% interval 28.6% to 39.2%\).) Tj T* 0 Tw .560334 Tw (Meaning-based scoring made the right decision on 282 of 300 \(94.0%, 95% interval 90.7% to 96.2%\). The paired) Tj T* 0 Tw 1.030363 Tw (difference is +60.3 points \(95% interval 54.1 to 65.7 points\); exact McNemar p = 1.1e-50. Neither method gave) Tj T* 0 Tw -0.017083 Tw (Allow to a refuted or unsettled statement \(0 of 180 each\). The set was built by the same team and carries no actions,) Tj T* 0 Tw (so the result describes this set and is not an estimate of accuracy in use.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 335.3449 cm
+q
+BT 1 0 0 1 0 19.3 Tm 1.268956 Tw 14.9 TL /F4 10.5 Tf 0 0 0 rg (In plain terms.) Tj /F3 10.5 Tf ( The same saved replies gave the right decision about one time in three when scored by shared) Tj T* 0 Tw (words, and about nineteen times in twenty when scored by what the readers concluded.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 300.5024 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2.5 Tm /F2 12.5 Tf 15 TL (1 The problem) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 218.9157 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 64 Tm /F3 10.5 Tf 14.9 TL .564484 Tw (A method that counts shared words fails in two ways. Readers who agree in their own words share few words, so) Tj T* 0 Tw 1.580386 Tw (agreement looks like disagreement. A sentence and its exact negation share nearly all their words, so opposite) Tj T* 0 Tw .758105 Tw (statements look alike. WP-02 reported a first comparison on 60 statements: 14 right decisions for the word-count) Tj T* 0 Tw .439103 Tw (gate and 58 for the replacement. That set was small and easy by design. This study asks the same question on 300) Tj T* 0 Tw (harder statements.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 181.7457 cm
+q
+BT 1 0 0 1 0 19.3 Tm .731799 Tw 14.9 TL /F4 10.5 Tf 0 0 0 rg (In plain terms.) Tj /F3 10.5 Tf ( Two people can agree without using the same words, and two sentences can use the same words) Tj T* 0 Tw (and say opposite things. Counting words sees neither.) Tj T* ET
+Q
+Q
+ 
+endstream
+endobj
+15 0 obj
+<<
+/Length 5902
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 62.69291 708.6378 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2.5 Tm /F2 12.5 Tf 15 TL (2 What was done) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 627.0512 cm
+q
+BT 1 0 0 1 0 64 Tm .904545 Tw 14.9 TL /F4 10.5 Tf 0 0 0 rg (The plan came first.) Tj /F3 10.5 Tf ( The question, hypotheses, test set, reader panel, prompts, scoring settings, endpoints, tests,) Tj T* 0 Tw .76601 Tw (and exclusion rules were committed on 10 October 2026 before any reply of the study existed. Five amendments) Tj T* 0 Tw 1.273378 Tw (\(A1 to A5\) are dated and were each entered before any test-set data was collected: the Claude reader \(A1\), the) Tj T* 0 Tw .469103 Tw (embedding model \(A2\), a test fixture for the statistics code \(A3\), and a change of host for one reader after its first) Tj T* 0 Tw (host did not answer \(A4, A5\).) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 545.1811 cm
+q
+BT 1 0 0 1 0 64 Tm 1.845657 Tw 14.9 TL /F4 10.5 Tf 0 0 0 rg (Test set.) Tj /F3 10.5 Tf ( 300 statements in five groups: plain 60, numbers 60, recent 40, contested 40, negation 100. Labels:) Tj T* 0 Tw 1.194204 Tw (supported 120, refuted 120, unsettled 60. Each label is backed by an exact quote from the public source named) Tj T* 0 Tw .285954 Tw (beside the statement. No model labelled anything, and no label changed after the plan was committed. The set also) Tj T* 0 Tw .871037 Tw (holds 210 reason pairs \(70 agreeing, 70 disagreeing, 70 unrelated\) and 50 negation pairs, each a sentence and its) Tj T* 0 Tw (exact negation with a record of which one is true.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 478.211 cm
+q
+BT 1 0 0 1 0 49.1 Tm .958917 Tw 14.9 TL /F4 10.5 Tf 0 0 0 rg (Readers.) Tj /F3 10.5 Tf ( Four readers from four companies, so that origin counting has four origins to count: Anthropic Claude) Tj T* 0 Tw .611598 Tw (Opus 5.5, DeepSeek V4.1 Flash, Moonshot Kimi K3, and Meta Muse Glimmer 30B. Each reader was asked once) Tj T* 0 Tw -0.085397 Tw (per statement and returned a stance \(supports, refutes, or uncertain\), a confidence from 0 to 1, and a reason of one to) Tj T* 0 Tw (three sentences. Quorum is three usable replies of four; below quorum the decision is Block under both methods.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 426.1409 cm
+q
+BT 1 0 0 1 0 34.2 Tm 1.694704 Tw 14.9 TL /F4 10.5 Tf 0 0 0 rg (Two scorings of one set of replies.) Tj /F3 10.5 Tf ( Both methods were applied to the same stored replies. The thresholds of) Tj T* 0 Tw .225588 Tw (meaning-based scoring are the starting values set before the study and were not refitted. A decision is right when it) Tj T* 0 Tw (matches the label: Allow for supported, Block for refuted, Review for unsettled.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 388.9709 cm
+q
+BT 1 0 0 1 0 19.3 Tm .042667 Tw 14.9 TL /F4 10.5 Tf 0 0 0 rg (In plain terms.) Tj /F3 10.5 Tf ( The rules were set before the game, the answers were already known from public sources, and both) Tj T* 0 Tw (scoring methods were handed the same saved replies. The only thing that differs is the scoring.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 354.1283 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2.5 Tm /F2 12.5 Tf 15 TL (3 Results: right decisions) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 250.9394 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5.102362 79.71654 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 9 Tf 11 TL (Quantity) Tj T* ET
+Q
+Q
+q
+1 0 0 1 167.3071 79.71654 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 9 Tf 11 TL (Word-overlap scoring) Tj T* ET
+Q
+Q
+q
+1 0 0 1 329.5118 79.71654 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 9 Tf 11 TL (Meaning-based scoring) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5.102362 60.77953 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (Right decisions of 300) Tj T* ET
+Q
+Q
+q
+1 0 0 1 167.3071 60.77953 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (101 \(33.7%\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 329.5118 60.77953 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (282 \(94.0%\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5.102362 41.84252 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (95% interval \(Wilson\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 167.3071 41.84252 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (28.6% to 39.2%) Tj T* ET
+Q
+Q
+q
+1 0 0 1 329.5118 41.84252 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (90.7% to 96.2%) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5.102362 22.90551 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (Cohen's kappa \(95% interval\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 167.3071 22.90551 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (-0.044 \(-0.085 to -0.003\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 329.5118 22.90551 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (0.907 \(0.866 to 0.948\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5.102362 3.968504 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (Macro-F1) Tj T* ET
+Q
+Q
+q
+1 0 0 1 167.3071 3.968504 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (0.192) Tj T* ET
+Q
+Q
+q
+1 0 0 1 329.5118 3.968504 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (0.929) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.6 .6 .6 RG
+.5 w
+n 0 94.68504 m 486.6142 94.68504 l S
+n 0 75.74803 m 486.6142 75.74803 l S
+n 0 56.81102 m 486.6142 56.81102 l S
+n 0 37.87402 m 486.6142 37.87402 l S
+n 0 18.93701 m 486.6142 18.93701 l S
+n 0 0 m 486.6142 0 l S
+.2 .2 .2 RG
+1 w
+n 0 75.74803 m 486.6142 75.74803 l S
+Q
+Q
+Q
+q
+1 0 0 1 62.69291 180.0008 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 49.1 Tm /F3 10.5 Tf 14.9 TL 1.974136 Tw (The paired difference is +60.3 points \(Newcombe 95% interval 54.1 to 65.7 points\). On 184 statements only) Tj T* 0 Tw .236954 Tw (meaning-based scoring was right; on 3 only word-overlap scoring was right; both were right on 98 and both wrong) Tj T* 0 Tw .476603 Tw (on 15. Exact McNemar test, two-sided: p = 1.1e-50. This is the one test named in advance, and it meets the stated) Tj T* 0 Tw (condition \(p at or below 0.05, difference in favour of meaning-based scoring\).) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 157.7307 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.4 Tm /F3 10.5 Tf 14.9 TL (Decisions under word-overlap scoring \(rows: what the label calls for; columns: decision given\):) Tj T* ET
+Q
+Q
+ 
+endstream
+endobj
+16 0 obj
+<<
+/Length 11267
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 62.69291 647.8898 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5.102362 60.77953 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 9 Tf 11 TL (Label calls for) Tj T* ET
+Q
+Q
+q
+1 0 0 1 102.4252 60.77953 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 9 Tf 11 TL (Allow) Tj T* ET
+Q
+Q
+q
+1 0 0 1 199.748 60.77953 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 9 Tf 11 TL (Review) Tj T* ET
+Q
+Q
+q
+1 0 0 1 297.0709 60.77953 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 9 Tf 11 TL (Block) Tj T* ET
+Q
+Q
+q
+1 0 0 1 394.3937 60.77953 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 9 Tf 11 TL (Total) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5.102362 41.84252 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (Allow \(supported\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 102.4252 41.84252 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (1) Tj T* ET
+Q
+Q
+q
+1 0 0 1 199.748 41.84252 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (31) Tj T* ET
+Q
+Q
+q
+1 0 0 1 297.0709 41.84252 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (88) Tj T* ET
+Q
+Q
+q
+1 0 0 1 394.3937 41.84252 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (120) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5.102362 22.90551 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (Review \(unsettled\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 102.4252 22.90551 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (0) Tj T* ET
+Q
+Q
+q
+1 0 0 1 199.748 22.90551 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (1) Tj T* ET
+Q
+Q
+q
+1 0 0 1 297.0709 22.90551 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (59) Tj T* ET
+Q
+Q
+q
+1 0 0 1 394.3937 22.90551 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (60) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5.102362 3.968504 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (Block \(refuted\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 102.4252 3.968504 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (0) Tj T* ET
+Q
+Q
+q
+1 0 0 1 199.748 3.968504 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (21) Tj T* ET
+Q
+Q
+q
+1 0 0 1 297.0709 3.968504 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (99) Tj T* ET
+Q
+Q
+q
+1 0 0 1 394.3937 3.968504 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (120) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.6 .6 .6 RG
+.5 w
+n 0 75.74803 m 486.6142 75.74803 l S
+n 0 56.81102 m 486.6142 56.81102 l S
+n 0 37.87402 m 486.6142 37.87402 l S
+n 0 18.93701 m 486.6142 18.93701 l S
+n 0 0 m 486.6142 0 l S
+.2 .2 .2 RG
+1 w
+n 0 56.81102 m 486.6142 56.81102 l S
+Q
+Q
+Q
+q
+1 0 0 1 62.69291 621.6512 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.4 Tm /F3 10.5 Tf 14.9 TL (Decisions under meaning-based scoring:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 537.3992 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5.102362 60.77953 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 9 Tf 11 TL (Label calls for) Tj T* ET
+Q
+Q
+q
+1 0 0 1 102.4252 60.77953 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 9 Tf 11 TL (Allow) Tj T* ET
+Q
+Q
+q
+1 0 0 1 199.748 60.77953 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 9 Tf 11 TL (Review) Tj T* ET
+Q
+Q
+q
+1 0 0 1 297.0709 60.77953 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 9 Tf 11 TL (Block) Tj T* ET
+Q
+Q
+q
+1 0 0 1 394.3937 60.77953 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 9 Tf 11 TL (Total) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5.102362 41.84252 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (Allow \(supported\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 102.4252 41.84252 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (108) Tj T* ET
+Q
+Q
+q
+1 0 0 1 199.748 41.84252 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (12) Tj T* ET
+Q
+Q
+q
+1 0 0 1 297.0709 41.84252 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (0) Tj T* ET
+Q
+Q
+q
+1 0 0 1 394.3937 41.84252 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (120) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5.102362 22.90551 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (Review \(unsettled\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 102.4252 22.90551 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (0) Tj T* ET
+Q
+Q
+q
+1 0 0 1 199.748 22.90551 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (57) Tj T* ET
+Q
+Q
+q
+1 0 0 1 297.0709 22.90551 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (3) Tj T* ET
+Q
+Q
+q
+1 0 0 1 394.3937 22.90551 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (60) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5.102362 3.968504 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (Block \(refuted\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 102.4252 3.968504 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (0) Tj T* ET
+Q
+Q
+q
+1 0 0 1 199.748 3.968504 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (3) Tj T* ET
+Q
+Q
+q
+1 0 0 1 297.0709 3.968504 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (117) Tj T* ET
+Q
+Q
+q
+1 0 0 1 394.3937 3.968504 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (120) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.6 .6 .6 RG
+.5 w
+n 0 75.74803 m 486.6142 75.74803 l S
+n 0 56.81102 m 486.6142 56.81102 l S
+n 0 37.87402 m 486.6142 37.87402 l S
+n 0 18.93701 m 486.6142 18.93701 l S
+n 0 0 m 486.6142 0 l S
+.2 .2 .2 RG
+1 w
+n 0 56.81102 m 486.6142 56.81102 l S
+Q
+Q
+Q
+q
+1 0 0 1 62.69291 481.3606 cm
+q
+BT 1 0 0 1 0 34.2 Tm 1.208787 Tw 14.9 TL /F4 10.5 Tf 0 0 0 rg (In plain terms.) Tj /F3 10.5 Tf ( Word-overlap scoring gave Allow to one statement in 300 and blocked most of what was true.) Tj T* 0 Tw -0.101897 Tw (Meaning-based scoring put 282 of 300 where the label said they belong, and every one of its 18 misses was one step) Tj T* 0 Tw (away, never two.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 446.5181 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2.5 Tm /F2 12.5 Tf 15 TL (4 Results: error types and groups) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 370.2031 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5.102362 52.84252 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 9 Tf 11 TL (Error) Tj T* ET
+Q
+Q
+q
+1 0 0 1 167.3071 52.84252 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 9 Tf 11 TL (Word-overlap scoring) Tj T* ET
+Q
+Q
+q
+1 0 0 1 329.5118 52.84252 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 9 Tf 11 TL (Meaning-based scoring) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5.102362 22.90551 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 13 Tm /F1 9 Tf 11 TL (Refuted or unsettled statement given) Tj T* (Allow) Tj T* ET
+Q
+Q
+q
+1 0 0 1 167.3071 33.90551 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (0 of 180 \(0.0%; 0.0% to 2.1%\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 329.5118 33.90551 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (0 of 180 \(0.0%; 0.0% to 2.1%\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5.102362 3.968504 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (Supported statement given Block) Tj T* ET
+Q
+Q
+q
+1 0 0 1 167.3071 3.968504 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (88 of 120 \(73.3%; 64.8% to 80.4%\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 329.5118 3.968504 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (0 of 120 \(0.0%; 0.0% to 3.1%\)) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.6 .6 .6 RG
+.5 w
+n 0 67.81102 m 486.6142 67.81102 l S
+n 0 48.87402 m 486.6142 48.87402 l S
+n 0 18.93701 m 486.6142 18.93701 l S
+n 0 0 m 486.6142 0 l S
+.2 .2 .2 RG
+1 w
+n 0 48.87402 m 486.6142 48.87402 l S
+Q
+Q
+Q
+q
+1 0 0 1 62.69291 179.2425 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5.102362 164.6535 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 9 Tf 11 TL (Group) Tj T* ET
+Q
+Q
+q
+1 0 0 1 86.20472 164.6535 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 9 Tf 11 TL (n) Tj T* ET
+Q
+Q
+q
+1 0 0 1 167.3071 153.6535 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 13 Tm /F2 9 Tf 11 TL (Word overlap) Tj T* (right) Tj T* ET
+Q
+Q
+q
+1 0 0 1 248.4094 164.6535 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 9 Tf 11 TL (Meaning right) Tj T* ET
+Q
+Q
+q
+1 0 0 1 329.5118 153.6535 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 13 Tm /F2 9 Tf 11 TL (Difference \(95%) Tj T* (interval\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 410.6142 164.6535 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 9 Tf 11 TL (Holm-adjusted p) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5.102362 134.7165 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (Plain) Tj T* ET
+Q
+Q
+q
+1 0 0 1 86.20472 134.7165 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (60) Tj T* ET
+Q
+Q
+q
+1 0 0 1 167.3071 134.7165 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (13 \(21.7%\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 248.4094 134.7165 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (59 \(98.3%\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 329.5118 123.7165 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 13 Tm /F1 9 Tf 11 TL (+76.7 points) Tj T* (\(62.7 to 85.3\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 410.6142 134.7165 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (1.1e-13) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5.102362 104.7795 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (Numbers) Tj T* ET
+Q
+Q
+q
+1 0 0 1 86.20472 104.7795 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (60) Tj T* ET
+Q
+Q
+q
+1 0 0 1 167.3071 104.7795 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (24 \(40.0%\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 248.4094 104.7795 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (60 \(100.0%\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 329.5118 93.77953 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 13 Tm /F1 9 Tf 11 TL (+60.0 points) Tj T* (\(46.0 to 71.4\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 410.6142 104.7795 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (5.8e-11) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5.102362 74.84252 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (Recent) Tj T* ET
+Q
+Q
+q
+1 0 0 1 86.20472 74.84252 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (40) Tj T* ET
+Q
+Q
+q
+1 0 0 1 167.3071 74.84252 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (15 \(37.5%\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 248.4094 74.84252 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (25 \(62.5%\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 329.5118 63.84252 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 13 Tm /F1 9 Tf 11 TL (+25.0 points \(5.8) Tj T* (to 41.5\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 410.6142 74.84252 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (0.0213) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5.102362 44.90551 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (Contested) Tj T* ET
+Q
+Q
+q
+1 0 0 1 86.20472 44.90551 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (40) Tj T* ET
+Q
+Q
+q
+1 0 0 1 167.3071 44.90551 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (1 \(2.5%\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 248.4094 44.90551 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (38 \(95.0%\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 329.5118 33.90551 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 13 Tm /F1 9 Tf 11 TL (+92.5 points) Tj T* (\(77.0 to 96.7\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 410.6142 44.90551 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (4.4e-11) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5.102362 14.9685 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (Negation) Tj T* ET
+Q
+Q
+q
+1 0 0 1 86.20472 14.9685 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (100) Tj T* ET
+Q
+Q
+q
+1 0 0 1 167.3071 14.9685 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (48 \(48.0%\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 248.4094 14.9685 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (100 \(100.0%\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 329.5118 3.968504 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 13 Tm /F1 9 Tf 11 TL (+52.0 points) Tj T* (\(41.6 to 61.5\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 410.6142 14.9685 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (2.2e-15) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.6 .6 .6 RG
+.5 w
+n 0 179.622 m 486.6142 179.622 l S
+n 0 149.685 m 486.6142 149.685 l S
+n 0 119.748 m 486.6142 119.748 l S
+n 0 89.81102 m 486.6142 89.81102 l S
+n 0 59.87402 m 486.6142 59.87402 l S
+n 0 29.93701 m 486.6142 29.93701 l S
+n 0 0 m 486.6142 0 l S
+.2 .2 .2 RG
+1 w
+n 0 149.685 m 486.6142 149.685 l S
+Q
+Q
+Q
+q
+1 0 0 1 62.69291 108.3039 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 49.1 Tm /F3 10.5 Tf 14.9 TL .14822 Tw (Recent events are the weak spot of meaning-based scoring: 25 of 40, with the smallest gain and the widest interval,) Tj T* 0 Tw 1.162704 Tw (and all 3 statements on which only word-overlap scoring was right are in this group. The readers received each) Tj T* 0 Tw 1.874954 Tw (statement alone, with no retrieved material, and answered on what they knew. That is a likely reason for the) Tj T* 0 Tw (weakness; the study did not measure it.) Tj T* ET
+Q
+Q
+ 
+endstream
+endobj
+17 0 obj
+<<
+/Length 6788
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 62.69291 693.8378 cm
+q
+BT 1 0 0 1 0 19.3 Tm .449011 Tw 14.9 TL /F4 10.5 Tf 0 0 0 rg (In plain terms.) Tj /F3 10.5 Tf ( Neither method waved through something false. The word-count method was safe only because it) Tj T* 0 Tw (said no to nearly everything. The new scoring is clearly weaker on recent events than on the rest.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 658.9953 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2.5 Tm /F2 12.5 Tf 15 TL (5 Results: negation pairs and reason pairs) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 577.4087 cm
+q
+BT 1 0 0 1 0 64 Tm 2.034511 Tw 14.9 TL /F4 10.5 Tf 0 0 0 rg (Negation pairs.) Tj /F3 10.5 Tf ( Of 50 pairs, word-overlap scoring gave opposite decisions \(one Allow, one Block\) to 0 and) Tj T* 0 Tw 1.130855 Tw (meaning-based scoring to 50; difference +100.0 points \(95% interval 89.9 to 100.0 points\), exact McNemar p =) Tj T* 0 Tw .073062 Tw (1.8e-15. Under meaning-based scoring all 50 pairs also had Allow for the true sentence and Block for the false one.) Tj T* 0 Tw .340603 Tw (Example pair from the set: "Mercury is the closest planet to the Sun." and "Mercury is not the closest planet to the) Tj T* 0 Tw (Sun.") Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 525.3386 cm
+q
+BT 1 0 0 1 0 34.2 Tm 1.128569 Tw 14.9 TL /F4 10.5 Tf 0 0 0 rg (Reason pairs.) Tj /F3 10.5 Tf ( Three scores were graded on separating the 70 agreeing pairs from the 70 disagreeing pairs. The) Tj T* 0 Tw .064981 Tw (grade is the AUROC: the chance that a randomly chosen agreeing pair scores above a randomly chosen disagreeing) Tj T* 0 Tw (pair. 0.5 is a coin toss and 1.0 is perfect.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 397.0866 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5.102362 104.7795 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 9 Tf 11 TL (Score) Tj T* ET
+Q
+Q
+q
+1 0 0 1 86.20472 104.7795 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 9 Tf 11 TL (AUROC) Tj T* ET
+Q
+Q
+q
+1 0 0 1 167.3071 93.77953 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 13 Tm /F2 9 Tf 11 TL (95% interval) Tj T* (\(DeLong\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 248.4094 104.7795 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 9 Tf 11 TL (Mean, agreeing) Tj T* ET
+Q
+Q
+q
+1 0 0 1 329.5118 93.77953 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 13 Tm /F2 9 Tf 11 TL (Mean,) Tj T* (disagreeing) Tj T* ET
+Q
+Q
+q
+1 0 0 1 410.6142 104.7795 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 9 Tf 11 TL (Mean, unrelated) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5.102362 63.84252 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 13 Tm /F1 9 Tf 11 TL (Word overlap) Tj T* (\(Jaccard\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 86.20472 74.84252 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (0.296) Tj T* ET
+Q
+Q
+q
+1 0 0 1 167.3071 74.84252 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (0.203 to 0.388) Tj T* ET
+Q
+Q
+q
+1 0 0 1 248.4094 74.84252 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (0.261) Tj T* ET
+Q
+Q
+q
+1 0 0 1 329.5118 74.84252 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (0.498) Tj T* ET
+Q
+Q
+q
+1 0 0 1 410.6142 74.84252 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (0.052) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5.102362 33.90551 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 13 Tm /F1 9 Tf 11 TL (Embedding) Tj T* (cosine) Tj T* ET
+Q
+Q
+q
+1 0 0 1 86.20472 44.90551 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (0.465) Tj T* ET
+Q
+Q
+q
+1 0 0 1 167.3071 44.90551 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (0.363 to 0.568) Tj T* ET
+Q
+Q
+q
+1 0 0 1 248.4094 44.90551 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (0.770) Tj T* ET
+Q
+Q
+q
+1 0 0 1 329.5118 44.90551 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (0.761) Tj T* ET
+Q
+Q
+q
+1 0 0 1 410.6142 44.90551 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (0.240) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5.102362 3.968504 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 13 Tm /F1 9 Tf 11 TL (Readers') Tj T* (judgement) Tj T* ET
+Q
+Q
+q
+1 0 0 1 86.20472 14.9685 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (0.997) Tj T* ET
+Q
+Q
+q
+1 0 0 1 167.3071 14.9685 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (0.993 to 1.000) Tj T* ET
+Q
+Q
+q
+1 0 0 1 248.4094 14.9685 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (0.887) Tj T* ET
+Q
+Q
+q
+1 0 0 1 329.5118 14.9685 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (-0.814) Tj T* ET
+Q
+Q
+q
+1 0 0 1 410.6142 14.9685 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 9 Tf 11 TL (0.000) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.6 .6 .6 RG
+.5 w
+n 0 119.748 m 486.6142 119.748 l S
+n 0 89.81102 m 486.6142 89.81102 l S
+n 0 59.87402 m 486.6142 59.87402 l S
+n 0 29.93701 m 486.6142 29.93701 l S
+n 0 0 m 486.6142 0 l S
+.2 .2 .2 RG
+1 w
+n 0 89.81102 m 486.6142 89.81102 l S
+Q
+Q
+Q
+q
+1 0 0 1 62.69291 355.948 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 19.3 Tm /F3 10.5 Tf 14.9 TL 1.100667 Tw (Readers against word overlap: difference in AUROC 0.702 \(95% interval 0.609 to 0.795\), DeLong p = 1.8e-49.) Tj T* 0 Tw (Readers against embedding cosine: 0.532 \(0.430 to 0.635\), p = 2.7e-24.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 303.878 cm
+q
+BT 1 0 0 1 0 34.2 Tm .241609 Tw 14.9 TL /F4 10.5 Tf 0 0 0 rg (In plain terms.) Tj /F3 10.5 Tf ( Shared words pointed the wrong way more often than not. The map of meaning could tell that two) Tj T* 0 Tw .170734 Tw (texts were on the same subject and could not tell which side each took. Asking readers what the texts say separated) Tj T* 0 Tw (agreement from disagreement almost perfectly.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 269.0354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2.5 Tm /F2 12.5 Tf 15 TL (6 Data quality) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 157.6488 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 93.8 Tm /F3 10.5 Tf 14.9 TL 1.954871 Tw (One statement \(s179\) had fewer than three usable replies and is Block under both methods; it stays in every) Tj T* 0 Tw .393588 Tw (analysis. On the 299 statements at quorum the result is 101 of 299 \(33.8%\) against 282 of 299 \(94.3%\), difference) Tj T* 0 Tw 1.304598 Tw (+60.5 points \(54.3 to 65.9 points\), exact McNemar p = 1.1e-50. Usable replies in scored statements, by reader:) Tj T* 0 Tw .958261 Tw (Claude Opus 5.5 299, DeepSeek V4.1 Flash 291, Kimi K3 238, Muse Glimmer 30B 299. Where meaning-based) Tj T* 0 Tw .594922 Tw (scoring did not allow a supported statement \(12 statements\), the recorded reason was mixed or unsure readings in) Tj T* 0 Tw 2.021069 Tw (every case. The reason pairs drew 749 usable reader votes over 210 pairs. The embedding model is OpenAI) Tj T* 0 Tw (text-embedding-3-small, 1,536 dimensions, the model the subject thresholds were set with.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 122.8063 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2.5 Tm /F2 12.5 Tf 15 TL (7 What the study does not show) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 85.91969 cm
+BT /F1 7 Tf 8.4 TL ET
+0 0 0 rg
+BT 1 0 0 1 0 22.8 Tm (\177) Tj T* ET
+Q
+q
+1 0 0 1 79.70079 85.91969 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 19.3 Tm /F3 10.5 Tf 14.9 TL .487647 Tw (One test set, built by the same team. The choice of statements and groups is the authors'. Results describe this) Tj T* 0 Tw (set; they are not an estimate for all statements an agent may meet.) Tj T* ET
+Q
+Q
+ 
+endstream
+endobj
+18 0 obj
+<<
+/Length 5497
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 62.69291 693.8378 cm
+BT /F1 7 Tf 8.4 TL ET
+0 0 0 rg
+BT 1 0 0 1 0 22.8 Tm (\177) Tj T* ET
+Q
+q
+1 0 0 1 79.70079 693.8378 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 19.3 Tm /F3 10.5 Tf 14.9 TL .20969 Tw (The groups are not a random sample. One third of the set is negation pairs, so overall accuracy depends on this) Tj T* 0 Tw (mix; the group table shows each part.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 661.2031 cm
+BT /F1 7 Tf 8.4 TL ET
+0 0 0 rg
+BT 1 0 0 1 0 22.8 Tm (\177) Tj T* ET
+Q
+q
+1 0 0 1 79.70079 661.2031 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 19.3 Tm /F3 10.5 Tf 14.9 TL -0.029263 Tw (Word-overlap scoring was applied to the text of structured replies. This is the fair same-replies comparison, and) Tj T* 0 Tw (it is one way of using that method.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 643.4685 cm
+BT /F1 7 Tf 8.4 TL ET
+0 0 0 rg
+BT 1 0 0 1 0 7.9 Tm (\177) Tj T* ET
+Q
+q
+1 0 0 1 79.70079 643.4685 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.4 Tm /F3 10.5 Tf 14.9 TL (Thresholds were not fitted here. They are the starting values and were not refitted on this set.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 610.8339 cm
+BT /F1 7 Tf 8.4 TL ET
+0 0 0 rg
+BT 1 0 0 1 0 22.8 Tm (\177) Tj T* ET
+Q
+q
+1 0 0 1 79.70079 610.8339 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 19.3 Tm /F3 10.5 Tf 14.9 TL .816487 Tw (Readers are AI models and may share training sources. Independence between the four companies' models is) Tj T* 0 Tw (assumed, not measured.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 578.1992 cm
+BT /F1 7 Tf 8.4 TL ET
+0 0 0 rg
+BT 1 0 0 1 0 22.8 Tm (\177) Tj T* ET
+Q
+q
+1 0 0 1 79.70079 578.1992 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 19.3 Tm /F3 10.5 Tf 14.9 TL -0.119928 Tw (One reading per reader. Three readers ran at temperature 0; the Claude reader ran at its API defaults. Run-to-run) Tj T* 0 Tw (variation was not measured.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 545.5646 cm
+BT /F1 7 Tf 8.4 TL ET
+0 0 0 rg
+BT 1 0 0 1 0 22.8 Tm (\177) Tj T* ET
+Q
+q
+1 0 0 1 79.70079 545.5646 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 19.3 Tm /F3 10.5 Tf 14.9 TL 1.27334 Tw (The unsettled label is the hardest to assign. It rests on a source saying the matter is unsettled; a reader that) Tj T* 0 Tw (knows more or less than the source can be marked wrong for a defensible answer.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 512.9299 cm
+BT /F1 7 Tf 8.4 TL ET
+0 0 0 rg
+BT 1 0 0 1 0 22.8 Tm (\177) Tj T* ET
+Q
+q
+1 0 0 1 79.70079 512.9299 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 19.3 Tm /F3 10.5 Tf 14.9 TL 1.368787 Tw (Only the primary comparison has a single test named in advance. Group results are Holm-corrected among) Tj T* 0 Tw (themselves; other secondary results are reported with intervals and are not corrected across families.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 480.2953 cm
+BT /F1 7 Tf 8.4 TL ET
+0 0 0 rg
+BT 1 0 0 1 0 22.8 Tm (\177) Tj T* ET
+Q
+q
+1 0 0 1 79.70079 480.2953 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 19.3 Tm /F3 10.5 Tf 14.9 TL .386282 Tw (The reason pairs were written for the purpose. Agreeing pairs share few words and disagreeing pairs avoid the) Tj T* 0 Tw (word "not"; on ordinary text the AUROC of word overlap could be higher.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 447.6606 cm
+BT /F1 7 Tf 8.4 TL ET
+0 0 0 rg
+BT 1 0 0 1 0 22.8 Tm (\177) Tj T* ET
+Q
+q
+1 0 0 1 79.70079 447.6606 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 19.3 Tm /F3 10.5 Tf 14.9 TL .006831 Tw (The set carries no instruction and no proposed action. Allow here is the stance-derived category, not permission) Tj T* 0 Tw (to carry out an action.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 400.126 cm
+q
+BT 1 0 0 1 0 34.2 Tm 1.918845 Tw 14.9 TL /F4 10.5 Tf 0 0 0 rg (Research direction.) Tj /F3 10.5 Tf ( The same comparison, with the same frozen settings, on a public benchmark of labelled) Tj T* 0 Tw .17798 Tw (statements assembled by other researchers. It would be disproved as a general result if meaning-based scoring does) Tj T* 0 Tw (not make more right decisions than word-overlap scoring on such a set.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 362.9559 cm
+q
+BT 1 0 0 1 0 19.3 Tm .17266 Tw 14.9 TL /F4 10.5 Tf 0 0 0 rg (In plain terms.) Tj /F3 10.5 Tf ( This is a careful result on a test the team wrote itself. It shows the scoring change does what it was) Tj T* 0 Tw (designed to do. It does not yet show how the method does on a test somebody else wrote.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 328.1134 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2.5 Tm /F2 12.5 Tf 15 TL (8 How to repeat it) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 231.6268 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 78.9 Tm /F3 10.5 Tf 14.9 TL .593371 Tw (The study record holds the dated plan and its amendments, the 300 statements with labels and sources, the reason) Tj T* 0 Tw 1.006045 Tw (pairs and negation pairs, every stored reply, the per-statement decisions under both scorings, the per-pair scores,) Tj T* 0 Tw .670456 Tw (and the analysis code. Scoring the stored replies, scoring the pairs, and running the analysis call no reader, so the) Tj T* 0 Tw 2.160905 Tw (same files reproduce every number in this paper. The statistics \(Wilson, Newcombe, exact McNemar, Holm,) Tj T* 0 Tw 1.347645 Tw (Cohen's kappa, DeLong\) are tested against published worked examples. Data and code are available on request) Tj T* 0 Tw (from the author.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 196.7843 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2.5 Tm /F2 12.5 Tf 15 TL (Suggested citation) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 159.8976 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 19.3 Tm /F3 10.5 Tf 14.9 TL 2.368655 Tw (Lane, M. B. \(2026\). TruVector: counting shared words against reading meaning \(Working paper WP-04, 11) Tj T* 0 Tw (October 2026\). InTellMe AI.) Tj T* ET
+Q
+Q
+ 
+endstream
+endobj
+xref
+0 19
+0000000000 65535 f 
+0000000061 00000 n 
+0000000122 00000 n 
+0000000229 00000 n 
+0000000341 00000 n 
+0000000450 00000 n 
+0000000558 00000 n 
+0000000753 00000 n 
+0000000948 00000 n 
+0000001143 00000 n 
+0000001338 00000 n 
+0000001534 00000 n 
+0000001604 00000 n 
+0000001952 00000 n 
+0000002037 00000 n 
+0000005894 00000 n 
+0000011848 00000 n 
+0000023168 00000 n 
+0000030008 00000 n 
+trailer
+<<
+/ID 
+[<4d27fbb394b865c48d697b944c44e2c1><4d27fbb394b865c48d697b944c44e2c1>]
+% ReportLab generated PDF document -- digest (opensource)
+
+/Info 12 0 R
+/Root 11 0 R
+/Size 19
+>>
+startxref
+35557
+%%EOF
